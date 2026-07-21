@@ -206,6 +206,228 @@ def number(value: Any) -> float:
         return 0.0
 
 
+def percent_change(current: Any, baseline: Any) -> float | None:
+    base = number(baseline)
+    if base == 0:
+        return None
+    return round((number(current) - base) / base * 100, 1)
+
+
+def sales_summary(rows: Iterable[dict[str, Any]]) -> dict[str, float | int]:
+    values = list(rows)
+    revenue = round(sum(number(item.get("revenue")) for item in values), 2)
+    orders = sum(int(number(item.get("orders"))) for item in values)
+    return {
+        "revenue": revenue,
+        "orders": orders,
+        "aov": round(revenue / orders, 2) if orders else 0.0,
+    }
+
+
+def comparison_summary(current: dict[str, Any], baseline: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "current": current,
+        "baseline": baseline,
+        "revenue_change_pct": percent_change(current.get("revenue"), baseline.get("revenue")),
+        "orders_change_pct": percent_change(current.get("orders"), baseline.get("orders")),
+        "aov_change_pct": percent_change(current.get("aov"), baseline.get("aov")),
+    }
+
+
+def rolling_sales_metrics(daily_sales: list[dict[str, Any]]) -> dict[str, Any]:
+    ordered = sorted(daily_sales, key=lambda item: str(item.get("day") or ""))
+    rolling: list[dict[str, Any]] = []
+    for index, row in enumerate(ordered):
+        item: dict[str, Any] = {
+            "day": row.get("day"),
+            "revenue": round(number(row.get("revenue")), 2),
+            "orders": int(number(row.get("orders"))),
+        }
+        for window in (7, 28):
+            if index + 1 < window:
+                item[f"avg_{window}_revenue"] = None
+                item[f"avg_{window}_orders"] = None
+                continue
+            sample = ordered[index - window + 1:index + 1]
+            summary = sales_summary(sample)
+            item[f"avg_{window}_revenue"] = round(number(summary["revenue"]) / window, 2)
+            item[f"avg_{window}_orders"] = round(number(summary["orders"]) / window, 2)
+        rolling.append(item)
+
+    current_7 = sales_summary(ordered[-7:]) if len(ordered) >= 7 else sales_summary([])
+    prior_7 = sales_summary(ordered[-14:-7]) if len(ordered) >= 14 else sales_summary([])
+    current_28 = sales_summary(ordered[-28:]) if len(ordered) >= 28 else sales_summary([])
+    prior_28 = sales_summary(ordered[-56:-28]) if len(ordered) >= 56 else sales_summary([])
+    seven = comparison_summary(current_7, prior_7)
+    twenty_eight = comparison_summary(current_28, prior_28)
+    acceleration = None
+    if seven["revenue_change_pct"] is not None and twenty_eight["revenue_change_pct"] is not None:
+        acceleration = round(number(seven["revenue_change_pct"]) - number(twenty_eight["revenue_change_pct"]), 1)
+    return {
+        "series": rolling,
+        "last_7_vs_prior_7": seven,
+        "last_28_vs_prior_28": twenty_eight,
+        "revenue_acceleration_pp": acceleration,
+    }
+
+
+def enrich_share_rows(
+    rows: list[dict[str, Any]],
+    value_key: str,
+    *,
+    total: float | None = None,
+    absolute: bool = False,
+) -> list[dict[str, Any]]:
+    measure = lambda item: abs(number(item.get(value_key))) if absolute else number(item.get(value_key))
+    denominator = abs(number(total)) if total is not None else sum(measure(item) for item in rows)
+    cumulative = 0.0
+    enriched: list[dict[str, Any]] = []
+    for row in sorted(rows, key=measure, reverse=True):
+        share = round(measure(row) / denominator * 100, 1) if denominator > 0 else 0.0
+        cumulative = round(cumulative + share, 1)
+        enriched.append({**row, "share_pct": share, "cumulative_share_pct": min(cumulative, 100.0)})
+    return enriched
+
+
+def channel_portfolio(platforms: dict[str, dict[str, Any]], total_sales: dict[str, Any]) -> dict[str, Any]:
+    total_revenue = number(total_sales.get("revenue"))
+    total_orders = int(number(total_sales.get("orders")))
+    platform_revenue = sum(number(item.get("revenue")) for item in platforms.values())
+    platform_orders = sum(int(number(item.get("orders"))) for item in platforms.values())
+    rows = [
+        {
+            "channel": name,
+            "channel_type": "platform",
+            "revenue": round(number(value.get("revenue")), 2),
+            "orders": int(number(value.get("orders"))),
+            "aov": round(number(value.get("revenue")) / number(value.get("orders")), 2) if number(value.get("orders")) > 0 else 0.0,
+        }
+        for name, value in platforms.items()
+    ]
+    direct_revenue = max(0.0, total_revenue - platform_revenue)
+    direct_orders = max(0, total_orders - platform_orders)
+    rows.append(
+        {
+            "channel": "نقاط البيع المباشرة",
+            "channel_type": "direct",
+            "revenue": round(direct_revenue, 2),
+            "orders": direct_orders,
+            "aov": round(direct_revenue / direct_orders, 2) if direct_orders else 0.0,
+        }
+    )
+    enriched = enrich_share_rows(rows, "revenue", total=total_revenue)
+    top_shares = [number(item.get("share_pct")) for item in enriched]
+    return {
+        "total_revenue": round(total_revenue, 2),
+        "platform_revenue": round(platform_revenue, 2),
+        "platform_share_pct": round(platform_revenue / total_revenue * 100, 1) if total_revenue else 0.0,
+        "top_1_share_pct": round(sum(top_shares[:1]), 1),
+        "top_3_share_pct": round(sum(top_shares[:3]), 1),
+        "rows": enriched,
+    }
+
+
+def branch_portfolio(branches: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    total_revenue = sum(number(value.get("revenue")) for value in branches.values())
+    rows = [
+        {
+            "branch": name,
+            "revenue": round(number(value.get("revenue")), 2),
+            "orders": int(number(value.get("orders"))),
+            "aov": round(number(value.get("revenue")) / number(value.get("orders")), 2) if number(value.get("orders")) > 0 else 0.0,
+        }
+        for name, value in branches.items()
+    ]
+    return enrich_share_rows(rows, "revenue", total=total_revenue)
+
+
+def payment_portfolio(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    enriched = enrich_share_rows(
+        [
+            {
+                **row,
+                "aov": round(number(row.get("amount")) / number(row.get("count")), 2) if number(row.get("count")) > 0 else 0.0,
+            }
+            for row in rows
+        ],
+        "amount",
+    )
+    cash = sum(
+        number(item.get("amount"))
+        for item in enriched
+        if any(token in str(item.get("method") or "").lower() for token in ("cash", "نقد"))
+    )
+    total = sum(number(item.get("amount")) for item in enriched)
+    return {
+        "total": round(total, 2),
+        "cash_amount": round(cash, 2),
+        "cash_share_pct": round(cash / total * 100, 1) if total else 0.0,
+        "rows": enriched,
+    }
+
+
+def product_portfolio(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    revenue_total = sum(number(item.get("revenue")) for item in rows)
+    cost_gaps = sum(1 for item in rows if number(item.get("cogs")) <= 0 and number(item.get("qty")) > 0)
+    enriched = enrich_share_rows(rows, "revenue", total=revenue_total)
+    categories: dict[str, dict[str, float]] = defaultdict(lambda: {"revenue": 0.0, "qty": 0.0, "gross_profit": 0.0})
+    for item in rows:
+        category = str(item.get("category") or "غير محدد")
+        categories[category]["revenue"] += number(item.get("revenue"))
+        categories[category]["qty"] += number(item.get("qty"))
+        categories[category]["gross_profit"] += number(item.get("gross_profit"))
+    category_rows = [
+        {
+            "category": name,
+            "revenue": round(value["revenue"], 2),
+            "qty": round(value["qty"], 2),
+            "gross_profit": round(value["gross_profit"], 2),
+        }
+        for name, value in categories.items()
+    ]
+    return {
+        "rows": enriched,
+        "categories": enrich_share_rows(category_rows, "revenue"),
+        "cost_gap_count": cost_gaps,
+        "cost_coverage_pct": round((len(rows) - cost_gaps) / len(rows) * 100, 1) if rows else 0.0,
+    }
+
+
+def expense_pareto(expense_structure: dict[str, Any]) -> dict[str, Any]:
+    accounts = enrich_share_rows(
+        list(expense_structure.get("accounts") or []),
+        "amount",
+        total=abs(number(expense_structure.get("total"))),
+        absolute=True,
+    )
+    return {
+        "accounts": accounts,
+        "top_3_share_pct": round(sum(number(item.get("share_pct")) for item in accounts[:3]), 1),
+        "top_10_share_pct": round(sum(number(item.get("share_pct")) for item in accounts[:10]), 1),
+    }
+
+
+def profitability_quality(pl_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    recent = pl_rows[-12:]
+    revenues = sum(number(item.get("revenue")) for item in recent)
+    expenses = sum(number(item.get("expenses")) for item in recent)
+    profits = sum(number(item.get("gross_profit")) for item in recent)
+    margins = [number(item.get("margin_pct")) for item in recent]
+    average_margin = round(sum(margins) / len(margins), 1) if margins else 0.0
+    variance = sum((margin - average_margin) ** 2 for margin in margins) / len(margins) if margins else 0.0
+    return {
+        "revenue": round(revenues, 2),
+        "expenses": round(expenses, 2),
+        "operating_result": round(profits, 2),
+        "expense_ratio_pct": round(expenses / revenues * 100, 1) if revenues else 0.0,
+        "weighted_margin_pct": round(profits / revenues * 100, 1) if revenues else 0.0,
+        "average_monthly_margin_pct": average_margin,
+        "margin_volatility_pp": round(variance ** 0.5, 1),
+        "negative_months": [item.get("month") for item in recent if number(item.get("gross_profit")) < 0],
+        "series": recent,
+    }
+
+
 # ─── Core sales aggregations ───────────────────────────────────────────────────
 def pos_total(extra: Iterable[list[Any]] | None = None) -> dict[str, float | int]:
     domain = pos_domain(extra)
@@ -253,6 +475,39 @@ def pos_hourly_range(start: date, end_exclusive: date) -> list[dict[str, Any]]:
     ]
 
 
+def pos_weekday_hour_range(start: date, end_exclusive: date) -> list[dict[str, Any]]:
+    """Aggregate orders by KSA weekday and hour for operational heatmaps."""
+    domain = pos_domain(day_domain("date_order", start, end_exclusive))
+    rows = search_read_all("pos.order", domain, ["date_order", "amount_total"])
+    totals: dict[tuple[int, int], dict[str, float | int]] = defaultdict(lambda: {"revenue": 0.0, "orders": 0})
+    for row in rows:
+        parsed = parse_odoo_datetime(row.get("date_order"))
+        if parsed is None:
+            continue
+        local = parsed.astimezone(KSA)
+        key = (local.weekday(), local.hour)
+        totals[key]["revenue"] = round(number(totals[key]["revenue"]) + number(row.get("amount_total")), 2)
+        totals[key]["orders"] = int(totals[key]["orders"]) + 1
+    weekday_labels = ["الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"]
+    result: list[dict[str, Any]] = []
+    for weekday in range(7):
+        for hour in range(24):
+            value = totals[(weekday, hour)]
+            orders = int(value["orders"])
+            revenue = round(number(value["revenue"]), 2)
+            result.append(
+                {
+                    "weekday": weekday,
+                    "weekday_label": weekday_labels[weekday],
+                    "hour": hour,
+                    "revenue": revenue,
+                    "orders": orders,
+                    "aov": round(revenue / orders, 2) if orders else 0.0,
+                }
+            )
+    return result
+
+
 def pos_monthly_range(start: date, end_exclusive: date) -> list[dict[str, Any]]:
     """Aggregate every order page into monthly totals without a fixed record cap."""
     domain = pos_domain(day_domain("date_order", start, end_exclusive))
@@ -277,7 +532,11 @@ def pos_by_branch(extra: Iterable[list[Any]] | None = None) -> dict[str, dict[st
     result: dict[str, dict[str, float | int]] = {}
     for group in groups:
         config_id, config_name = many2one(group.get("config_id"), "غير محدد")
-        branch_name = short_branch_name(config_name)
+        branch_name = short_branch_name(config_name).strip()
+        if branch_name.casefold() in {"not used", "not set", "غير مستخدم", "غير محدد"}:
+            branch_name = f"فرع غير مسمى #{config_id or 'unknown'}"
+        if branch_name in result:
+            branch_name = f"{branch_name} #{config_id or 'unknown'}"
         group_domain = domain + [["config_id", "=", config_id]] if config_id else domain + [["config_id", "=", False]]
         result[branch_name] = {
             "revenue": round(number(group.get("amount_total")), 2),
@@ -308,7 +567,11 @@ def aggregator_name(raw_name: str) -> str | None:
         return AGGREGATORS[raw_name]
     if "POSZ" not in raw_name:
         return None
-    return raw_name.replace(" (POSZ) ***", "").replace("(POSZ) ***", "").strip()
+    normalized = raw_name.replace(" (POSZ) ***", "").replace("(POSZ) ***", "").strip()
+    direct_labels = {"pos customer", "walk-in customer", "walk in customer", "general customer", "عميل نقاط البيع"}
+    if normalized.casefold() in direct_labels:
+        return None
+    return normalized
 
 
 def pos_by_aggregator(extra: Iterable[list[Any]] | None = None) -> dict[str, dict[str, float | int]]:
@@ -690,6 +953,46 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
     pl_raw = pl_monthly(HISTORY_START)
     expense_structure = expense_breakdown(twelve_month_start, tomorrow)
     purchase_raw = purchase_monthly(HISTORY_START, tomorrow)
+    product_periods = {
+        "last_30d": top_products(day_domain("order_id.date_order", today - timedelta(days=29), tomorrow)),
+        "this_month": top_products(day_domain("order_id.date_order", current_month_start, tomorrow)),
+        "this_year": top_products(day_domain("order_id.date_order", current_year_start, tomorrow)),
+        "all_time": top_products(),
+    }
+
+    log("Building decision-center metrics…")
+    complete_daily = [item for item in daily_raw if date.fromisoformat(str(item.get("day"))) < today]
+    decision_hourly = pos_hourly_range(today - timedelta(days=56), today)
+    heatmap = pos_weekday_hour_range(today - timedelta(days=56), today)
+    hourly_revenue = sum(number(item.get("revenue")) for item in decision_hourly)
+    peak_revenue = sum(number(item.get("revenue")) for item in decision_hourly if 17 <= int(item.get("hour", -1)) <= 20)
+    decision_branches = pos_by_branch(day_domain("date_order", current_month_start, today))
+    decision_platforms = pos_by_aggregator(day_domain("date_order", current_month_start, today))
+    decision_total = pos_total(day_domain("date_order", current_month_start, today))
+    decision_payments = payment_breakdown(day_domain("payment_date", current_month_start, today))
+    decision_products = top_products(day_domain("order_id.date_order", today - timedelta(days=30), today), limit=100)
+    decision_center = {
+        "as_of": yesterday.isoformat(),
+        "rolling_sales": rolling_sales_metrics(complete_daily),
+        "demand_timing": {
+            "hourly": decision_hourly,
+            "weekday_hour": heatmap,
+            "peak_window": "17:00–20:59",
+            "peak_revenue": round(peak_revenue, 2),
+            "peak_share_pct": round(peak_revenue / hourly_revenue * 100, 1) if hourly_revenue else 0.0,
+        },
+        "channels": channel_portfolio(decision_platforms, decision_total),
+        "branches": branch_portfolio(decision_branches),
+        "payments": payment_portfolio(decision_payments),
+        "products": product_portfolio(decision_products),
+        "expenses": expense_pareto(expense_structure),
+        "profitability": profitability_quality(pl_raw),
+        "limitations": {
+            "channel_margin": "يعرض الإيراد والمزيج فقط؛ لا تتوفر رسوم المنصات والخصومات والمرتجعات بعد.",
+            "branch_profit": "يعرض أداء المبيعات فقط؛ لا تتوفر تكاليف مخصصة لكل فرع بعد.",
+            "product_margin": "هامش المنتج تقديري مبني على التكلفة المعيارية الحالية.",
+        },
+    }
     purchases_recent = search_read_all(
         "purchase.order",
         [["state", "in", ["purchase", "done"]]],
@@ -711,7 +1014,7 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
             "currency": "SAR",
             "timezone": "Asia/Riyadh",
             "last_completed_day": yesterday.isoformat(),
-            "schema_version": 7,
+            "schema_version": 8,
         },
         "data_health": {
             "status": "ok",
@@ -723,6 +1026,13 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
             },
             "monthly_sales_months": len(monthly_raw),
             "expense_breakdown_accounts": len(expense_structure["accounts"]),
+            "decision_center": {
+                "status": "ok",
+                "rolling_complete_days": len(complete_daily),
+                "heatmap_cells": len(heatmap),
+                "product_cost_coverage_pct": decision_center["products"]["cost_coverage_pct"],
+                "unnamed_branch_count": sum(1 for row in decision_center["branches"] if str(row.get("branch", "")).startswith("فرع غير مسمى")),
+            },
         },
         "kpis": {
             "today": today_kpi,
@@ -816,12 +1126,8 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
         "branch_monthly": branch_monthly,
         "aggregators": {**aggregator_periods, "monthly": aggregator_monthly},
         "payment_methods": payment_periods,
-        "top_products": {
-            "last_30d": top_products(day_domain("order_id.date_order", today - timedelta(days=29), tomorrow)),
-            "this_month": top_products(day_domain("order_id.date_order", current_month_start, tomorrow)),
-            "this_year": top_products(day_domain("order_id.date_order", current_year_start, tomorrow)),
-            "all_time": top_products(),
-        },
+        "top_products": product_periods,
+        "decision_center": decision_center,
         "pl_monthly": list(reversed(pl_raw)),
         "expense_breakdown": expense_structure,
         "purchases": {
