@@ -93,6 +93,24 @@
   .kpi-delta.down { color: var(--red); }
   .kpi-delta.neutral { color: var(--muted); }
 
+  /* ── Data quality status ── */
+  .data-health { display:flex; align-items:center; gap:8px; margin:12px 20px 0; padding:10px 12px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--muted); font-size:12px; }
+  .data-health.ok { border-color:rgba(39,174,96,.45); color:#9fe0b9; }
+  .data-health.warn { border-color:rgba(245,166,35,.55); color:#f5c56e; }
+  .data-health.error { border-color:rgba(231,76,60,.55); color:#f29d96; }
+  .empty-state { min-height:160px; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; color:var(--muted); font-size:13px; }
+
+  /* ── Executive brief ── */
+  .decision-brief { margin: 16px 20px 0; padding: 16px; border-radius: var(--radius); border: 1px solid rgba(245,166,35,.45); background: linear-gradient(120deg, rgba(245,166,35,.11), rgba(26,26,26,.96) 45%); }
+  .decision-brief[hidden] { display:none; }
+  .decision-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; color:var(--gold); font-size:14px; font-weight:700; }
+  .decision-subtitle { color:var(--muted); font-size:11px; font-weight:400; }
+  .decision-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; }
+  .decision-item { padding:10px; border-radius:8px; background:rgba(13,13,13,.48); }
+  .decision-label { color:var(--muted); font-size:11px; margin-bottom:4px; }
+  .decision-value { color:var(--text); font-size:16px; font-weight:700; }
+  .decision-note { color:var(--muted); font-size:11px; margin-top:4px; }
+
   /* ── Comparison block ── */
   .compare-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
   .compare-card {
@@ -197,6 +215,8 @@
   <button class="nav-btn" onclick="showPage('payments',this)">💳 طرق الدفع</button>
   <button class="nav-btn" onclick="showPage('history',this)">📅 التاريخ الكامل</button>
 </nav>
+<div id="dataHealth" class="data-health" role="status" aria-live="polite">جاري التحقق من حالة البيانات…</div>
+<section id="decisionBrief" class="decision-brief" hidden aria-label="ملخص تنفيذي"></section>
 
 <!-- ══════════════════════════════════════════════════════════════════════════ -->
 <!-- PAGE: OVERVIEW                                                            -->
@@ -205,7 +225,7 @@
   <div class="period-bar" id="overview-periods">
     <button class="period-btn active" onclick="setOverviewPeriod('today',this)">اليوم</button>
     <button class="period-btn" onclick="setOverviewPeriod('yesterday',this)">أمس</button>
-    <button class="period-btn" onclick="setOverviewPeriod('this_week',this)">هذا الأسبوع</button>
+    <button class="period-btn" onclick="setOverviewPeriod('last_7_days',this)">آخر 7 أيام</button>
     <button class="period-btn" onclick="setOverviewPeriod('this_month',this)">هذا الشهر</button>
     <button class="period-btn" onclick="setOverviewPeriod('last_month',this)">الشهر الماضي</button>
     <button class="period-btn" onclick="setOverviewPeriod('this_year',this)">هذا العام</button>
@@ -441,22 +461,88 @@ let D = null;
 const charts = {};
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
-const fmt  = n => Number(n||0).toLocaleString('en-US', {maximumFractionDigits:0});
-const fmtK = n => { n=Number(n||0); return n>=1e6 ? (n/1e6).toFixed(1)+'M' : n>=1e3 ? (n/1e3).toFixed(1)+'K' : n.toFixed(0); };
-const pct  = (a,b) => b>0 ? ((a-b)/b*100).toFixed(1) : null;
-const deltaHtml = (a,b,label='') => {
-  const p = pct(a,b);
-  if(p===null) return '';
-  const cls = p>=0?'up':'down', arrow = p>=0?'▲':'▼';
-  return `<div class="kpi-delta ${cls}">${arrow} ${Math.abs(p)}% ${label}</div>`;
+const fmt = n => Number(n ?? 0).toLocaleString('en-US', {maximumFractionDigits:0});
+const fmtK = n => {
+  const value = Number(n ?? 0);
+  return value >= 1e6 ? (value / 1e6).toFixed(1) + 'M' : value >= 1e3 ? (value / 1e3).toFixed(1) + 'K' : value.toFixed(0);
 };
+const pct = (a, b) => Number(b) > 0 ? ((Number(a) - Number(b)) / Number(b) * 100).toFixed(1) : null;
+const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+const deltaHtml = (a, b, label = '') => {
+  const value = pct(a, b);
+  if (value === null) return '<div class="kpi-delta neutral">لا توجد فترة مرجعية مكتملة</div>';
+  const isUp = Number(value) >= 0;
+  return `<div class="kpi-delta ${isUp ? 'up' : 'down'}">${isUp ? '▲' : '▼'} ${Math.abs(Number(value)).toFixed(1)}% ${escapeHtml(label)}</div>`;
+};
+const emptyHtml = message => `<div class="empty-state">${escapeHtml(message)}</div>`;
+const forecastMethod = method => ({
+  same_weekday_recent_history: 'متوسط آخر أيام مماثلة في الأسبوع',
+  recent_7_complete_days: 'متوسط آخر 7 أيام مكتملة',
+  closed_days_run_rate: 'معدل الأيام المكتملة',
+  '7-day avg': 'متوسط آخر 7 أيام',
+}[method] || 'منهج تقديري');
+function renderDataHealth() {
+  const target = document.getElementById('dataHealth');
+  if (!target || !D) return;
+  const health = D.data_health;
+  if (!health) {
+    target.className = 'data-health warn';
+    target.textContent = 'تنبيه: هذه اللقطة لا تتضمن فحص اكتمال البيانات. شغّل التحديث الآمن الجديد قبل اعتماد الأرقام.';
+    return;
+  }
+  const daily = health.daily_sales || {};
+  const isComplete = health.status === 'ok' && Number(daily.expected_days || 0) >= 55;
+  target.className = `data-health ${isComplete ? 'ok' : 'warn'}`;
+  target.textContent = isComplete
+    ? `البيانات مكتملة: ${daily.expected_days} يوماً في السلسلة اليومية، وآخر تحديث ${D.meta?.generated_at || '—'}.`
+    : `تنبيه جودة البيانات: وصل ${daily.expected_days || 0} يوم فقط من بيانات المبيعات اليومية؛ لا تعتمد المقارنات حتى يكتمل التحديث.`;
+}
+
+function renderDecisionBrief() {
+  const target = document.getElementById('decisionBrief');
+  if (!target || !D) return;
+  const isCurrentSnapshot = Number(D.meta?.schema_version || 0) >= 5 && D.data_health?.status === 'ok';
+  if (!isCurrentSnapshot) {
+    target.hidden = true;
+    return;
+  }
+  const today = D.daily_comparison?.today || D.kpis?.today || {};
+  const yesterday = D.daily_comparison?.yesterday || D.kpis?.yesterday || {};
+  const branches = Object.entries(D.branches?.this_month || {}).sort((a, b) => Number(b[1]?.revenue || 0) - Number(a[1]?.revenue || 0));
+  const apps = Object.entries(D.aggregators?.this_month || {}).sort((a, b) => Number(b[1]?.revenue || 0) - Number(a[1]?.revenue || 0));
+  const monthForecast = D.monthly_comparison?.forecast_month;
+  const todayChange = pct(today.revenue, yesterday.revenue);
+  const topBranch = branches[0];
+  const topApp = apps[0];
+  target.hidden = false;
+  target.innerHTML = `
+    <div class="decision-title"><span>ملخص القرار التنفيذي</span><span class="decision-subtitle">لقراءة المشهد خلال دقيقة</span></div>
+    <div class="decision-grid">
+      <div class="decision-item"><div class="decision-label">مبيعات اليوم</div><div class="decision-value">${fmt(today.revenue)} ر.س</div><div class="decision-note">${todayChange === null ? 'لا يوجد مرجع مكتمل' : `${Number(todayChange) >= 0 ? '▲' : '▼'} ${Math.abs(Number(todayChange)).toFixed(1)}% مقارنة بأمس`}</div></div>
+      <div class="decision-item"><div class="decision-label">أفضل فرع هذا الشهر</div><div class="decision-value">${topBranch ? escapeHtml(topBranch[0]) : '—'}</div><div class="decision-note">${topBranch ? `${fmt(topBranch[1].revenue)} ر.س` : 'لا توجد بيانات'}</div></div>
+      <div class="decision-item"><div class="decision-label">أكبر قناة تطبيقات هذا الشهر</div><div class="decision-value">${topApp ? escapeHtml(topApp[0]) : '—'}</div><div class="decision-note">${topApp ? `${fmt(topApp[1].revenue)} ر.س` : 'لا توجد بيانات'}</div></div>
+      <div class="decision-item"><div class="decision-label">توقع نهاية الشهر</div><div class="decision-value">${monthForecast ? `${fmt(monthForecast.projected_month_revenue)} ر.س` : '—'}</div><div class="decision-note">${monthForecast ? forecastMethod(monthForecast.method) : 'لا توجد عينة مكتملة كافية'}</div></div>
+    </div>`;
+}
 
 const COLORS = ['#f5a623','#3498db','#27ae60','#9b59b6','#1abc9c','#e67e22','#e74c3c','#2ecc71','#f39c12','#16a085','#8e44ad','#2980b9','#d35400'];
 
 function mkChart(id, type, labels, datasets, opts={}) {
   const ctx = document.getElementById(id);
   if (!ctx) return;
-  if (charts[id]) { charts[id].destroy(); }
+  if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+  if (!Array.isArray(labels) || labels.length === 0) {
+    const drawing = ctx.getContext('2d');
+    const rect = ctx.getBoundingClientRect();
+    ctx.width = Math.max(320, Math.floor(rect.width || 320));
+    ctx.height = Math.max(180, Math.floor(rect.height || 180));
+    drawing.clearRect(0, 0, ctx.width, ctx.height);
+    drawing.fillStyle = '#888';
+    drawing.font = '13px Segoe UI, Tahoma, sans-serif';
+    drawing.textAlign = 'center';
+    drawing.fillText('لا توجد بيانات متاحة لهذه الفترة', ctx.width / 2, ctx.height / 2);
+    return;
+  }
   const defaults = {
     responsive: true, maintainAspectRatio: false,
     plugins: { legend: { labels: { color:'#888', font:{size:11} } } },
@@ -474,6 +560,17 @@ function showPage(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   btn.classList.add('active');
+  const renderers = {
+    overview: () => { renderOverviewKPIs(); renderOverviewCharts(); },
+    compare: renderComparePage,
+    branches: () => { renderBranchCards(); renderBranchCharts(); },
+    apps: renderAppsPage,
+    products: renderProductsPage,
+    pl: renderPLPage,
+    payments: renderPaymentsPage,
+    history: renderHistoryPage,
+  };
+  requestAnimationFrame(() => renderers[id]?.());
 }
 
 // ── Period helpers ────────────────────────────────────────────────────────────
@@ -494,44 +591,47 @@ function setOverviewPeriod(p, btn) {
 
 function renderOverviewKPIs() {
   if (!D) return;
-  const kpi = D.kpis[overviewPeriod] || {revenue:0,orders:0};
-  const prev = {
+  const legacyKey = overviewPeriod === 'last_7_days' && !D.kpis.last_7_days ? 'this_week' : overviewPeriod;
+  const kpi = D.kpis[legacyKey] || {revenue: 0, orders: 0};
+  const legacyBaselines = {
     today: D.kpis.yesterday,
-    yesterday: D.kpis.this_week,
-    this_week: D.kpis.last_month,
+    yesterday: null,
+    last_7_days: null,
     this_month: D.kpis.last_month,
-    last_month: D.kpis.this_year,
+    last_month: null,
     this_year: D.kpis.last_year,
-    last_year: D.kpis.all_time,
+    last_year: null,
     all_time: null,
-  }[overviewPeriod];
-
-  const avg = kpi.orders > 0 ? (kpi.revenue / kpi.orders) : 0;
-  const prevAvg = prev && prev.orders > 0 ? (prev.revenue / prev.orders) : 0;
+  };
+  const comparison = D.overview_comparisons?.[overviewPeriod];
+  const prev = comparison?.baseline ?? legacyBaselines[overviewPeriod] ?? null;
+  const comparisonLabel = comparison?.label || 'مقارنة بالفترة المرجعية';
+  const avg = Number(kpi.orders) > 0 ? Number(kpi.revenue) / Number(kpi.orders) : 0;
+  const prevAvg = prev && Number(prev.orders) > 0 ? Number(prev.revenue) / Number(prev.orders) : 0;
 
   document.getElementById('overview-kpis').innerHTML = `
     <div class="kpi-card">
       <div class="kpi-label">الإيرادات</div>
       <div class="kpi-value">${fmtK(kpi.revenue)}</div>
       <div class="kpi-sub">${fmt(kpi.revenue)} ر.س</div>
-      ${prev ? deltaHtml(kpi.revenue, prev.revenue, 'مقارنة بالفترة السابقة') : ''}
+      ${prev ? deltaHtml(kpi.revenue, prev.revenue, comparisonLabel) : '<div class="kpi-delta neutral">لا توجد مقارنة متكافئة لهذه الفترة</div>'}
     </div>
     <div class="kpi-card green">
       <div class="kpi-label">عدد الطلبات</div>
       <div class="kpi-value">${fmt(kpi.orders)}</div>
       <div class="kpi-sub">طلب</div>
-      ${prev ? deltaHtml(kpi.orders, prev.orders, '') : ''}
+      ${prev ? deltaHtml(kpi.orders, prev.orders, comparisonLabel) : '<div class="kpi-delta neutral">لا توجد مقارنة متكافئة لهذه الفترة</div>'}
     </div>
     <div class="kpi-card blue">
       <div class="kpi-label">متوسط الطلب</div>
       <div class="kpi-value">${fmt(avg)}</div>
       <div class="kpi-sub">ريال / طلب</div>
-      ${prev ? deltaHtml(avg, prevAvg, '') : ''}
+      ${prev ? deltaHtml(avg, prevAvg, comparisonLabel) : '<div class="kpi-delta neutral">لا توجد مقارنة متكافئة لهذه الفترة</div>'}
     </div>
     <div class="kpi-card purple">
-      <div class="kpi-label">إجمالي كل الوقت</div>
-      <div class="kpi-value">${fmtK(D.kpis.all_time.revenue)}</div>
-      <div class="kpi-sub">${fmt(D.kpis.all_time.orders)} طلب</div>
+      <div class="kpi-label">إجمالي المبيعات التراكمي</div>
+      <div class="kpi-value">${fmtK(D.kpis.all_time?.revenue)}</div>
+      <div class="kpi-sub">${fmt(D.kpis.all_time?.orders)} طلب</div>
     </div>
   `;
 }
@@ -540,7 +640,7 @@ function renderOverviewCharts() {
   if (!D) return;
 
   // Daily (60d) — newest first → reverse for chart (oldest left)
-  const daily = [...(D.daily_sales||[])].reverse();
+  const daily = [...(D.daily_sales||[])];
   mkChart('chartDaily','bar',
     daily.map(r=>r.day),
     [{label:'الإيرادات (ر.س)', data: daily.map(r=>r.revenue),
@@ -548,7 +648,7 @@ function renderOverviewCharts() {
   );
 
   // Monthly 12m — newest first → reverse for chart
-  const m12 = [...(D.monthly_sales_12m||[])].reverse();
+  const m12 = [...(D.monthly_sales_12m||[])];
   mkChart('chartMonthly12','bar',
     m12.map(r=>r.month),
     [{label:'الإيرادات (ر.س)', data: m12.map(r=>r.revenue),
@@ -567,110 +667,94 @@ function renderOverviewCharts() {
 // ══════════════════════════════════════════════════════════════════════════════
 // COMPARE PAGE
 // ══════════════════════════════════════════════════════════════════════════════
+function comparisonChange(current, baseline) {
+  const currentValue = Number(current || 0);
+  const baselineValue = Number(baseline || 0);
+  const percent = pct(currentValue, baselineValue);
+  if (percent === null) return '<span class="compare-val">لا توجد قيمة مرجعية مكتملة</span>';
+  const difference = currentValue - baselineValue;
+  const isUp = difference >= 0;
+  return `<span class="compare-val ${isUp ? 'trend-up' : 'trend-down'}">${isUp ? '▲' : '▼'} ${Math.abs(Number(percent)).toFixed(1)}% (${isUp ? '+' : '−'}${fmt(Math.abs(difference))} ر.س)</span>`;
+}
+
+function salesComparisonCard(title, currentLabel, current, baselineLabel, baseline) {
+  const hasBaseline = baseline && typeof baseline.revenue !== 'undefined';
+  return `
+    <div class="compare-card">
+      <div class="compare-title">${escapeHtml(title)}</div>
+      <div class="compare-row"><span class="compare-label">${escapeHtml(currentLabel)}</span><span class="compare-val">${fmt(current?.revenue)} ر.س &nbsp; (${fmt(current?.orders)} طلب)</span></div>
+      <div class="compare-row"><span class="compare-label">${escapeHtml(baselineLabel)}</span><span class="compare-val">${hasBaseline ? `${fmt(baseline.revenue)} ر.س &nbsp; (${fmt(baseline.orders)} طلب)` : 'تتطلب لقطة البيانات الجديدة'}</span></div>
+      <div class="compare-row"><span class="compare-label">الفرق</span>${hasBaseline ? comparisonChange(current?.revenue, baseline?.revenue) : '<span class="compare-val">غير متاح حتى يكتمل التحديث</span>'}</div>
+    </div>`;
+}
+
 function renderComparePage() {
   if (!D) return;
   const dc = D.daily_comparison || {};
   const mc = D.monthly_comparison || {};
   const yc = D.yearly_comparison || {};
+  const kpis = D.kpis || {};
 
-  // Daily comparison
-  const fc_tmrw = dc.forecast_tomorrow;
-  document.getElementById('daily-compare-cards').innerHTML = `
-    <div class="compare-card">
-      <div class="compare-title">📅 اليوم مقابل أمس</div>
-      <div class="compare-row"><span class="compare-label">اليوم</span><span class="compare-val">${fmt(dc.today?.revenue||0)} ر.س &nbsp; (${fmt(dc.today?.orders||0)} طلب)</span></div>
-      <div class="compare-row"><span class="compare-label">أمس</span><span class="compare-val">${fmt(dc.yesterday?.revenue||0)} ر.س &nbsp; (${fmt(dc.yesterday?.orders||0)} طلب)</span></div>
-      <div class="compare-row"><span class="compare-label">التغيير</span><span class="compare-val ${(dc.today?.revenue||0)>=(dc.yesterday?.revenue||0)?'trend-up':'trend-down'}">${pct(dc.today?.revenue||0, dc.yesterday?.revenue||1)}%</span></div>
-    </div>
-    <div class="compare-card">
-      <div class="compare-title">📅 اليوم مقابل نفس اليوم الأسبوع الماضي</div>
-      <div class="compare-row"><span class="compare-label">اليوم</span><span class="compare-val">${fmt(dc.today?.revenue||0)} ر.س</span></div>
-      <div class="compare-row"><span class="compare-label">نفس اليوم (أسبوع سابق)</span><span class="compare-val">${fmt(dc.same_day_last_week?.revenue||0)} ر.س</span></div>
-      <div class="compare-row"><span class="compare-label">التغيير</span><span class="compare-val ${(dc.today?.revenue||0)>=(dc.same_day_last_week?.revenue||0)?'trend-up':'trend-down'}">${pct(dc.today?.revenue||0, dc.same_day_last_week?.revenue||1)}%</span></div>
-    </div>
-    <div class="compare-card">
+  const isCurrentSnapshot = Number(D.meta?.schema_version || 0) >= 5;
+  const tomorrowForecast = isCurrentSnapshot ? dc.forecast_tomorrow : null;
+  document.getElementById('daily-compare-cards').innerHTML =
+    salesComparisonCard('📅 اليوم مقابل أمس', 'اليوم', dc.today, 'أمس', dc.yesterday) +
+    salesComparisonCard('📅 اليوم مقابل نفس اليوم الأسبوع الماضي', 'اليوم', dc.today, 'نفس اليوم (أسبوع سابق)', dc.same_day_last_week) +
+    `<div class="compare-card">
       <div class="compare-title">🔮 توقع الغد</div>
-      ${fc_tmrw ? `
-      <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(fc_tmrw.revenue)} ر.س</span></div>
-      <div class="compare-row"><span class="compare-label">الطلبات المتوقعة</span><span class="compare-val">${fmt(fc_tmrw.orders)} طلب</span></div>
-      <div class="compare-row"><span class="compare-label">الأساس</span><span class="compare-val">متوسط آخر 7 أيام</span></div>
-      ` : '<div class="compare-row"><span class="compare-label">بيانات غير كافية</span></div>'}
-    </div>
-  `;
+      ${tomorrowForecast ? `
+        <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(tomorrowForecast.revenue)} ر.س</span></div>
+        <div class="compare-row"><span class="compare-label">الطلبات المتوقعة</span><span class="compare-val">${fmt(tomorrowForecast.orders)} طلب</span></div>
+        <div class="compare-row"><span class="compare-label">المنهج</span><span class="compare-val">${forecastMethod(tomorrowForecast.method)}</span></div>
+        <div class="compare-row"><span class="compare-label">حجم العينة</span><span class="compare-val">${fmt(tomorrowForecast.sample_size || 0)} يوم مكتمل</span></div>
+      ` : '<div class="compare-row"><span class="compare-label">بيانات مكتملة غير كافية لإصدار توقع موثوق.</span></div>'}
+    </div>`;
 
-  // Monthly comparison — use D.kpis for accurate live data
-  const this_month_kpi = D.kpis.this_month || {revenue:0,orders:0};
-  const last_month_kpi = D.kpis.last_month || {revenue:0,orders:0};
-  const same_month_ly  = mc.same_month_ly  || {revenue:0,orders:0};
-  const fc_mo = mc.forecast_month;
-  document.getElementById('monthly-compare-cards').innerHTML = `
-    <div class="compare-card">
-      <div class="compare-title">📆 هذا الشهر مقابل الشهر الماضي</div>
-      <div class="compare-row"><span class="compare-label">هذا الشهر</span><span class="compare-val">${fmt(this_month_kpi.revenue)} ر.س &nbsp; (${fmt(this_month_kpi.orders)} طلب)</span></div>
-      <div class="compare-row"><span class="compare-label">الشهر الماضي</span><span class="compare-val">${fmt(last_month_kpi.revenue)} ر.س &nbsp; (${fmt(last_month_kpi.orders)} طلب)</span></div>
-      <div class="compare-row"><span class="compare-label">التغيير</span><span class="compare-val ${this_month_kpi.revenue>=last_month_kpi.revenue?'trend-up':'trend-down'}">${pct(this_month_kpi.revenue, last_month_kpi.revenue)}%</span></div>
-    </div>
-    <div class="compare-card">
-      <div class="compare-title">📆 هذا الشهر مقابل نفس الشهر العام الماضي</div>
-      <div class="compare-row"><span class="compare-label">هذا الشهر</span><span class="compare-val">${fmt(this_month_kpi.revenue)} ر.س</span></div>
-      <div class="compare-row"><span class="compare-label">نفس الشهر (عام سابق)</span><span class="compare-val">${fmt(same_month_ly.revenue)} ر.س</span></div>
-      <div class="compare-row"><span class="compare-label">النمو السنوي (YoY)</span><span class="compare-val ${this_month_kpi.revenue>=(same_month_ly.revenue||0)?'trend-up':'trend-down'}">${same_month_ly.revenue>0?pct(this_month_kpi.revenue,same_month_ly.revenue):'N/A'}%</span></div>
-    </div>
-    <div class="compare-card">
+  const thisMonth = mc.this_month || kpis.this_month || {revenue: 0, orders: 0};
+  const lastMonthMtd = isCurrentSnapshot ? (mc.last_month_mtd || null) : null;
+  const sameMonthLy = isCurrentSnapshot ? (mc.same_month_ly || null) : null;
+  const monthForecast = isCurrentSnapshot ? mc.forecast_month : null;
+  document.getElementById('monthly-compare-cards').innerHTML =
+    salesComparisonCard('📆 هذا الشهر مقابل نفس عدد الأيام من الشهر الماضي', 'هذا الشهر حتى اليوم', thisMonth, 'الفترة المطابقة من الشهر الماضي', lastMonthMtd) +
+    salesComparisonCard('📆 هذا الشهر مقابل الفترة المطابقة العام الماضي', 'هذا الشهر حتى اليوم', thisMonth, 'الفترة المطابقة العام الماضي', sameMonthLy) +
+    `<div class="compare-card">
       <div class="compare-title">🔮 توقع نهاية الشهر</div>
-      ${fc_mo ? `
-      <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(fc_mo.projected_month_revenue)} ر.س</span></div>
-      <div class="compare-row"><span class="compare-label">معدل اليومي الحالي</span><span class="compare-val">${fmt(fc_mo.daily_run_rate)} ر.س/يوم</span></div>
-      <div class="compare-row"><span class="compare-label">أيام مضت</span><span class="compare-val">${fc_mo.days_elapsed} يوم</span></div>
-      ` : '<div class="compare-row"><span class="compare-label">بيانات غير كافية</span></div>'}
-    </div>
-  `;
+      ${monthForecast ? `
+        <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(monthForecast.projected_month_revenue)} ر.س</span></div>
+        <div class="compare-row"><span class="compare-label">معدل اليوم الواحد</span><span class="compare-val">${fmt(monthForecast.daily_run_rate)} ر.س</span></div>
+        <div class="compare-row"><span class="compare-label">الفترة المستخدمة</span><span class="compare-val">${fmt(monthForecast.days_elapsed)} من ${fmt(monthForecast.days_in_month || 0)} يوم مكتمل</span></div>
+        <div class="compare-row"><span class="compare-label">المنهج</span><span class="compare-val">${forecastMethod(monthForecast.method)}</span></div>
+      ` : '<div class="compare-row"><span class="compare-label">لا يوجد عدد كافٍ من الأيام المكتملة لإصدار توقع الشهر.</span></div>'}
+    </div>`;
 
-  // Yearly comparison — use D.kpis for accurate live data
-  const this_year_kpi = D.kpis.this_year || {revenue:0,orders:0};
-  const last_year_kpi = D.kpis.last_year || {revenue:0,orders:0};
-  const lytd = yc.lytd || {revenue:0,orders:0};
-  const fc_yr = yc.forecast_year;
-  document.getElementById('yearly-compare-cards').innerHTML = `
-    <div class="compare-card">
-      <div class="compare-title">📊 هذا العام مقابل العام الماضي</div>
-      <div class="compare-row"><span class="compare-label">هذا العام (YTD)</span><span class="compare-val">${fmt(this_year_kpi.revenue)} ر.س &nbsp; (${fmt(this_year_kpi.orders)} طلب)</span></div>
-      <div class="compare-row"><span class="compare-label">العام الماضي (كامل)</span><span class="compare-val">${fmt(last_year_kpi.revenue)} ر.س &nbsp; (${fmt(last_year_kpi.orders)} طلب)</span></div>
-      <div class="compare-row"><span class="compare-label">نفس الفترة العام الماضي (LYTD)</span><span class="compare-val">${lytd.revenue>0?fmt(lytd.revenue)+' ر.س':'N/A'}</span></div>
-      <div class="compare-row"><span class="compare-label">النمو YoY (vs LYTD)</span><span class="compare-val ${lytd.revenue>0&&this_year_kpi.revenue>=lytd.revenue?'trend-up':'trend-down'}">${lytd.revenue>0?pct(this_year_kpi.revenue,lytd.revenue)+'%':'مقارنة بالعام الكامل: '+pct(this_year_kpi.revenue,last_year_kpi.revenue)+'%'}</span></div>
-    </div>
-    <div class="compare-card">
+  const thisYear = yc.this_year || kpis.this_year || {revenue: 0, orders: 0};
+  const lytd = isCurrentSnapshot ? (yc.lytd || null) : null;
+  const yearForecast = isCurrentSnapshot ? yc.forecast_year : null;
+  document.getElementById('yearly-compare-cards').innerHTML =
+    salesComparisonCard('📊 هذا العام مقابل نفس الفترة العام الماضي', 'هذا العام حتى آخر يوم مكتمل', thisYear, 'نفس الفترة العام الماضي', lytd) +
+    `<div class="compare-card">
       <div class="compare-title">🔮 توقع نهاية العام</div>
-      ${fc_yr ? `
-      <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(fc_yr.projected_year_revenue)} ر.س</span></div>
-      <div class="compare-row"><span class="compare-label">معدل الشهري الحالي</span><span class="compare-val">${fmt(fc_yr.monthly_run_rate)} ر.س/شهر</span></div>
-      <div class="compare-row"><span class="compare-label">أشهر مضت</span><span class="compare-val">${fc_yr.months_elapsed}</span></div>
-      <div class="compare-row"><span class="compare-label">YTD الفعلي</span><span class="compare-val">${fmt(fc_yr.ytd_revenue)} ر.س</span></div>
-      ` : '<div class="compare-row"><span class="compare-label">بيانات غير كافية</span></div>'}
-    </div>
-  `;
+      ${yearForecast ? `
+        <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(yearForecast.projected_year_revenue)} ر.س</span></div>
+        <div class="compare-row"><span class="compare-label">معدل اليوم الواحد</span><span class="compare-val">${fmt(yearForecast.daily_run_rate)} ر.س</span></div>
+        <div class="compare-row"><span class="compare-label">الفترة المستخدمة</span><span class="compare-val">${fmt(yearForecast.days_elapsed)} من ${fmt(yearForecast.days_in_year || 0)} يوم مكتمل</span></div>
+        <div class="compare-row"><span class="compare-label">المنهج</span><span class="compare-val">${forecastMethod(yearForecast.method)}</span></div>
+      ` : '<div class="compare-row"><span class="compare-label">لا يوجد عدد كافٍ من الأيام المكتملة لإصدار توقع السنة.</span></div>'}
+    </div>`;
 
-  // Daily trend chart (oldest→newest for chart)
-  const daily = [...(D.daily_sales||[])].reverse();
-  const avgRev = daily.reduce((s,r)=>s+r.revenue,0) / (daily.length||1);
-  mkChart('chartDailyTrend','bar',
-    daily.map(r=>r.day),
-    [
-      {label:'الإيرادات', data: daily.map(r=>r.revenue),
-       backgroundColor:'rgba(245,166,35,.6)', borderColor:'#f5a623', borderWidth:1, order:2},
-      {label:'المتوسط', data: daily.map(()=>Math.round(avgRev)),
-       type:'line', borderColor:'#e74c3c', borderWidth:2, pointRadius:0, fill:false, order:1}
-    ]
-  );
+  const daily = [...(D.daily_sales || [])];
+  const averageRevenue = daily.reduce((sum, item) => sum + Number(item.revenue || 0), 0) / (daily.length || 1);
+  mkChart('chartDailyTrend', 'bar', daily.map(item => item.day), [
+    {label: 'الإيرادات', data: daily.map(item => item.revenue), backgroundColor: 'rgba(245,166,35,.6)', borderColor: '#f5a623', borderWidth: 1, order: 2},
+    {label: 'متوسط الفترة', data: daily.map(() => Math.round(averageRevenue)), type: 'line', borderColor: '#e74c3c', borderWidth: 2, pointRadius: 0, fill: false, order: 1}
+  ]);
 
-  // Monthly all (oldest→newest for chart)
-  const mall = [...(D.monthly_sales_all||[])].reverse();
-  mkChart('chartMonthlyAll','bar',
-    mall.map(r=>r.month),
-    [{label:'الإيرادات (ر.س)', data: mall.map(r=>r.revenue),
-      backgroundColor: mall.map(r=>r.revenue>0?'rgba(52,152,219,.7)':'rgba(231,76,60,.5)'),
-      borderColor: mall.map(r=>r.revenue>0?'#3498db':'#e74c3c'), borderWidth:1}]
-  );
+  const monthly = [...(D.monthly_sales_all || [])];
+  mkChart('chartMonthlyAll', 'bar', monthly.map(item => item.month), [
+    {label: 'الإيرادات (ر.س)', data: monthly.map(item => item.revenue),
+      backgroundColor: monthly.map(item => item.revenue > 0 ? 'rgba(52,152,219,.7)' : 'rgba(231,76,60,.5)'),
+      borderColor: monthly.map(item => item.revenue > 0 ? '#3498db' : '#e74c3c'), borderWidth: 1}
+  ]);
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -690,13 +774,13 @@ function renderBranchCards() {
   if (!D) return;
   const data = D.branches[branchPeriod] || {};
   const sorted = Object.entries(data).sort((a,b)=>b[1].revenue-a[1].revenue);
-  document.getElementById('branch-cards').innerHTML = sorted.map(([name,v])=>`
+  document.getElementById('branch-cards').innerHTML = sorted.length ? sorted.map(([name,v])=>`
     <div class="branch-card">
-      <div class="branch-name">${name}</div>
+      <div class="branch-name">${escapeHtml(name)}</div>
       <div class="branch-rev">${fmtK(v.revenue)}</div>
       <div class="branch-sub">${fmt(v.orders)} طلب | متوسط ${v.orders>0?fmt(v.revenue/v.orders):0} ر.س</div>
     </div>
-  `).join('');
+  `).join('') : emptyHtml('لا توجد بيانات فروع متاحة لهذه الفترة.');
 }
 
 function renderBranchCharts() {
@@ -714,7 +798,7 @@ function renderBranchCharts() {
 
   // Monthly detail — newest first → reverse for chart
   const bm = D.branch_monthly || {};
-  const allMonths = [...new Set(Object.values(bm).flatMap(m=>Object.keys(m)))].sort().reverse().slice(0,12).reverse();
+  const allMonths = [...new Set(Object.values(bm).flatMap(m=>Object.keys(m)))].sort().reverse().slice(0,12);
   const branchNames = Object.keys(bm);
   mkChart('chartBranchMonthly','line', allMonths,
     branchNames.map((b,i)=>({
@@ -759,13 +843,13 @@ function renderAppsPage() {
 
   // App cards
   const sorted = Object.entries(all).sort((a,b)=>b[1].revenue-a[1].revenue);
-  document.getElementById('app-cards').innerHTML = sorted.map(([name,v],i)=>`
+  document.getElementById('app-cards').innerHTML = sorted.length ? sorted.map(([name,v],i)=>`
     <div class="app-card">
-      <div class="app-name" style="color:${COLORS[i%COLORS.length]}">${name}</div>
+      <div class="app-name" style="color:${COLORS[i%COLORS.length]}">${escapeHtml(name)}</div>
       <div class="app-rev">${fmtK(v.revenue)}</div>
-      <div class="app-sub">${(v.revenue/aggTotal*100).toFixed(1)}% من التطبيقات</div>
+      <div class="app-sub">${aggTotal > 0 ? (v.revenue/aggTotal*100).toFixed(1) : '0.0'}% من التطبيقات</div>
     </div>
-  `).join('');
+  `).join('') : emptyHtml('لا توجد مبيعات تطبيقات مصنفة لهذه الفترة.');
 
   // Donut
   mkChart('chartAppsDonut','doughnut', sorted.map(([n])=>n),
@@ -779,7 +863,7 @@ function renderAppsPage() {
 
   // Monthly line — newest first → reverse for chart
   const appNames = Object.keys(monthly).slice(0,6);
-  const allMonths = [...new Set(appNames.flatMap(a=>Object.keys(monthly[a]||{})))].sort().reverse().slice(0,12).reverse();
+  const allMonths = [...new Set(appNames.flatMap(a=>Object.keys(monthly[a]||{})))].sort().reverse().slice(0,12);
   mkChart('chartAppsMonthly','line', allMonths,
     appNames.map((a,i)=>({
       label:a, data: allMonths.map(mo=>monthly[a]?.[mo]||0),
@@ -831,17 +915,17 @@ function renderProductsPage() {
 
   document.getElementById('prodTable').innerHTML = `
     <thead><tr><th>#</th><th>المنتج</th><th>الفئة</th><th>الكمية</th><th>الإيرادات</th><th>التكلفة</th><th>إجمالي الربح</th><th>هامش %</th></tr></thead>
-    <tbody>${prods.map((p,i)=>`
+    <tbody>${prods.length ? prods.map((p,i)=>`
       <tr>
         <td>${i+1}</td>
-        <td>${p.product}</td>
-        <td><span class="badge badge-blue">${p.category}</span></td>
+        <td>${escapeHtml(p.product)}</td>
+        <td><span class="badge badge-blue">${escapeHtml(p.category)}</span></td>
         <td>${fmt(p.qty)}</td>
         <td>${fmt(p.revenue)} ر.س</td>
         <td>${fmt(p.cogs)} ر.س</td>
         <td class="${p.gross_profit>=0?'trend-up':'trend-down'}">${fmt(p.gross_profit)} ر.س</td>
         <td><span class="badge ${p.margin_pct>=50?'badge-green':p.margin_pct>=20?'badge-gold':'badge-red'}">${p.margin_pct}%</span></td>
-      </tr>`).join('')}
+      </tr>`).join('') : '<tr><td colspan="8" class="empty-state">لا توجد منتجات ضمن هذه الفترة.</td></tr>'}
     </tbody>`;
 }
 
@@ -853,7 +937,7 @@ function renderPLPage() {
   // newest first already, reverse for chart
   const pl = D.pl_monthly || [];
   const pl12 = pl.slice(0,12); // newest 12
-  const chartPl = [...pl12].reverse(); // oldest→newest for chart
+  const chartPl = [...pl12]; // newest→oldest for chart
 
   const totRev  = pl12.reduce((s,r)=>s+r.revenue,0);
   const totExp  = pl12.reduce((s,r)=>s+r.expenses,0);
@@ -881,7 +965,7 @@ function renderPLPage() {
   );
 
   // Purchases chart — newest first → reverse for chart
-  const purch = [...(D.purchases?.monthly||[])].reverse();
+  const purch = [...(D.purchases?.monthly||[])];
   mkChart('chartPurchases','bar', purch.map(r=>r.month),
     [{label:'المشتريات', data:purch.map(r=>r.amount), backgroundColor:'rgba(155,89,182,.7)'}]
   );
@@ -941,7 +1025,7 @@ function renderHistoryPage() {
   if (!D) return;
   // newest first already
   const all = D.monthly_sales_all || [];
-  const chartData = [...all].reverse(); // oldest→newest for chart
+  const chartData = [...all]; // newest→oldest for chart
 
   mkChart('chartHistMonthly','bar', chartData.map(r=>r.month),
     [{label:'الإيرادات (ر.س)', data:chartData.map(r=>r.revenue),
@@ -970,6 +1054,8 @@ async function init() {
     const res = await fetch('data.json?v='+Date.now());
     D = await res.json();
     document.getElementById('lastUpdate').textContent = 'آخر تحديث: ' + (D.meta?.generated_at || '—');
+    renderDataHealth();
+    renderDecisionBrief();
 
     renderOverviewKPIs();
     renderOverviewCharts();
