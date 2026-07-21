@@ -1,0 +1,4822 @@
+{
+  "meta": {
+    "generated_at": "2026-07-21 09:47:56 KSA",
+    "generated_at_iso": "2026-07-21T09:47:56.850103+03:00",
+    "today": "2026-07-21",
+    "yesterday": "2026-07-20",
+    "schema_version": 3
+  },
+  "kpis": {
+    "today": {
+      "revenue": 0,
+      "orders": 0
+    },
+    "yesterday": {
+      "revenue": 22222.45,
+      "orders": 274
+    },
+    "this_week": {
+      "revenue": 207324.44,
+      "orders": 2496
+    },
+    "this_month": {
+      "revenue": 756033.43,
+      "orders": 8694
+    },
+    "last_month": {
+      "revenue": 1378191.47,
+      "orders": 15208
+    },
+    "this_year": {
+      "revenue": 6849416.41,
+      "orders": 79447
+    },
+    "last_year": {
+      "revenue": 10173018.33,
+      "orders": 127665
+    },
+    "all_time": {
+      "revenue": 19311392.99,
+      "orders": 239601
+    }
+  },
+  "daily_sales": [
+    {
+      "day": "2026-06-21",
+      "revenue": 152671.84,
+      "orders": 1347
+    },
+    {
+      "day": "2026-06-22",
+      "revenue": 50023.65,
+      "orders": 522
+    },
+    {
+      "day": "2026-06-23",
+      "revenue": 11007.55,
+      "orders": 131
+    }
+  ],
+  "monthly_sales_all": [
+    {
+      "month": "October 2024",
+      "revenue": 768436.55,
+      "orders": 0
+    },
+    {
+      "month": "November 2024",
+      "revenue": 778469.79,
+      "orders": 0
+    },
+    {
+      "month": "December 2024",
+      "revenue": 742051.91,
+      "orders": 0
+    },
+    {
+      "month": "January 2025",
+      "revenue": 810332.84,
+      "orders": 0
+    },
+    {
+      "month": "February 2025",
+      "revenue": 832675.62,
+      "orders": 0
+    },
+    {
+      "month": "March 2025",
+      "revenue": 701179.36,
+      "orders": 0
+    },
+    {
+      "month": "April 2025",
+      "revenue": 779358.46,
+      "orders": 0
+    },
+    {
+      "month": "May 2025",
+      "revenue": 1226040.66,
+      "orders": 0
+    },
+    {
+      "month": "June 2025",
+      "revenue": 1243161.84,
+      "orders": 0
+    },
+    {
+      "month": "July 2025",
+      "revenue": 863570.34,
+      "orders": 0
+    },
+    {
+      "month": "August 2025",
+      "revenue": 770106.81,
+      "orders": 0
+    },
+    {
+      "month": "September 2025",
+      "revenue": 724439.95,
+      "orders": 0
+    },
+    {
+      "month": "October 2025",
+      "revenue": 763469.85,
+      "orders": 0
+    },
+    {
+      "month": "November 2025",
+      "revenue": 695557.09,
+      "orders": 0
+    },
+    {
+      "month": "December 2025",
+      "revenue": 763125.51,
+      "orders": 0
+    },
+    {
+      "month": "January 2026",
+      "revenue": 895901.51,
+      "orders": 0
+    },
+    {
+      "month": "February 2026",
+      "revenue": 645711.7,
+      "orders": 0
+    },
+    {
+      "month": "March 2026",
+      "revenue": 1039826.15,
+      "orders": 0
+    },
+    {
+      "month": "April 2026",
+      "revenue": 836236.34,
+      "orders": 0
+    },
+    {
+      "month": "May 2026",
+      "revenue": 1297515.81,
+      "orders": 0
+    },
+    {
+      "month": "June 2026",
+      "revenue": 1378191.47,
+      "orders": 0
+    },
+    {
+      "month": "July 2026",
+      "revenue": 756033.43,
+      "orders": 0
+    }
+  ],
+  "monthly_sales_12m": [
+    {
+      "month": "July 2025",
+      "revenue": 281571.51,
+      "orders": 0
+    },
+    {
+      "month": "August 2025",
+      "revenue": 770106.81,
+      "orders": 0
+    },
+    {
+      "month": "September 2025",
+      "revenue": 724439.95,
+      "orders": 0
+    },
+    {
+      "month": "October 2025",
+      "revenue": 763469.85,
+      "orders": 0
+    },
+    {
+      "month": "November 2025",
+      "revenue": 695557.09,
+      "orders": 0
+    },
+    {
+      "month": "December 2025",
+      "revenue": 763125.51,
+      "orders": 0
+    },
+    {
+      "month": "January 2026",
+      "revenue": 895901.51,
+      "orders": 0
+    },
+    {
+      "month": "February 2026",
+      "revenue": 645711.7,
+      "orders": 0
+    },
+    {
+      "month": "March 2026",
+      "revenue": 1039826.15,
+      "orders": 0
+    },
+    {
+      "month": "April 2026",
+      "revenue": 836236.34,
+      "orders": 0
+    },
+    {
+      "month": "May 2026",
+      "revenue": 1297515.81,
+      "orders": 0
+    },
+    {
+      "month": "June 2026",
+      "revenue": 1378191.47,
+      "orders": 0
+    },
+    {
+      "month": "July 2026",
+      "revenue": 756033.43,
+      "orders": 0
+    }
+  ],
+  "hourly_sales": [
+    {
+      "hour": 0,
+      "revenue": 10755.6,
+      "orders": 153
+    },
+    {
+      "hour": 1,
+      "revenue": 8558.7,
+      "orders": 130
+    },
+    {
+      "hour": 2,
+      "revenue": 2048.95,
+      "orders": 26
+    },
+    {
+      "hour": 3,
+      "revenue": 144.75,
+      "orders": 3
+    },
+    {
+      "hour": 9,
+      "revenue": 839.82,
+      "orders": 13
+    },
+    {
+      "hour": 10,
+      "revenue": 2278.2,
+      "orders": 21
+    },
+    {
+      "hour": 11,
+      "revenue": 1957.5,
+      "orders": 24
+    },
+    {
+      "hour": 12,
+      "revenue": 2015.9,
+      "orders": 31
+    },
+    {
+      "hour": 13,
+      "revenue": 4530.0,
+      "orders": 52
+    },
+    {
+      "hour": 14,
+      "revenue": 7938.95,
+      "orders": 98
+    },
+    {
+      "hour": 15,
+      "revenue": 11424.3,
+      "orders": 115
+    },
+    {
+      "hour": 16,
+      "revenue": 12811.4,
+      "orders": 158
+    },
+    {
+      "hour": 17,
+      "revenue": 21711.5,
+      "orders": 223
+    },
+    {
+      "hour": 18,
+      "revenue": 22845.0,
+      "orders": 251
+    },
+    {
+      "hour": 19,
+      "revenue": 23385.2,
+      "orders": 257
+    },
+    {
+      "hour": 20,
+      "revenue": 21251.75,
+      "orders": 257
+    },
+    {
+      "hour": 21,
+      "revenue": 20212.7,
+      "orders": 250
+    },
+    {
+      "hour": 22,
+      "revenue": 17646.32,
+      "orders": 235
+    },
+    {
+      "hour": 23,
+      "revenue": 14967.9,
+      "orders": 199
+    }
+  ],
+  "pl_monthly": [
+    {
+      "month": "April 2026",
+      "revenue": 739610.44,
+      "expenses": 276646.46,
+      "gross_profit": 462963.98,
+      "margin_pct": 62.6
+    },
+    {
+      "month": "August 2025",
+      "revenue": 714055.8,
+      "expenses": 721883.8,
+      "gross_profit": -7828.0,
+      "margin_pct": -1.1
+    },
+    {
+      "month": "December 2025",
+      "revenue": 761066.29,
+      "expenses": 892979.15,
+      "gross_profit": -131912.86,
+      "margin_pct": -17.3
+    },
+    {
+      "month": "February 2026",
+      "revenue": 587664.77,
+      "expenses": 716831.25,
+      "gross_profit": -129166.48,
+      "margin_pct": -22.0
+    },
+    {
+      "month": "January 2026",
+      "revenue": 989359.25,
+      "expenses": 1082189.05,
+      "gross_profit": -92829.8,
+      "margin_pct": -9.4
+    },
+    {
+      "month": "July 2025",
+      "revenue": 251890.12,
+      "expenses": 415382.31,
+      "gross_profit": -163492.19,
+      "margin_pct": -64.9
+    },
+    {
+      "month": "July 2026",
+      "revenue": 671655.72,
+      "expenses": 180677.36,
+      "gross_profit": 490978.36,
+      "margin_pct": 73.1
+    },
+    {
+      "month": "June 2026",
+      "revenue": 1230218.55,
+      "expenses": 336735.44,
+      "gross_profit": 893483.11,
+      "margin_pct": 72.6
+    },
+    {
+      "month": "March 2026",
+      "revenue": 1011376.8,
+      "expenses": 822594.16,
+      "gross_profit": 188782.64,
+      "margin_pct": 18.7
+    },
+    {
+      "month": "May 2026",
+      "revenue": 1153119.45,
+      "expenses": 302331.75,
+      "gross_profit": 850787.7,
+      "margin_pct": 73.8
+    },
+    {
+      "month": "November 2025",
+      "revenue": 645339.07,
+      "expenses": 614859.46,
+      "gross_profit": 30479.61,
+      "margin_pct": 4.7
+    },
+    {
+      "month": "October 2025",
+      "revenue": 684914.52,
+      "expenses": 571345.25,
+      "gross_profit": 113569.27,
+      "margin_pct": 16.6
+    },
+    {
+      "month": "September 2025",
+      "revenue": 666113.2,
+      "expenses": 572303.19,
+      "gross_profit": 93810.01,
+      "margin_pct": 14.1
+    }
+  ],
+  "branches": {
+    "today": {},
+    "yesterday": {
+      "Hamadaniyah": {
+        "revenue": 5540.9,
+        "orders": 0
+      },
+      "Marwah": {
+        "revenue": 4394.0,
+        "orders": 0
+      },
+      "not used": {
+        "revenue": 2738.5,
+        "orders": 0
+      },
+      "Defaa": {
+        "revenue": 2843.5,
+        "orders": 0
+      },
+      "Waziriyah": {
+        "revenue": 1865.5,
+        "orders": 0
+      }
+    },
+    "this_month": {
+      "Hamadaniyah": {
+        "revenue": 152961.0,
+        "orders": 0
+      },
+      "Marwah": {
+        "revenue": 146556.4,
+        "orders": 0
+      },
+      "not used": {
+        "revenue": 109965.59,
+        "orders": 0
+      },
+      "Defaa": {
+        "revenue": 110599.07,
+        "orders": 0
+      },
+      "Waziriyah": {
+        "revenue": 72898.87,
+        "orders": 0
+      }
+    },
+    "last_month": {
+      "Hamadaniyah": {
+        "revenue": 282982.45,
+        "orders": 0
+      },
+      "Marwah": {
+        "revenue": 264270.14,
+        "orders": 0
+      },
+      "not used": {
+        "revenue": 216201.88,
+        "orders": 0
+      },
+      "Defaa": {
+        "revenue": 211109.63,
+        "orders": 0
+      },
+      "Waziriyah": {
+        "revenue": 136530.22,
+        "orders": 0
+      }
+    },
+    "this_year": {
+      "Hamadaniyah": {
+        "revenue": 1383230.03,
+        "orders": 0
+      },
+      "Marwah": {
+        "revenue": 1404886.42,
+        "orders": 0
+      },
+      "not used": {
+        "revenue": 934575.32,
+        "orders": 0
+      },
+      "Defaa": {
+        "revenue": 1052312.05,
+        "orders": 0
+      },
+      "Waziriyah": {
+        "revenue": 668425.48,
+        "orders": 0
+      }
+    },
+    "all_time": {
+      "Hamadaniyah": {
+        "revenue": 4193864.02,
+        "orders": 0
+      },
+      "Marwah": {
+        "revenue": 4439598.38,
+        "orders": 0
+      },
+      "not used": {
+        "revenue": 934575.32,
+        "orders": 0
+      },
+      "Defaa": {
+        "revenue": 3354675.49,
+        "orders": 0
+      },
+      "Waziriyah": {
+        "revenue": 2128126.11,
+        "orders": 0
+      }
+    },
+    "monthly_detail": {
+      "Hamadaniyah": {
+        "?": {
+          "revenue": 2294684.03,
+          "orders": 0
+        }
+      },
+      "Marwah": {
+        "?": {
+          "revenue": 2425077.3,
+          "orders": 0
+        }
+      },
+      "not used": {
+        "?": {
+          "revenue": 934575.32,
+          "orders": 0
+        }
+      },
+      "Defaa": {
+        "?": {
+          "revenue": 1758901.42,
+          "orders": 0
+        }
+      },
+      "Waziriyah": {
+        "?": {
+          "revenue": 1139321.87,
+          "orders": 0
+        }
+      }
+    }
+  },
+  "aggregators": {
+    "all_time": {
+      "COE Marketing (POSZ) ***": {
+        "revenue": 33118.89,
+        "orders": 0
+      },
+      "Careem (POSZ) ***": {
+        "revenue": 0.0,
+        "orders": 0
+      },
+      "Hunger Station (POSZ) ***": {
+        "revenue": 3875816.65,
+        "orders": 0
+      },
+      "JAHEZ (POSZ) ***": {
+        "revenue": 381262.88,
+        "orders": 0
+      },
+      "Keeta(POSZ) ***": {
+        "revenue": 2125236.38,
+        "orders": 0
+      },
+      "Marsool (POSZ) ***": {
+        "revenue": 420210.23,
+        "orders": 0
+      },
+      "Mr.Mandoob (POSZ) ***": {
+        "revenue": 2732.42,
+        "orders": 0
+      },
+      "Munch First Company Ltd. شركة منش الأولى": {
+        "revenue": 19035.46,
+        "orders": 0
+      },
+      "Ninja(POSZ) ***": {
+        "revenue": 516779.67,
+        "orders": 0
+      },
+      "Noon (POSZ) ***": {
+        "revenue": 54880.06,
+        "orders": 0
+      },
+      "POS Customer (POSZ) ***": {
+        "revenue": 8095110.28,
+        "orders": 0
+      },
+      "Saudi Aramco Base Oil Company - Luberef": {
+        "revenue": 1155.0,
+        "orders": 0
+      },
+      "Taker Website(POSZ) ***": {
+        "revenue": 923069.92,
+        "orders": 0
+      },
+      "Tamara (POSZ) ***": {
+        "revenue": 13244.55,
+        "orders": 0
+      },
+      "The Chefz (POSZ) ***": {
+        "revenue": 162345.35,
+        "orders": 0
+      },
+      "ToYou (POSZ) ***": {
+        "revenue": 531954.0,
+        "orders": 0
+      },
+      "الشركة الوطنية للأنظمة الميكانيكية": {
+        "revenue": 1950.0,
+        "orders": 0
+      },
+      "شركة ابتكار الترفيه المحدودة": {
+        "revenue": 10199.24,
+        "orders": 0
+      },
+      "شركة الأمتعة الحديثة المحدودة": {
+        "revenue": 91.0,
+        "orders": 0
+      },
+      "شركة رحابة البيت لتشغيل الفنادق": {
+        "revenue": 190.0,
+        "orders": 0
+      },
+      "شركة مجموعة بان القابضة": {
+        "revenue": 1198.2,
+        "orders": 0
+      },
+      "مؤسسة لحظة الافراح التجارية": {
+        "revenue": 235.0,
+        "orders": 0
+      }
+    },
+    "last_30d": {
+      "COE Marketing (POSZ) ***": {
+        "revenue": 278.5,
+        "orders": 0
+      },
+      "Hunger Station (POSZ) ***": {
+        "revenue": 326436.8,
+        "orders": 0
+      },
+      "JAHEZ (POSZ) ***": {
+        "revenue": 33627.0,
+        "orders": 0
+      },
+      "Keeta(POSZ) ***": {
+        "revenue": 139160.92,
+        "orders": 0
+      },
+      "Marsool (POSZ) ***": {
+        "revenue": 6827.0,
+        "orders": 0
+      },
+      "Mr.Mandoob (POSZ) ***": {
+        "revenue": 470.0,
+        "orders": 0
+      },
+      "Munch First Company Ltd. شركة منش الأولى": {
+        "revenue": 2079.0,
+        "orders": 0
+      },
+      "Ninja(POSZ) ***": {
+        "revenue": 75337.18,
+        "orders": 0
+      },
+      "POS Customer (POSZ) ***": {
+        "revenue": 664141.17,
+        "orders": 0
+      },
+      "Taker Website(POSZ) ***": {
+        "revenue": 80670.05,
+        "orders": 0
+      },
+      "Tamara (POSZ) ***": {
+        "revenue": 528.0,
+        "orders": 0
+      },
+      "The Chefz (POSZ) ***": {
+        "revenue": 24488.0,
+        "orders": 0
+      },
+      "شركة ابتكار الترفيه المحدودة": {
+        "revenue": 2798.2,
+        "orders": 0
+      },
+      "شركة مجموعة بان القابضة": {
+        "revenue": 1198.2,
+        "orders": 0
+      }
+    },
+    "this_month": {
+      "COE Marketing (POSZ) ***": {
+        "revenue": 105.0,
+        "orders": 0
+      },
+      "Hunger Station (POSZ) ***": {
+        "revenue": 186951.1,
+        "orders": 0
+      },
+      "JAHEZ (POSZ) ***": {
+        "revenue": 17086.0,
+        "orders": 0
+      },
+      "Keeta(POSZ) ***": {
+        "revenue": 68029.57,
+        "orders": 0
+      },
+      "Marsool (POSZ) ***": {
+        "revenue": 3006.0,
+        "orders": 0
+      },
+      "Munch First Company Ltd. شركة منش الأولى": {
+        "revenue": 2079.0,
+        "orders": 0
+      },
+      "Ninja(POSZ) ***": {
+        "revenue": 39689.57,
+        "orders": 0
+      },
+      "POS Customer (POSZ) ***": {
+        "revenue": 388582.39,
+        "orders": 0
+      },
+      "Taker Website(POSZ) ***": {
+        "revenue": 36876.5,
+        "orders": 0
+      },
+      "Tamara (POSZ) ***": {
+        "revenue": 299.0,
+        "orders": 0
+      },
+      "The Chefz (POSZ) ***": {
+        "revenue": 12651.0,
+        "orders": 0
+      },
+      "شركة ابتكار الترفيه المحدودة": {
+        "revenue": 678.3,
+        "orders": 0
+      }
+    },
+    "this_year": {
+      "COE Marketing (POSZ) ***": {
+        "revenue": 9890.0,
+        "orders": 0
+      },
+      "Hunger Station (POSZ) ***": {
+        "revenue": 1616785.51,
+        "orders": 0
+      },
+      "JAHEZ (POSZ) ***": {
+        "revenue": 151073.8,
+        "orders": 0
+      },
+      "Keeta(POSZ) ***": {
+        "revenue": 789174.6,
+        "orders": 0
+      },
+      "Marsool (POSZ) ***": {
+        "revenue": 72459.55,
+        "orders": 0
+      },
+      "Mr.Mandoob (POSZ) ***": {
+        "revenue": 2732.42,
+        "orders": 0
+      },
+      "Munch First Company Ltd. شركة منش الأولى": {
+        "revenue": 3583.0,
+        "orders": 0
+      },
+      "Ninja(POSZ) ***": {
+        "revenue": 386050.69,
+        "orders": 0
+      },
+      "Noon (POSZ) ***": {
+        "revenue": 0.0,
+        "orders": 0
+      },
+      "POS Customer (POSZ) ***": {
+        "revenue": 3304033.39,
+        "orders": 0
+      },
+      "Taker Website(POSZ) ***": {
+        "revenue": 423171.96,
+        "orders": 0
+      },
+      "Tamara (POSZ) ***": {
+        "revenue": 4402.1,
+        "orders": 0
+      },
+      "The Chefz (POSZ) ***": {
+        "revenue": 50276.0,
+        "orders": 0
+      },
+      "ToYou (POSZ) ***": {
+        "revenue": 24385.95,
+        "orders": 0
+      },
+      "شركة ابتكار الترفيه المحدودة": {
+        "revenue": 10199.24,
+        "orders": 0
+      },
+      "شركة مجموعة بان القابضة": {
+        "revenue": 1198.2,
+        "orders": 0
+      }
+    },
+    "monthly": {
+      "COE Marketing (POSZ) ***": {
+        "?": 14297.89
+      },
+      "Hunger Station (POSZ) ***": {
+        "?": 2331585.41
+      },
+      "JAHEZ (POSZ) ***": {
+        "?": 225037.88
+      },
+      "Keeta(POSZ) ***": {
+        "?": 1434016.38
+      },
+      "Marsool (POSZ) ***": {
+        "?": 134374.23
+      },
+      "Mr.Mandoob (POSZ) ***": {
+        "?": 2732.42
+      },
+      "Ninja(POSZ) ***": {
+        "?": 437076.67
+      },
+      "Noon (POSZ) ***": {
+        "?": 8121.06
+      },
+      "POS Customer (POSZ) ***": {
+        "?": 5411417.48
+      },
+      "Taker Website(POSZ) ***": {
+        "?": 549320.14
+      },
+      "Tamara (POSZ) ***": {
+        "?": 7188.35
+      },
+      "The Chefz (POSZ) ***": {
+        "?": 86769.1
+      },
+      "ToYou (POSZ) ***": {
+        "?": 187841.5
+      }
+    }
+  },
+  "payment_methods": {
+    "last_30d": [
+      {
+        "method": "Marwah Cash",
+        "amount": 17294.0,
+        "count": 0
+      },
+      {
+        "method": "Online Paid",
+        "amount": 693236.7,
+        "count": 0
+      },
+      {
+        "method": "Hamdaniyah Cash",
+        "amount": 19134.7,
+        "count": 0
+      },
+      {
+        "method": "Ajaweed Cash",
+        "amount": 20832.9,
+        "count": 0
+      },
+      {
+        "method": "Defaa Cash",
+        "amount": 15626.3,
+        "count": 0
+      },
+      {
+        "method": "Waziriyah Cash",
+        "amount": 11246.0,
+        "count": 0
+      },
+      {
+        "method": "Mada Card",
+        "amount": 456034.9,
+        "count": 0
+      },
+      {
+        "method": "Visa",
+        "amount": 80815.25,
+        "count": 0
+      },
+      {
+        "method": "Master Card",
+        "amount": 25672.6,
+        "count": 0
+      },
+      {
+        "method": "Amex Card",
+        "amount": 696.0,
+        "count": 0
+      },
+      {
+        "method": "Safa Cash",
+        "amount": 17950.67,
+        "count": 0
+      }
+    ],
+    "this_month": [
+      {
+        "method": "Marwah Cash",
+        "amount": 9861.5,
+        "count": 0
+      },
+      {
+        "method": "Online Paid",
+        "amount": 367332.04,
+        "count": 0
+      },
+      {
+        "method": "Hamdaniyah Cash",
+        "amount": 10994.0,
+        "count": 0
+      },
+      {
+        "method": "Ajaweed Cash",
+        "amount": 11338.1,
+        "count": 0
+      },
+      {
+        "method": "Defaa Cash",
+        "amount": 7076.5,
+        "count": 0
+      },
+      {
+        "method": "Waziriyah Cash",
+        "amount": 6230.5,
+        "count": 0
+      },
+      {
+        "method": "Mada Card",
+        "amount": 271120.72,
+        "count": 0
+      },
+      {
+        "method": "Visa",
+        "amount": 46694.4,
+        "count": 0
+      },
+      {
+        "method": "Master Card",
+        "amount": 13734.5,
+        "count": 0
+      },
+      {
+        "method": "Amex Card",
+        "amount": 429.0,
+        "count": 0
+      },
+      {
+        "method": "Safa Cash",
+        "amount": 11722.17,
+        "count": 0
+      }
+    ],
+    "this_year": [
+      {
+        "method": "Marwah Cash",
+        "amount": 97948.76,
+        "count": 0
+      },
+      {
+        "method": "Online Paid",
+        "amount": 3546988.92,
+        "count": 0
+      },
+      {
+        "method": "Hamdaniyah Cash",
+        "amount": 96141.92,
+        "count": 0
+      },
+      {
+        "method": "Ajaweed Cash",
+        "amount": 102481.82,
+        "count": 0
+      },
+      {
+        "method": "Defaa Cash",
+        "amount": 68380.53,
+        "count": 0
+      },
+      {
+        "method": "Waziriyah Cash",
+        "amount": 74226.71,
+        "count": 0
+      },
+      {
+        "method": "Mada Card",
+        "amount": 2239636.32,
+        "count": 0
+      },
+      {
+        "method": "Visa",
+        "amount": 409019.5,
+        "count": 0
+      },
+      {
+        "method": "Master Card",
+        "amount": 128495.91,
+        "count": 0
+      },
+      {
+        "method": "Amex Card",
+        "amount": 2786.0,
+        "count": 0
+      },
+      {
+        "method": "Taker Wallet",
+        "amount": 864.5,
+        "count": 0
+      },
+      {
+        "method": "Safa Cash",
+        "amount": 83070.52,
+        "count": 0
+      }
+    ]
+  },
+  "top_products": {
+    "last_30d": [
+      {
+        "product": "[121264] Confcannon mix ",
+        "category": "All",
+        "qty": 48.0,
+        "revenue": 715.0,
+        "cogs": 180.0,
+        "gross_profit": 535.0,
+        "margin_pct": 74.8
+      },
+      {
+        "product": "[110153] تشوكليت ميني جار/Chocolate Mini Jar",
+        "category": "Finished Products / JAR",
+        "qty": 101.0,
+        "revenue": 1305.5,
+        "cogs": 353.5,
+        "gross_profit": 952.0,
+        "margin_pct": 72.9
+      },
+      {
+        "product": "[110175] Red Velvet Jar Cake |ردفلفت جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 205.0,
+        "revenue": 3922.0,
+        "cogs": 1640.0,
+        "gross_profit": 2282.0,
+        "margin_pct": 58.2
+      },
+      {
+        "product": "[110176] Dream Jar Cake |دريم جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 189.0,
+        "revenue": 3590.0,
+        "cogs": 1512.0,
+        "gross_profit": 2078.0,
+        "margin_pct": 57.9
+      },
+      {
+        "product": "[110177] Chocolate Jar Cake |تشوكليت جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 180.0,
+        "revenue": 3460.0,
+        "cogs": 1620.0,
+        "gross_profit": 1840.0,
+        "margin_pct": 53.2
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 61.0,
+        "revenue": 1214.0,
+        "cogs": 549.0,
+        "gross_profit": 665.0,
+        "margin_pct": 54.8
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 103.0,
+        "revenue": 1970.0,
+        "cogs": 824.0,
+        "gross_profit": 1146.0,
+        "margin_pct": 58.2
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 49.0,
+        "revenue": 978.0,
+        "cogs": 441.0,
+        "gross_profit": 537.0,
+        "margin_pct": 54.9
+      },
+      {
+        "product": "[110201] ردفلفت كيك/Red Velvet Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 74.0,
+        "revenue": 16466.0,
+        "cogs": 4144.0,
+        "gross_profit": 12322.0,
+        "margin_pct": 74.8
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 47.0,
+        "revenue": 11325.0,
+        "cogs": 3045.6,
+        "gross_profit": 8279.4,
+        "margin_pct": 73.1
+      },
+      {
+        "product": "[110213] دريم كيك/Dream Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 63.0,
+        "revenue": 15085.0,
+        "cogs": 3654.0,
+        "gross_profit": 11431.0,
+        "margin_pct": 75.8
+      },
+      {
+        "product": "[110218] ردفلفت كيك/Red Velvet Cake - Large",
+        "category": "Finished Products / Cakes",
+        "qty": 495.0,
+        "revenue": 80929.0,
+        "cogs": 19800.0,
+        "gross_profit": 61129.0,
+        "margin_pct": 75.5
+      },
+      {
+        "product": "[110219] ردفلفت كيك/ Red Velvet Cake - Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 806.0,
+        "revenue": 93830.0,
+        "cogs": 17732.0,
+        "gross_profit": 76098.0,
+        "margin_pct": 81.1
+      },
+      {
+        "product": "[110220] دريم كيك كبير/Dream Cake -  Large",
+        "category": "Finished Products / Cakes",
+        "qty": 305.0,
+        "revenue": 52873.0,
+        "cogs": 13115.0,
+        "gross_profit": 39758.0,
+        "margin_pct": 75.2
+      },
+      {
+        "product": "[110222] تشوكليت كيك /Chocolate Cake - Large",
+        "category": "Finished Products / Cakes",
+        "qty": 296.0,
+        "revenue": 51816.0,
+        "cogs": 12728.0,
+        "gross_profit": 39088.0,
+        "margin_pct": 75.4
+      },
+      {
+        "product": "[110223] تشوكليت كيك/Chocolate Cake - Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 511.0,
+        "revenue": 59455.0,
+        "cogs": 12264.0,
+        "gross_profit": 47191.0,
+        "margin_pct": 79.4
+      },
+      {
+        "product": "[110227] يونيكورن كيك/Unicorn Cake",
+        "category": "Finished Products / Cakes",
+        "qty": 17.0,
+        "revenue": 4930.0,
+        "cogs": 0.77,
+        "gross_profit": 4929.23,
+        "margin_pct": 100.0
+      },
+      {
+        "product": "[110280] كيكة دريم/Dream Cake-  Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 716.0,
+        "revenue": 83280.0,
+        "cogs": 15036.0,
+        "gross_profit": 68244.0,
+        "margin_pct": 81.9
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "category": "Finished Products / Cakes",
+        "qty": 142.0,
+        "revenue": 8888.0,
+        "cogs": 1917.0,
+        "gross_profit": 6971.0,
+        "margin_pct": 78.4
+      },
+      {
+        "product": "[110401] ردفلفت كب كيك/ Red Velvet Cupcake",
+        "category": "Finished Products / Cupcakes",
+        "qty": 807.0,
+        "revenue": 6948.5,
+        "cogs": 1533.3,
+        "gross_profit": 5415.2,
+        "margin_pct": 77.9
+      },
+      {
+        "product": "[110408] كب كيك الجزر/Carrot Cupcake",
+        "category": "Finished Products / Cupcakes",
+        "qty": 455.0,
+        "revenue": 3990.5,
+        "cogs": 864.5,
+        "gross_profit": 3126.0,
+        "margin_pct": 78.3
+      },
+      {
+        "product": "[110410] سوفل كب كيك/Souffle Cupcake",
+        "category": "Finished Products / Cupcakes",
+        "qty": 641.0,
+        "revenue": 5425.5,
+        "cogs": 1218.54,
+        "gross_profit": 4206.96,
+        "margin_pct": 77.5
+      },
+      {
+        "product": "[110420] دريم كب كيك/Dream Cupcake",
+        "category": "Finished Products / Cupcakes",
+        "qty": 708.0,
+        "revenue": 5953.5,
+        "cogs": 1345.2,
+        "gross_profit": 4608.3,
+        "margin_pct": 77.4
+      },
+      {
+        "product": "[110504] منش ميلت/Munch Melt",
+        "category": "Finished Products / ChesseCake",
+        "qty": 1462.0,
+        "revenue": 9798.5,
+        "cogs": 2634.52,
+        "gross_profit": 7163.98,
+        "margin_pct": 73.1
+      },
+      {
+        "product": "[110601] ردفلفت ميني كب كيك/Red Velvet Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes",
+        "qty": 5940.0,
+        "revenue": 22635.0,
+        "cogs": 4158.0,
+        "gross_profit": 18477.0,
+        "margin_pct": 81.6
+      },
+      {
+        "product": "[110603] فانيلا ميني كب كيك/Vanilla Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes",
+        "qty": 2917.0,
+        "revenue": 11553.5,
+        "cogs": 1986.48,
+        "gross_profit": 9567.02,
+        "margin_pct": 82.8
+      },
+      {
+        "product": "[110606] كب كيك الفراولة/Strawberry Mini Cupcake",
+        "category": "All",
+        "qty": 2855.0,
+        "revenue": 11210.5,
+        "cogs": 1998.5,
+        "gross_profit": 9212.0,
+        "margin_pct": 82.2
+      },
+      {
+        "product": "[110607] بلوفلفت  كب كيك/Blue Velvet Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes",
+        "qty": 4318.0,
+        "revenue": 16556.0,
+        "cogs": 3022.6,
+        "gross_profit": 13533.4,
+        "margin_pct": 81.7
+      },
+      {
+        "product": "[110608] ميني كب كيك الجزر/Carrot Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes",
+        "qty": 3585.0,
+        "revenue": 13845.5,
+        "cogs": 2509.5,
+        "gross_profit": 11336.0,
+        "margin_pct": 81.9
+      },
+      {
+        "product": "[110610] سوفل ميني كب كيك/Souffle Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes - Premium",
+        "qty": 2445.0,
+        "revenue": 9062.5,
+        "cogs": 2200.5,
+        "gross_profit": 6862.0,
+        "margin_pct": 75.7
+      }
+    ],
+    "this_month": [
+      {
+        "product": "[121264] Confcannon mix ",
+        "category": "All",
+        "qty": 43.0,
+        "revenue": 645.0,
+        "cogs": 161.25,
+        "gross_profit": 483.75,
+        "margin_pct": 75.0
+      },
+      {
+        "product": "[110153] تشوكليت ميني جار/Chocolate Mini Jar",
+        "category": "Finished Products / JAR",
+        "qty": 40.0,
+        "revenue": 520.0,
+        "cogs": 140.0,
+        "gross_profit": 380.0,
+        "margin_pct": 73.1
+      },
+      {
+        "product": "[110175] Red Velvet Jar Cake |ردفلفت جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 152.0,
+        "revenue": 2920.0,
+        "cogs": 1216.0,
+        "gross_profit": 1704.0,
+        "margin_pct": 58.4
+      },
+      {
+        "product": "[110176] Dream Jar Cake |دريم جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 112.0,
+        "revenue": 2136.0,
+        "cogs": 896.0,
+        "gross_profit": 1240.0,
+        "margin_pct": 58.1
+      },
+      {
+        "product": "[110177] Chocolate Jar Cake |تشوكليت جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 126.0,
+        "revenue": 2436.0,
+        "cogs": 1134.0,
+        "gross_profit": 1302.0,
+        "margin_pct": 53.4
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 38.0,
+        "revenue": 760.0,
+        "cogs": 342.0,
+        "gross_profit": 418.0,
+        "margin_pct": 55.0
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 64.0,
+        "revenue": 1224.0,
+        "cogs": 512.0,
+        "gross_profit": 712.0,
+        "margin_pct": 58.2
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 27.0,
+        "revenue": 550.0,
+        "cogs": 243.0,
+        "gross_profit": 307.0,
+        "margin_pct": 55.8
+      },
+      {
+        "product": "[110201] ردفلفت كيك/Red Velvet Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 43.0,
+        "revenue": 9537.0,
+        "cogs": 2408.0,
+        "gross_profit": 7129.0,
+        "margin_pct": 74.8
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 31.0,
+        "revenue": 7505.0,
+        "cogs": 2008.8,
+        "gross_profit": 5496.2,
+        "margin_pct": 73.2
+      },
+      {
+        "product": "[110213] دريم كيك/Dream Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 36.0,
+        "revenue": 8600.0,
+        "cogs": 2088.0,
+        "gross_profit": 6512.0,
+        "margin_pct": 75.7
+      },
+      {
+        "product": "[110218] ردفلفت كيك/Red Velvet Cake - Large",
+        "category": "Finished Products / Cakes",
+        "qty": 319.0,
+        "revenue": 52209.0,
+        "cogs": 12760.0,
+        "gross_profit": 39449.0,
+        "margin_pct": 75.6
+      },
+      {
+        "product": "[110219] ردفلفت كيك/ Red Velvet Cake - Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 467.0,
+        "revenue": 54295.0,
+        "cogs": 10274.0,
+        "gross_profit": 44021.0,
+        "margin_pct": 81.1
+      },
+      {
+        "product": "[110220] دريم كيك كبير/Dream Cake -  Large",
+        "category": "Finished Products / Cakes",
+        "qty": 170.0,
+        "revenue": 29306.0,
+        "cogs": 7310.0,
+        "gross_profit": 21996.0,
+        "margin_pct": 75.1
+      },
+      {
+        "product": "[110222] تشوكليت كيك /Chocolate Cake - Large",
+        "category": "Finished Products / Cakes",
+        "qty": 178.0,
+        "revenue": 31170.0,
+        "cogs": 7654.0,
+        "gross_profit": 23516.0,
+        "margin_pct": 75.4
+      },
+      {
+        "product": "[110223] تشوكليت كيك/Chocolate Cake - Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 303.0,
+        "revenue": 35135.0,
+        "cogs": 7272.0,
+        "gross_profit": 27863.0,
+        "margin_pct": 79.3
+      },
+      {
+        "product": "[110227] يونيكورن كيك/Unicorn Cake",
+        "category": "Finished Products / Cakes",
+        "qty": 8.0,
+        "revenue": 2320.0,
+        "cogs": 0.36,
+        "gross_profit": 2319.64,
+        "margin_pct": 100.0
+      },
+      {
+        "product": "[110280] كيكة دريم/Dream Cake-  Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 383.0,
+        "revenue": 44355.0,
+        "cogs": 8043.0,
+        "gross_profit": 36312.0,
+        "margin_pct": 81.9
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "category": "Finished Products / Cakes",
+        "qty": 90.0,
+        "revenue": 5660.0,
+        "cogs": 1215.0,
+        "gross_profit": 4445.0,
+        "margin_pct": 78.5
+      },
+      {
+        "product": "[110401] ردفلفت كب كيك/ Red Velvet Cupcake",
+        "category": "Finished Products / Cupcakes",
+        "qty": 502.0,
+        "revenue": 4277.5,
+        "cogs": 953.8,
+        "gross_profit": 3323.7,
+        "margin_pct": 77.7
+      },
+      {
+        "product": "[110408] كب كيك الجزر/Carrot Cupcake",
+        "category": "Finished Products / Cupcakes",
+        "qty": 293.0,
+        "revenue": 2529.0,
+        "cogs": 556.7,
+        "gross_profit": 1972.3,
+        "margin_pct": 78.0
+      },
+      {
+        "product": "[110410] سوفل كب كيك/Souffle Cupcake",
+        "category": "Finished Products / Cupcakes",
+        "qty": 401.0,
+        "revenue": 3357.5,
+        "cogs": 762.3,
+        "gross_profit": 2595.2,
+        "margin_pct": 77.3
+      },
+      {
+        "product": "[110420] دريم كب كيك/Dream Cupcake",
+        "category": "Finished Products / Cupcakes",
+        "qty": 473.0,
+        "revenue": 4010.5,
+        "cogs": 898.7,
+        "gross_profit": 3111.8,
+        "margin_pct": 77.6
+      },
+      {
+        "product": "[110504] منش ميلت/Munch Melt",
+        "category": "Finished Products / ChesseCake",
+        "qty": 928.0,
+        "revenue": 6218.5,
+        "cogs": 1672.26,
+        "gross_profit": 4546.24,
+        "margin_pct": 73.1
+      },
+      {
+        "product": "[110601] ردفلفت ميني كب كيك/Red Velvet Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes",
+        "qty": 3706.0,
+        "revenue": 13998.0,
+        "cogs": 2594.2,
+        "gross_profit": 11403.8,
+        "margin_pct": 81.5
+      },
+      {
+        "product": "[110603] فانيلا ميني كب كيك/Vanilla Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes",
+        "qty": 1883.0,
+        "revenue": 7409.5,
+        "cogs": 1282.32,
+        "gross_profit": 6127.18,
+        "margin_pct": 82.7
+      },
+      {
+        "product": "[110606] كب كيك الفراولة/Strawberry Mini Cupcake",
+        "category": "All",
+        "qty": 1861.0,
+        "revenue": 7295.5,
+        "cogs": 1302.7,
+        "gross_profit": 5992.8,
+        "margin_pct": 82.1
+      },
+      {
+        "product": "[110607] بلوفلفت  كب كيك/Blue Velvet Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes",
+        "qty": 2789.0,
+        "revenue": 10716.5,
+        "cogs": 1952.3,
+        "gross_profit": 8764.2,
+        "margin_pct": 81.8
+      },
+      {
+        "product": "[110608] ميني كب كيك الجزر/Carrot Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes",
+        "qty": 2274.0,
+        "revenue": 8720.0,
+        "cogs": 1591.8,
+        "gross_profit": 7128.2,
+        "margin_pct": 81.7
+      },
+      {
+        "product": "[110610] سوفل ميني كب كيك/Souffle Mini Cupcake",
+        "category": "Finished Products / Mini Cupcakes - Premium",
+        "qty": 1603.0,
+        "revenue": 6014.5,
+        "cogs": 1442.7,
+        "gross_profit": 4571.8,
+        "margin_pct": 76.0
+      }
+    ],
+    "this_year": [
+      {
+        "product": "[121264] Confcannon mix ",
+        "category": "All",
+        "qty": 236.0,
+        "revenue": 3347.0,
+        "cogs": 885.0,
+        "gross_profit": 2462.0,
+        "margin_pct": 73.6
+      },
+      {
+        "product": "[110151] ردفلفت ميني جار/Red Velvet Mini Jar",
+        "category": "Finished Products / JAR",
+        "qty": 982.0,
+        "revenue": 12403.0,
+        "cogs": 3437.0,
+        "gross_profit": 8966.0,
+        "margin_pct": 72.3
+      },
+      {
+        "product": "[110153] تشوكليت ميني جار/Chocolate Mini Jar",
+        "category": "Finished Products / JAR",
+        "qty": 1097.0,
+        "revenue": 14011.5,
+        "cogs": 3839.5,
+        "gross_profit": 10172.0,
+        "margin_pct": 72.6
+      },
+      {
+        "product": "[110161] دريم ميني جار/Dream Mini Jar",
+        "category": "Finished Products / JAR",
+        "qty": 863.0,
+        "revenue": 10568.5,
+        "cogs": 3020.5,
+        "gross_profit": 7548.0,
+        "margin_pct": 71.4
+      },
+      {
+        "product": "[110174] Kiri Chocolate Kunafa Jar Cake | كيري كنافة جار كيك",
+        "category": "Finished Products / JAR",
+        "qty": 34.0,
+        "revenue": 489.5,
+        "cogs": 246.5,
+        "gross_profit": 243.0,
+        "margin_pct": 49.6
+      },
+      {
+        "product": "[110175] Red Velvet Jar Cake |ردفلفت جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 494.0,
+        "revenue": 9484.0,
+        "cogs": 3952.0,
+        "gross_profit": 5532.0,
+        "margin_pct": 58.3
+      },
+      {
+        "product": "[110176] Dream Jar Cake |دريم جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 493.0,
+        "revenue": 9442.0,
+        "cogs": 3944.0,
+        "gross_profit": 5498.0,
+        "margin_pct": 58.2
+      },
+      {
+        "product": "[110177] Chocolate Jar Cake |تشوكليت جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 391.0,
+        "revenue": 7430.0,
+        "cogs": 3519.0,
+        "gross_profit": 3911.0,
+        "margin_pct": 52.6
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 108.0,
+        "revenue": 2144.0,
+        "cogs": 972.0,
+        "gross_profit": 1172.0,
+        "margin_pct": 54.7
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 163.0,
+        "revenue": 3078.0,
+        "cogs": 1304.0,
+        "gross_profit": 1774.0,
+        "margin_pct": 57.6
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 105.0,
+        "revenue": 2094.0,
+        "cogs": 945.0,
+        "gross_profit": 1149.0,
+        "margin_pct": 54.9
+      },
+      {
+        "product": "[110201] ردفلفت كيك/Red Velvet Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 250.0,
+        "revenue": 55810.0,
+        "cogs": 14000.0,
+        "gross_profit": 41810.0,
+        "margin_pct": 74.9
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 178.0,
+        "revenue": 42910.0,
+        "cogs": 11534.4,
+        "gross_profit": 31375.6,
+        "margin_pct": 73.1
+      },
+      {
+        "product": "[110213] دريم كيك/Dream Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 215.0,
+        "revenue": 51645.0,
+        "cogs": 12470.0,
+        "gross_profit": 39175.0,
+        "margin_pct": 75.9
+      },
+      {
+        "product": "[110218] ردفلفت كيك/Red Velvet Cake - Large",
+        "category": "Finished Products / Cakes",
+        "qty": 1991.0,
+        "revenue": 325449.0,
+        "cogs": 79640.0,
+        "gross_profit": 245809.0,
+        "margin_pct": 75.5
+      },
+      {
+        "product": "[110219] ردفلفت كيك/ Red Velvet Cake - Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 3755.0,
+        "revenue": 432695.0,
+        "cogs": 82610.0,
+        "gross_profit": 350085.0,
+        "margin_pct": 80.9
+      },
+      {
+        "product": "[110220] دريم كيك كبير/Dream Cake -  Large",
+        "category": "Finished Products / Cakes",
+        "qty": 1550.0,
+        "revenue": 269390.0,
+        "cogs": 66650.0,
+        "gross_profit": 202740.0,
+        "margin_pct": 75.3
+      },
+      {
+        "product": "[110222] تشوكليت كيك /Chocolate Cake - Large",
+        "category": "Finished Products / Cakes",
+        "qty": 1290.0,
+        "revenue": 225338.0,
+        "cogs": 55470.0,
+        "gross_profit": 169868.0,
+        "margin_pct": 75.4
+      },
+      {
+        "product": "[110223] تشوكليت كيك/Chocolate Cake - Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 2410.0,
+        "revenue": 281750.0,
+        "cogs": 57840.0,
+        "gross_profit": 223910.0,
+        "margin_pct": 79.5
+      },
+      {
+        "product": "[110227] يونيكورن كيك/Unicorn Cake",
+        "category": "Finished Products / Cakes",
+        "qty": 104.0,
+        "revenue": 30160.0,
+        "cogs": 4.68,
+        "gross_profit": 30155.32,
+        "margin_pct": 100.0
+      },
+      {
+        "product": "[110256] Pistachio Berry Cake / كيكة الفستق والتوت ",
+        "category": "Finished Products / Cakes",
+        "qty": 51.0,
+        "revenue": 8099.0,
+        "cogs": 2805.0,
+        "gross_profit": 5294.0,
+        "margin_pct": 65.4
+      },
+      {
+        "product": "[110280] كيكة دريم/Dream Cake-  Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 3439.0,
+        "revenue": 400895.0,
+        "cogs": 72219.0,
+        "gross_profit": 328676.0,
+        "margin_pct": 82.0
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "category": "Finished Products / Cakes",
+        "qty": 984.0,
+        "revenue": 62396.0,
+        "cogs": 13284.0,
+        "gross_profit": 49112.0,
+        "margin_pct": 78.7
+      },
+      {
+        "product": "[110354] قطعة سانسباستيان/Sansebastian Cheesecake Slice",
+        "category": "Finished Products / ChesseCake",
+        "qty": 76.0,
+        "revenue": 2332.0,
+        "cogs": 570.0,
+        "gross_profit": 1762.0,
+        "margin_pct": 75.6
+      },
+      {
+        "product": "[110355] قطعة لوتس تشيزكيك/Lotus Cheesecake Slice",
+        "category": "Finished Products / ChesseCake",
+        "qty": 1.0,
+        "revenue": 35.0,
+        "cogs": 7.0,
+        "gross_profit": 28.0,
+        "margin_pct": 80.0
+      },
+      {
+        "product": "[110374] Chocolate Cheesecake 4x4cm ",
+        "category": "Finished Products / ChesseCake",
+        "qty": 478.0,
+        "revenue": 3457.0,
+        "cogs": 1362.3,
+        "gross_profit": 2094.7,
+        "margin_pct": 60.6
+      },
+      {
+        "product": "[110375] Lotus Cheesecake 4x4cm ",
+        "category": "Finished Products / ChesseCake",
+        "qty": 401.0,
+        "revenue": 2884.0,
+        "cogs": 678.89,
+        "gross_profit": 2205.11,
+        "margin_pct": 76.5
+      },
+      {
+        "product": "[110378] Lotus Cheesecake 2 Person",
+        "category": "Finished Products / ChesseCake",
+        "qty": 75.0,
+        "revenue": 2292.0,
+        "cogs": 825.0,
+        "gross_profit": 1467.0,
+        "margin_pct": 64.0
+      },
+      {
+        "product": "[110380] NEW Frosting Mini Blackberry cheesecake/بلاك بيري ميني تشيزكيك",
+        "category": "Finished Products / ChesseCake",
+        "qty": 507.0,
+        "revenue": 3720.5,
+        "cogs": 945.55,
+        "gross_profit": 2774.95,
+        "margin_pct": 74.6
+      },
+      {
+        "product": "[110381] NEW Frosting  Mini blueberry cheesecake/ميني بلوبيري تشيزكيك",
+        "category": "Finished Products / ChesseMini",
+        "qty": 492.0,
+        "revenue": 3728.0,
+        "cogs": 874.78,
+        "gross_profit": 2853.22,
+        "margin_pct": 76.5
+      }
+    ],
+    "all_time": [
+      {
+        "product": "[121264] Confcannon mix ",
+        "category": "All",
+        "qty": 1264.0,
+        "revenue": 17739.0,
+        "cogs": 4740.0,
+        "gross_profit": 12999.0,
+        "margin_pct": 73.3
+      },
+      {
+        "product": "[121265] Helium balloons ",
+        "category": "All",
+        "qty": 96.0,
+        "revenue": 2400.0,
+        "cogs": 1039.68,
+        "gross_profit": 1360.32,
+        "margin_pct": 56.7
+      },
+      {
+        "product": "[110151] ردفلفت ميني جار/Red Velvet Mini Jar",
+        "category": "Finished Products / JAR",
+        "qty": 6347.0,
+        "revenue": 77828.0,
+        "cogs": 22214.5,
+        "gross_profit": 55613.5,
+        "margin_pct": 71.5
+      },
+      {
+        "product": "[110153] تشوكليت ميني جار/Chocolate Mini Jar",
+        "category": "Finished Products / JAR",
+        "qty": 4405.0,
+        "revenue": 54518.5,
+        "cogs": 15417.5,
+        "gross_profit": 39101.0,
+        "margin_pct": 71.7
+      },
+      {
+        "product": "[110161] دريم ميني جار/Dream Mini Jar",
+        "category": "Finished Products / JAR",
+        "qty": 4974.0,
+        "revenue": 59545.5,
+        "cogs": 17409.0,
+        "gross_profit": 42136.5,
+        "margin_pct": 70.8
+      },
+      {
+        "product": "[110174] Kiri Chocolate Kunafa Jar Cake | كيري كنافة جار كيك",
+        "category": "Finished Products / JAR",
+        "qty": 360.0,
+        "revenue": 5197.5,
+        "cogs": 2610.0,
+        "gross_profit": 2587.5,
+        "margin_pct": 49.8
+      },
+      {
+        "product": "[110175] Red Velvet Jar Cake |ردفلفت جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 494.0,
+        "revenue": 9484.0,
+        "cogs": 3952.0,
+        "gross_profit": 5532.0,
+        "margin_pct": 58.3
+      },
+      {
+        "product": "[110176] Dream Jar Cake |دريم جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 493.0,
+        "revenue": 9442.0,
+        "cogs": 3944.0,
+        "gross_profit": 5498.0,
+        "margin_pct": 58.2
+      },
+      {
+        "product": "[110177] Chocolate Jar Cake |تشوكليت جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 391.0,
+        "revenue": 7430.0,
+        "cogs": 3519.0,
+        "gross_profit": 3911.0,
+        "margin_pct": 52.6
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 108.0,
+        "revenue": 2144.0,
+        "cogs": 972.0,
+        "gross_profit": 1172.0,
+        "margin_pct": 54.7
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 163.0,
+        "revenue": 3078.0,
+        "cogs": 1304.0,
+        "gross_profit": 1774.0,
+        "margin_pct": 57.6
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "category": "Finished Products / JAR",
+        "qty": 105.0,
+        "revenue": 2094.0,
+        "cogs": 945.0,
+        "gross_profit": 1149.0,
+        "margin_pct": 54.9
+      },
+      {
+        "product": "[110201] ردفلفت كيك/Red Velvet Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 1085.0,
+        "revenue": 240655.0,
+        "cogs": 60760.0,
+        "gross_profit": 179895.0,
+        "margin_pct": 74.8
+      },
+      {
+        "product": "[110202] لنش كيك لوتس/Lunch Cake Lotus",
+        "category": "Finished Products / Cakes",
+        "qty": 9.0,
+        "revenue": 369.0,
+        "cogs": 63.0,
+        "gross_profit": 306.0,
+        "margin_pct": 82.9
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 646.0,
+        "revenue": 154670.0,
+        "cogs": 41860.8,
+        "gross_profit": 112809.2,
+        "margin_pct": 72.9
+      },
+      {
+        "product": "[110213] دريم كيك/Dream Cake - Mega",
+        "category": "Finished Products / Cakes",
+        "qty": 978.0,
+        "revenue": 233390.0,
+        "cogs": 56724.0,
+        "gross_profit": 176666.0,
+        "margin_pct": 75.7
+      },
+      {
+        "product": "[110218] ردفلفت كيك/Red Velvet Cake - Large",
+        "category": "Finished Products / Cakes",
+        "qty": 5880.0,
+        "revenue": 960456.0,
+        "cogs": 235200.0,
+        "gross_profit": 725256.0,
+        "margin_pct": 75.5
+      },
+      {
+        "product": "[110219] ردفلفت كيك/ Red Velvet Cake - Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 12538.0,
+        "revenue": 1335300.0,
+        "cogs": 275836.0,
+        "gross_profit": 1059464.0,
+        "margin_pct": 79.3
+      },
+      {
+        "product": "[110220] دريم كيك كبير/Dream Cake -  Large",
+        "category": "Finished Products / Cakes",
+        "qty": 4455.0,
+        "revenue": 775999.0,
+        "cogs": 191565.0,
+        "gross_profit": 584434.0,
+        "margin_pct": 75.3
+      },
+      {
+        "product": "[110222] تشوكليت كيك /Chocolate Cake - Large",
+        "category": "Finished Products / Cakes",
+        "qty": 3398.0,
+        "revenue": 593542.0,
+        "cogs": 146114.0,
+        "gross_profit": 447428.0,
+        "margin_pct": 75.4
+      },
+      {
+        "product": "[110223] تشوكليت كيك/Chocolate Cake - Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 6446.0,
+        "revenue": 733209.5,
+        "cogs": 154704.0,
+        "gross_profit": 578505.5,
+        "margin_pct": 78.9
+      },
+      {
+        "product": "[110227] يونيكورن كيك/Unicorn Cake",
+        "category": "Finished Products / Cakes",
+        "qty": 208.0,
+        "revenue": 60320.0,
+        "cogs": 9.36,
+        "gross_profit": 60310.64,
+        "margin_pct": 100.0
+      },
+      {
+        "product": "[110256] Pistachio Berry Cake / كيكة الفستق والتوت ",
+        "category": "Finished Products / Cakes",
+        "qty": 158.0,
+        "revenue": 25482.0,
+        "cogs": 8690.0,
+        "gross_profit": 16792.0,
+        "margin_pct": 65.9
+      },
+      {
+        "product": "[110277] لنش كيك تشوكليت/Lunch Cake Chocolate",
+        "category": "Finished Products / Cakes",
+        "qty": 242.0,
+        "revenue": 10016.1,
+        "cogs": 1674.64,
+        "gross_profit": 8341.46,
+        "margin_pct": 83.3
+      },
+      {
+        "product": "[110279] لنش كيك ردفلفت/Lunch Cake Red Velvet",
+        "category": "Finished Products / Cakes",
+        "qty": 54.0,
+        "revenue": 2238.0,
+        "cogs": 376.92,
+        "gross_profit": 1861.08,
+        "margin_pct": 83.2
+      },
+      {
+        "product": "[110280] كيكة دريم/Dream Cake-  Medium",
+        "category": "Finished Products / Cakes",
+        "qty": 10816.0,
+        "revenue": 1164416.25,
+        "cogs": 227136.0,
+        "gross_profit": 937280.25,
+        "margin_pct": 80.5
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "category": "Finished Products / Cakes",
+        "qty": 3462.0,
+        "revenue": 209088.0,
+        "cogs": 46737.0,
+        "gross_profit": 162351.0,
+        "margin_pct": 77.6
+      },
+      {
+        "product": "[110318] لوتس تشيزكيك/Lotus Cheesecake",
+        "category": "Finished Products / ChesseCake",
+        "qty": 39.0,
+        "revenue": 6981.0,
+        "cogs": 1872.0,
+        "gross_profit": 5109.0,
+        "margin_pct": 73.2
+      },
+      {
+        "product": "[110354] قطعة سانسباستيان/Sansebastian Cheesecake Slice",
+        "category": "Finished Products / ChesseCake",
+        "qty": 1083.0,
+        "revenue": 33977.0,
+        "cogs": 8122.5,
+        "gross_profit": 25854.5,
+        "margin_pct": 76.1
+      },
+      {
+        "product": "[110355] قطعة لوتس تشيزكيك/Lotus Cheesecake Slice",
+        "category": "Finished Products / ChesseCake",
+        "qty": 281.0,
+        "revenue": 8819.0,
+        "cogs": 1967.0,
+        "gross_profit": 6852.0,
+        "margin_pct": 77.7
+      }
+    ]
+  },
+  "purchases": {
+    "total": 2246460.21,
+    "monthly": [
+      {
+        "month": "2025-12",
+        "amount": 151391.11
+      },
+      {
+        "month": "2026-01",
+        "amount": 262178.22
+      },
+      {
+        "month": "2026-02",
+        "amount": 134855.28
+      },
+      {
+        "month": "2026-03",
+        "amount": 316318.99
+      },
+      {
+        "month": "2026-04",
+        "amount": 215898.01
+      },
+      {
+        "month": "2026-05",
+        "amount": 464178.59
+      },
+      {
+        "month": "2026-06",
+        "amount": 475114.07
+      },
+      {
+        "month": "2026-07",
+        "amount": 226525.94
+      }
+    ],
+    "recent": [
+      {
+        "name": "P00647",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 22484.34,
+        "date": "2026-07-19"
+      },
+      {
+        "name": "P00646",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 2987.7,
+        "date": "2026-07-16"
+      },
+      {
+        "name": "P00645",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 26625.5,
+        "date": "2026-07-15"
+      },
+      {
+        "name": "P00644",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 897.0,
+        "date": "2026-07-15"
+      },
+      {
+        "name": "P00643",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 4635.65,
+        "date": "2026-07-14"
+      },
+      {
+        "name": "P00642",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 21039.72,
+        "date": "2026-07-14"
+      },
+      {
+        "name": "P00641",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 31672.84,
+        "date": "2026-07-13"
+      },
+      {
+        "name": "P00640",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 32764.65,
+        "date": "2026-07-10"
+      },
+      {
+        "name": "P00639",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 34965.12,
+        "date": "2026-07-06"
+      },
+      {
+        "name": "P00638",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 34801.19,
+        "date": "2026-07-04"
+      },
+      {
+        "name": "P00637",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 12265.33,
+        "date": "2026-07-03"
+      },
+      {
+        "name": "P00636",
+        "supplier": "Wahet Alkhabaz Trd. Est. مؤسسة واحة الخباز التجارية",
+        "amount": 1386.9,
+        "date": "2026-07-02"
+      },
+      {
+        "name": "P00633",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 34822.23,
+        "date": "2026-06-29"
+      },
+      {
+        "name": "P00634",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 37404.67,
+        "date": "2026-06-29"
+      },
+      {
+        "name": "P00632",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 27234.65,
+        "date": "2026-06-29"
+      },
+      {
+        "name": "P00631",
+        "supplier": "Afrah Child Toys Store Co. /Confcannon mix",
+        "amount": 3328.01,
+        "date": "2026-06-29"
+      },
+      {
+        "name": "P00630",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 2346.0,
+        "date": "2026-06-27"
+      },
+      {
+        "name": "P00629",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 30892.45,
+        "date": "2026-06-25"
+      },
+      {
+        "name": "P00628",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 42880.63,
+        "date": "2026-06-24"
+      },
+      {
+        "name": "P00627",
+        "supplier": "Munch Bakery Food Industry Co. Ltd. شركة مخابز منش الالية لصناعة الاغذية المحدودة",
+        "amount": 26345.24,
+        "date": "2026-06-22"
+      }
+    ]
+  },
+  "stock": {
+    "DEF/Stock": [
+      {
+        "product": "[110607] بلوفلفت  كب كيك/Blue Velvet Mini Cupcake",
+        "qty": 553.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110620] ميني دريم كيك/Dream Mini Cupcake",
+        "qty": 654.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110601] ردفلفت ميني كب كيك/Red Velvet Mini Cupcake",
+        "qty": 539.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110603] فانيلا ميني كب كيك/Vanilla Mini Cupcake",
+        "qty": 881.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121030] شمعة رقم9/Number 9 Silver / Gold",
+        "qty": 65.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121238] بالون/Ballon chrome silver",
+        "qty": 66.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121025] شمعة رقم /Number 4 Silver / Gold",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121026] شمعة رقم5/Number 5 Silver / Gold",
+        "qty": 51.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121027] شمعة رقم 6/Number 6 Silver / Gold",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121028] شمعة رقم 7/Number 7 Silver / Gold",
+        "qty": 63.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121029] /8شمعة رقمNumber 8 Silver / Gold",
+        "qty": 56.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121265] Helium balloons ",
+        "qty": 235.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720209] Red Velvet Thin Sheet Cake ",
+        "qty": 312.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710277] Cream Cheese BAG 10K",
+        "qty": 90.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710311] Munch Fondant",
+        "qty": 225.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121021] شمعة رقم0/Number 0 Silver / Gold",
+        "qty": 72.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710279] Butter Frosting Cream BOG 10K",
+        "qty": 66.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124244] Pastry cream for Tart-  250 GRAM ",
+        "qty": 25.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122162] حلوى كوب كاندي/Paw patrol Collectable Sweets 7g",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121024] شمعة رقم 3Number 3 Silver / Gold",
+        "qty": 37.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720212] Strawberry Thin Sheet Cake",
+        "qty": 27.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720213] Blue Velvet Thin Sheet Cake",
+        "qty": 24.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720214] Chocolate Thin Sheet Cake",
+        "qty": 63.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720211] Vanilla Thin Sheet Cake",
+        "qty": 39.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710278] Chocolate Frosting Cream BAG 10K",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710151] Gum Paste",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121249] تغريسة اكريلك/ Acrylic topper ",
+        "qty": 49.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112603] Dream Mini Pushup Cake /ميني بوش أب دريم كيك",
+        "qty": 76.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112605] Chocolate Mini Pushup/تشوكليت ميني بوش اب",
+        "qty": 87.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112602] Red Velvet Mini Pushup/ رد فلفت ميني بوش أب",
+        "qty": 129.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121208] شمعة ذهبية/Candle Golden 6pcs",
+        "qty": 53.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720215] Carrot thin sheet cake",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124234] Mango Puree 500 GRAM ",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114072] Chocolate Comic Cake Medium | كوميك كيك شوكولاته",
+        "qty": 18.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110619] بربل فلفت ميني كب كيك/Purple Velvet Mini Cupcake",
+        "qty": 830.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124256] Vanilla Pastry Cream for Tart - 250 GRAM NEW",
+        "qty": 29.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121023] شمعة رقم 2Number 2 Silver / Gold",
+        "qty": 61.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121296] تغريسة الحب/I Love You Red",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124203] Munch Fondant White 5 KG ",
+        "qty": 80.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121290] شمعة ذهبية/Candle Gold / White, Candle Silver / White",
+        "qty": 43.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121294] تغريسة حروف/HBD Color letter",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121298] Star Candleشمعة نجوم/",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121299] شمعة قلب/Heart Candle",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116004] Blue Velvet Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116002] Chocolate Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 62.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116003] Vanilla Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 31.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116025] Cream Cheese Frosting  BAG 10 Kg ",
+        "qty": 30.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116024] Butter Frosting Cream BAG 10 Kg ",
+        "qty": 29.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116001] Red Velvet Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 96.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116005] Strawberry Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110504] منش ميلت/Munch Melt",
+        "qty": 440.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116026] Chocolate Frosting Cream BAG 10 Kg ",
+        "qty": 3.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110410] سوفل كب كيك/Souffle Cupcake",
+        "qty": 104.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110420] دريم كب كيك/Dream Cupcake",
+        "qty": 176.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110401] ردفلفت كب كيك/ Red Velvet Cupcake",
+        "qty": 108.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110408] كب كيك الجزر/Carrot Cupcake",
+        "qty": 188.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114108] كيكة الدبدوب/Teddy Bear Character Cake",
+        "qty": 31.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114142] NEW Gender Reveal Medium Strawberry | كيكة الكشف عن المولود - فراولة - وسط",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114153] New Choco Velvet Cake",
+        "qty": 22.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116006] Carrot Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110616] نوتيلا ميني كب كيك/Nutella Maltesers Mini Cupcake",
+        "qty": 772.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110691] Hazelnut Truffle Mini Cupcake  |ميني كب كيك ترافل بالبندق ",
+        "qty": 551.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114145] Pina Colada Cake - Large |كيكة بينا كولادا -  كبير ",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114146] Pina Colada Cake - Medium|كيكة بينا كولادا - وسط ",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121293] تغريسة حروف/HBD topper",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110606] كب كيك الفراولة/Strawberry Mini Cupcake",
+        "qty": 844.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110610] سوفل ميني كب كيك/Souffle Mini Cupcake",
+        "qty": 764.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122149] حلوى هيلوكاتي/Hello Kitty TIJ-HK Star Bag with candy 40g",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122148] حلوى هيلوكاتي/Hello Kitty TIJ-HK Hand Bag With Candy 40g",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122169] Hello Kitty Sticker Dispenser w/candy 19g|هيلوكاتي ستيكر ",
+        "qty": 7.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110693] Snicker mini cupcake |ميني كب كيك سنيكرز ",
+        "qty": 716.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112524] Date Loaf |لوف بالتمر  ",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112525] Banana Loaf|لوف بالموز  ",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112526] Lemon Loaf|لوف بالليمون  ",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110608] ميني كب كيك الجزر/Carrot Mini Cupcake",
+        "qty": 703.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110688] Chocolate Salted Caramel  Mini cupcake |ميني كب كيك شوكولاتة بالكراميل المملح   ",
+        "qty": 495.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110175] Red Velvet Jar Cake |ردفلفت جار كيك  ",
+        "qty": 20.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "qty": 37.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110176] Dream Jar Cake |دريم جار كيك  ",
+        "qty": 17.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114143] NEW Gender Reveal Medium Blue | كيكة الكشف عن المولود - ازرق - وسط",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114144] Lemon Berry Cake medium | كيكة الليمون والبلوبيري - وسط ",
+        "qty": 21.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110280] كيكة دريم/Dream Cake-  Medium",
+        "qty": 47.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110220] دريم كيك كبير/Dream Cake -  Large",
+        "qty": 49.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114154] Carrot pecan cake|كيكة الجزر بالبيكان ",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121022] /شمعة رقم 1Number 1 Silver Gold",
+        "qty": 60.0,
+        "reserved": 0.0
+      }
+    ],
+    "MAR/Stock": [
+      {
+        "product": "[110603] فانيلا ميني كب كيك/Vanilla Mini Cupcake",
+        "qty": 717.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110408] كب كيك الجزر/Carrot Cupcake",
+        "qty": 220.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121029] /8شمعة رقمNumber 8 Silver / Gold",
+        "qty": 131.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121238] بالون/Ballon chrome silver",
+        "qty": 460.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121021] شمعة رقم0/Number 0 Silver / Gold",
+        "qty": 68.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121025] شمعة رقم /Number 4 Silver / Gold",
+        "qty": 48.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121027] شمعة رقم 6/Number 6 Silver / Gold",
+        "qty": 27.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121028] شمعة رقم 7/Number 7 Silver / Gold",
+        "qty": 87.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121030] شمعة رقم9/Number 9 Silver / Gold",
+        "qty": 95.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121265] Helium balloons ",
+        "qty": 168.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710277] Cream Cheese BAG 10K",
+        "qty": 1069.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710279] Butter Frosting Cream BOG 10K",
+        "qty": 1356.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710311] Munch Fondant",
+        "qty": 1791.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720213] Blue Velvet Thin Sheet Cake",
+        "qty": 107.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720209] Red Velvet Thin Sheet Cake ",
+        "qty": 360.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720211] Vanilla Thin Sheet Cake",
+        "qty": 168.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720212] Strawberry Thin Sheet Cake",
+        "qty": 96.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720214] Chocolate Thin Sheet Cake",
+        "qty": 288.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710278] Chocolate Frosting Cream BAG 10K",
+        "qty": 150.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112384] New Year cake 2025",
+        "qty": 45.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124244] Pastry cream for Tart-  250 GRAM ",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710151] Gum Paste",
+        "qty": 40.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121024] شمعة رقم 3Number 3 Silver / Gold",
+        "qty": 49.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110153] تشوكليت ميني جار/Chocolate Mini Jar",
+        "qty": 47.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121026] شمعة رقم5/Number 5 Silver / Gold",
+        "qty": 76.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121208] شمعة ذهبية/Candle Golden 6pcs",
+        "qty": 29.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110607] بلوفلفت  كب كيك/Blue Velvet Mini Cupcake",
+        "qty": 761.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110619] بربل فلفت ميني كب كيك/Purple Velvet Mini Cupcake",
+        "qty": 652.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110606] كب كيك الفراولة/Strawberry Mini Cupcake",
+        "qty": 646.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110608] ميني كب كيك الجزر/Carrot Mini Cupcake",
+        "qty": 720.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112602] Red Velvet Mini Pushup/ رد فلفت ميني بوش أب",
+        "qty": 173.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112605] Chocolate Mini Pushup/تشوكليت ميني بوش اب",
+        "qty": 189.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124256] Vanilla Pastry Cream for Tart - 250 GRAM NEW",
+        "qty": 40.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124234] Mango Puree 500 GRAM ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720215] Carrot thin sheet cake",
+        "qty": 28.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "qty": 14.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121023] شمعة رقم 2Number 2 Silver / Gold",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124203] Munch Fondant White 5 KG ",
+        "qty": 654.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121290] شمعة ذهبية/Candle Gold / White, Candle Silver / White",
+        "qty": 27.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121269] كشف المولود/Gender Reveal Prop big",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122151] حلوى هيلوكاتي/Hello Kitty TIJ-Super Surp. Egg with candy 10g",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116001] Red Velvet Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 164.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116005] Strawberry Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 43.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116004] Blue Velvet Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 69.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116002] Chocolate Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 113.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116025] Cream Cheese Frosting  BAG 10 Kg ",
+        "qty": 222.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116026] Chocolate Frosting Cream BAG 10 Kg ",
+        "qty": 23.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116024] Butter Frosting Cream BAG 10 Kg ",
+        "qty": 292.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116003] Vanilla Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 79.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121296] تغريسة الحب/I Love You Red",
+        "qty": 20.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112603] Dream Mini Pushup Cake /ميني بوش أب دريم كيك",
+        "qty": 152.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110504] منش ميلت/Munch Melt",
+        "qty": 138.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110601] ردفلفت ميني كب كيك/Red Velvet Mini Cupcake",
+        "qty": 381.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110610] سوفل ميني كب كيك/Souffle Mini Cupcake",
+        "qty": 704.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110616] نوتيلا ميني كب كيك/Nutella Maltesers Mini Cupcake",
+        "qty": 510.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110620] ميني دريم كيك/Dream Mini Cupcake",
+        "qty": 587.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114153] New Choco Velvet Cake",
+        "qty": 43.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110401] ردفلفت كب كيك/ Red Velvet Cupcake",
+        "qty": 185.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110410] سوفل كب كيك/Souffle Cupcake",
+        "qty": 134.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114072] Chocolate Comic Cake Medium | كوميك كيك شوكولاته",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121249] تغريسة اكريلك/ Acrylic topper ",
+        "qty": 101.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121294] تغريسة حروف/HBD Color letter",
+        "qty": 21.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121295] تغريسة حروف/HBD Gold letter",
+        "qty": 18.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121298] Star Candleشمعة نجوم/",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116006] Carrot Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 17.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114154] Carrot pecan cake|كيكة الجزر بالبيكان ",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110693] Snicker mini cupcake |ميني كب كيك سنيكرز ",
+        "qty": 528.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114146] Pina Colada Cake - Medium|كيكة بينا كولادا - وسط ",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114145] Pina Colada Cake - Large |كيكة بينا كولادا -  كبير ",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121293] تغريسة حروف/HBD topper",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121299] شمعة قلب/Heart Candle",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110691] Hazelnut Truffle Mini Cupcake  |ميني كب كيك ترافل بالبندق ",
+        "qty": 661.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112524] Date Loaf |لوف بالتمر  ",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112525] Banana Loaf|لوف بالموز  ",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "qty": 69.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114141] NEW La Mumu cake - green| لامومو كيك - اخضر",
+        "qty": 33.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122148] حلوى هيلوكاتي/Hello Kitty TIJ-HK Hand Bag With Candy 40g",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122149] حلوى هيلوكاتي/Hello Kitty TIJ-HK Star Bag with candy 40g",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122162] حلوى كوب كاندي/Paw patrol Collectable Sweets 7g",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122166] حلوى كوب كاندي/PawPatrol Sticker Stamper w/Candy 6g",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110175] Red Velvet Jar Cake |ردفلفت جار كيك  ",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110688] Chocolate Salted Caramel  Mini cupcake |ميني كب كيك شوكولاتة بالكراميل المملح   ",
+        "qty": 590.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110280] كيكة دريم/Dream Cake-  Medium",
+        "qty": 34.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114143] NEW Gender Reveal Medium Blue | كيكة الكشف عن المولود - ازرق - وسط",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "qty": 42.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114142] NEW Gender Reveal Medium Strawberry | كيكة الكشف عن المولود - فراولة - وسط",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112832] Lunch Cake Red Velvet 2026|ردفلفت لنش كيك ",
+        "qty": 144.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112386] ريبون كيك/ Ribbon Character Cake – One person",
+        "qty": 77.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112526] Lemon Loaf|لوف بالليمون  ",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "qty": 23.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112835] Create My Cake | اصنع كيكتي",
+        "qty": 26.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121022] /شمعة رقم 1Number 1 Silver Gold",
+        "qty": 31.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112831] Lunch Cake Strawberry 2026|فراولة لنش كيك",
+        "qty": 79.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114108] كيكة الدبدوب/Teddy Bear Character Cake",
+        "qty": 52.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114042] كوميك كيك/ ردفلفتComic Cake Round Red Velvet",
+        "qty": 22.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110420] دريم كب كيك/Dream Cupcake",
+        "qty": 265.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112833] Lunch Cake Chocolate 2026|تشوكليت لنش كيك ",
+        "qty": 105.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114005] كيكة فانيلا/Vanilla Cake - Medium",
+        "qty": 24.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114140] NEW Ribbon Cake  - white - Medium|كيكة الفيونكة - وسط - ابيض",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110690] Coffee Cookies Mini Cupcake |ميني كب كيك كوكيز بالقهوة  ",
+        "qty": 1132.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110220] دريم كيك كبير/Dream Cake -  Large",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110223] تشوكليت كيك/Chocolate Cake - Medium",
+        "qty": 60.0,
+        "reserved": 0.0
+      }
+    ],
+    "AJA/Stock": [
+      {
+        "product": "[110603] فانيلا ميني كب كيك/Vanilla Mini Cupcake",
+        "qty": 491.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110420] دريم كب كيك/Dream Cupcake",
+        "qty": 264.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121238] بالون/Ballon chrome silver",
+        "qty": 567.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110408] كب كيك الجزر/Carrot Cupcake",
+        "qty": 75.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121021] شمعة رقم0/Number 0 Silver / Gold",
+        "qty": 49.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121027] شمعة رقم 6/Number 6 Silver / Gold",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121029] /8شمعة رقمNumber 8 Silver / Gold",
+        "qty": 28.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121265] Helium balloons ",
+        "qty": 97.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121249] تغريسة اكريلك/ Acrylic topper ",
+        "qty": 22.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710277] Cream Cheese BAG 10K",
+        "qty": 48.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710311] Munch Fondant",
+        "qty": 69.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110504] منش ميلت/Munch Melt",
+        "qty": 274.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710279] Butter Frosting Cream BOG 10K",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112384] New Year cake 2025",
+        "qty": 25.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710278] Chocolate Frosting Cream BAG 10K",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720212] Strawberry Thin Sheet Cake",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720213] Blue Velvet Thin Sheet Cake",
+        "qty": 3.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720214] Chocolate Thin Sheet Cake",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720211] Vanilla Thin Sheet Cake",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720209] Red Velvet Thin Sheet Cake ",
+        "qty": 17.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110410] سوفل كب كيك/Souffle Cupcake",
+        "qty": 267.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710151] Gum Paste",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124244] Pastry cream for Tart-  250 GRAM ",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121024] شمعة رقم 3Number 3 Silver / Gold",
+        "qty": 59.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121028] شمعة رقم 7/Number 7 Silver / Gold",
+        "qty": 27.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110610] سوفل ميني كب كيك/Souffle Mini Cupcake",
+        "qty": 636.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110606] كب كيك الفراولة/Strawberry Mini Cupcake",
+        "qty": 621.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110608] ميني كب كيك الجزر/Carrot Mini Cupcake",
+        "qty": 475.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110620] ميني دريم كيك/Dream Mini Cupcake",
+        "qty": 873.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112602] Red Velvet Mini Pushup/ رد فلفت ميني بوش أب",
+        "qty": 192.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112603] Dream Mini Pushup Cake /ميني بوش أب دريم كيك",
+        "qty": 134.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112605] Chocolate Mini Pushup/تشوكليت ميني بوش اب",
+        "qty": 131.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121026] شمعة رقم5/Number 5 Silver / Gold",
+        "qty": 30.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124234] Mango Puree 500 GRAM ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124256] Vanilla Pastry Cream for Tart - 250 GRAM NEW",
+        "qty": 7.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110619] بربل فلفت ميني كب كيك/Purple Velvet Mini Cupcake",
+        "qty": 655.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121025] شمعة رقم /Number 4 Silver / Gold",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121269] كشف المولود/Gender Reveal Prop big",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124203] Munch Fondant White 5 KG ",
+        "qty": 46.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116002] Chocolate Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116025] Cream Cheese Frosting  BAG 10 Kg ",
+        "qty": 19.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121023] شمعة رقم 2Number 2 Silver / Gold",
+        "qty": 27.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110616] نوتيلا ميني كب كيك/Nutella Maltesers Mini Cupcake",
+        "qty": 566.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114143] NEW Gender Reveal Medium Blue | كيكة الكشف عن المولود - ازرق - وسط",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114153] New Choco Velvet Cake",
+        "qty": 29.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110401] ردفلفت كب كيك/ Red Velvet Cupcake",
+        "qty": 230.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116006] Carrot Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 3.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114072] Chocolate Comic Cake Medium | كوميك كيك شوكولاته",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110693] Snicker mini cupcake |ميني كب كيك سنيكرز ",
+        "qty": 639.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114146] Pina Colada Cake - Medium|كيكة بينا كولادا - وسط ",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114145] Pina Colada Cake - Large |كيكة بينا كولادا -  كبير ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110688] Chocolate Salted Caramel  Mini cupcake |ميني كب كيك شوكولاتة بالكراميل المملح   ",
+        "qty": 380.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112524] Date Loaf |لوف بالتمر  ",
+        "qty": 7.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112525] Banana Loaf|لوف بالموز  ",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114141] NEW La Mumu cake - green| لامومو كيك - اخضر",
+        "qty": 25.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122148] حلوى هيلوكاتي/Hello Kitty TIJ-HK Hand Bag With Candy 40g",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122149] حلوى هيلوكاتي/Hello Kitty TIJ-HK Star Bag with candy 40g",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122151] حلوى هيلوكاتي/Hello Kitty TIJ-Super Surp. Egg with candy 10g",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122169] Hello Kitty Sticker Dispenser w/candy 19g|هيلوكاتي ستيكر ",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122162] حلوى كوب كاندي/Paw patrol Collectable Sweets 7g",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122172] Paw Patrol Twist Turn Pop w/candy 33g|هيلوكاتي باترو تويست ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110280] كيكة دريم/Dream Cake-  Medium",
+        "qty": 54.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "qty": 31.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112526] Lemon Loaf|لوف بالليمون  ",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114142] NEW Gender Reveal Medium Strawberry | كيكة الكشف عن المولود - فراولة - وسط",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114108] كيكة الدبدوب/Teddy Bear Character Cake",
+        "qty": 40.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "qty": 37.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "qty": 33.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110222] تشوكليت كيك /Chocolate Cake - Large",
+        "qty": 36.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110691] Hazelnut Truffle Mini Cupcake  |ميني كب كيك ترافل بالبندق ",
+        "qty": 533.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121022] /شمعة رقم 1Number 1 Silver Gold",
+        "qty": 32.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112832] Lunch Cake Red Velvet 2026|ردفلفت لنش كيك ",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114144] Lemon Berry Cake medium | كيكة الليمون والبلوبيري - وسط ",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112831] Lunch Cake Strawberry 2026|فراولة لنش كيك",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110177] Chocolate Jar Cake |تشوكليت جار كيك  ",
+        "qty": 17.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110690] Coffee Cookies Mini Cupcake |ميني كب كيك كوكيز بالقهوة  ",
+        "qty": 621.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114140] NEW Ribbon Cake  - white - Medium|كيكة الفيونكة - وسط - ابيض",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114147] Lemon Berry cake Large | كيكة الليمون والبلوبيري - كبير",
+        "qty": 12.0,
+        "reserved": 0.0
+      }
+    ],
+    "HAM/Stock": [
+      {
+        "product": "[121238] بالون/Ballon chrome silver",
+        "qty": 48.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121021] شمعة رقم0/Number 0 Silver / Gold",
+        "qty": 52.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121025] شمعة رقم /Number 4 Silver / Gold",
+        "qty": 20.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121028] شمعة رقم 7/Number 7 Silver / Gold",
+        "qty": 46.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121029] /8شمعة رقمNumber 8 Silver / Gold",
+        "qty": 33.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121030] شمعة رقم9/Number 9 Silver / Gold",
+        "qty": 33.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110504] منش ميلت/Munch Melt",
+        "qty": 203.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121265] Helium balloons ",
+        "qty": 704.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121249] تغريسة اكريلك/ Acrylic topper ",
+        "qty": 59.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110603] فانيلا ميني كب كيك/Vanilla Mini Cupcake",
+        "qty": 192.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110408] كب كيك الجزر/Carrot Cupcake",
+        "qty": 189.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110401] ردفلفت كب كيك/ Red Velvet Cupcake",
+        "qty": 127.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710277] Cream Cheese BAG 10K",
+        "qty": 126.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710311] Munch Fondant",
+        "qty": 59.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112384] New Year cake 2025",
+        "qty": 25.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124244] Pastry cream for Tart-  250 GRAM ",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110153] تشوكليت ميني جار/Chocolate Mini Jar",
+        "qty": 40.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121026] شمعة رقم5/Number 5 Silver / Gold",
+        "qty": 34.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110608] ميني كب كيك الجزر/Carrot Mini Cupcake",
+        "qty": 497.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710279] Butter Frosting Cream BOG 10K",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720214] Chocolate Thin Sheet Cake",
+        "qty": 3.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112602] Red Velvet Mini Pushup/ رد فلفت ميني بوش أب",
+        "qty": 273.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112605] Chocolate Mini Pushup/تشوكليت ميني بوش اب",
+        "qty": 131.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124234] Mango Puree 500 GRAM ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124256] Vanilla Pastry Cream for Tart - 250 GRAM NEW",
+        "qty": 32.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122166] حلوى كوب كاندي/PawPatrol Sticker Stamper w/Candy 6g",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121024] شمعة رقم 3Number 3 Silver / Gold",
+        "qty": 65.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124203] Munch Fondant White 5 KG ",
+        "qty": 93.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116025] Cream Cheese Frosting  BAG 10 Kg ",
+        "qty": 165.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110619] بربل فلفت ميني كب كيك/Purple Velvet Mini Cupcake",
+        "qty": 431.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110420] دريم كب كيك/Dream Cupcake",
+        "qty": 98.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110606] كب كيك الفراولة/Strawberry Mini Cupcake",
+        "qty": 339.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121269] كشف المولود/Gender Reveal Prop big",
+        "qty": 17.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114153] New Choco Velvet Cake",
+        "qty": 34.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112603] Dream Mini Pushup Cake /ميني بوش أب دريم كيك",
+        "qty": 104.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114154] Carrot pecan cake|كيكة الجزر بالبيكان ",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110610] سوفل ميني كب كيك/Souffle Mini Cupcake",
+        "qty": 416.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116001] Red Velvet Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 18.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116002] Chocolate Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 36.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116005] Strawberry Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116004] Blue Velvet Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116024] Butter Frosting Cream BAG 10 Kg ",
+        "qty": 60.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110693] Snicker mini cupcake |ميني كب كيك سنيكرز ",
+        "qty": 533.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112524] Date Loaf |لوف بالتمر  ",
+        "qty": 7.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112525] Banana Loaf|لوف بالموز  ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122148] حلوى هيلوكاتي/Hello Kitty TIJ-HK Hand Bag With Candy 40g",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122149] حلوى هيلوكاتي/Hello Kitty TIJ-HK Star Bag with candy 40g",
+        "qty": 7.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122169] Hello Kitty Sticker Dispenser w/candy 19g|هيلوكاتي ستيكر ",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122171] Hello Kitty Candy Container w/candy 14g|هيلوكاتي كونتينر ",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122172] Paw Patrol Twist Turn Pop w/candy 33g|هيلوكاتي باترو تويست ",
+        "qty": 3.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "qty": 26.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110620] ميني دريم كيك/Dream Mini Cupcake",
+        "qty": 340.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110691] Hazelnut Truffle Mini Cupcake  |ميني كب كيك ترافل بالبندق ",
+        "qty": 560.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "qty": 48.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "qty": 22.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112526] Lemon Loaf|لوف بالليمون  ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110687] Chocolate Fudge|ميني كب كيك تشوكليت فدج ",
+        "qty": 517.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121022] /شمعة رقم 1Number 1 Silver Gold",
+        "qty": 33.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121023] شمعة رقم 2Number 2 Silver / Gold",
+        "qty": 42.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121208] شمعة ذهبية/Candle Golden 6pcs",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110177] Chocolate Jar Cake |تشوكليت جار كيك  ",
+        "qty": 17.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112832] Lunch Cake Red Velvet 2026|ردفلفت لنش كيك ",
+        "qty": 59.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114108] كيكة الدبدوب/Teddy Bear Character Cake",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110690] Coffee Cookies Mini Cupcake |ميني كب كيك كوكيز بالقهوة  ",
+        "qty": 270.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110410] سوفل كب كيك/Souffle Cupcake",
+        "qty": 110.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110227] يونيكورن كيك/Unicorn Cake",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "qty": 3.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116026] Chocolate Frosting Cream BAG 10 Kg ",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116003] Vanilla Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116006] Carrot Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 3.0,
+        "reserved": 0.0
+      }
+    ],
+    "WAZ/Stock": [
+      {
+        "product": "[121238] بالون/Ballon chrome silver",
+        "qty": 281.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110408] كب كيك الجزر/Carrot Cupcake",
+        "qty": 203.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110603] فانيلا ميني كب كيك/Vanilla Mini Cupcake",
+        "qty": 563.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121021] شمعة رقم0/Number 0 Silver / Gold",
+        "qty": 32.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121022] /شمعة رقم 1Number 1 Silver Gold",
+        "qty": 101.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121026] شمعة رقم5/Number 5 Silver / Gold",
+        "qty": 34.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121028] شمعة رقم 7/Number 7 Silver / Gold",
+        "qty": 28.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121029] /8شمعة رقمNumber 8 Silver / Gold",
+        "qty": 63.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121030] شمعة رقم9/Number 9 Silver / Gold",
+        "qty": 29.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121264] Confcannon mix ",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121265] Helium balloons ",
+        "qty": 140.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121249] تغريسة اكريلك/ Acrylic topper ",
+        "qty": 56.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710277] Cream Cheese BAG 10K",
+        "qty": 40.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710311] Munch Fondant",
+        "qty": 25.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110504] منش ميلت/Munch Melt",
+        "qty": 137.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[710279] Butter Frosting Cream BOG 10K",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124244] Pastry cream for Tart-  250 GRAM ",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110153] تشوكليت ميني جار/Chocolate Mini Jar",
+        "qty": 7.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121024] شمعة رقم 3Number 3 Silver / Gold",
+        "qty": 63.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121025] شمعة رقم /Number 4 Silver / Gold",
+        "qty": 24.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121208] شمعة ذهبية/Candle Golden 6pcs",
+        "qty": 43.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121027] شمعة رقم 6/Number 6 Silver / Gold",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[720214] Chocolate Thin Sheet Cake",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110610] سوفل ميني كب كيك/Souffle Mini Cupcake",
+        "qty": 533.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110616] نوتيلا ميني كب كيك/Nutella Maltesers Mini Cupcake",
+        "qty": 314.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110606] كب كيك الفراولة/Strawberry Mini Cupcake",
+        "qty": 552.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110401] ردفلفت كب كيك/ Red Velvet Cupcake",
+        "qty": 112.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110608] ميني كب كيك الجزر/Carrot Mini Cupcake",
+        "qty": 661.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112602] Red Velvet Mini Pushup/ رد فلفت ميني بوش أب",
+        "qty": 125.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112605] Chocolate Mini Pushup/تشوكليت ميني بوش اب",
+        "qty": 72.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110410] سوفل كب كيك/Souffle Cupcake",
+        "qty": 60.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124234] Mango Puree 500 GRAM ",
+        "qty": 3.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110420] دريم كب كيك/Dream Cupcake",
+        "qty": 109.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124256] Vanilla Pastry Cream for Tart - 250 GRAM NEW",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121023] شمعة رقم 2Number 2 Silver / Gold",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122151] حلوى هيلوكاتي/Hello Kitty TIJ-Super Surp. Egg with candy 10g",
+        "qty": 17.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110607] بلوفلفت  كب كيك/Blue Velvet Mini Cupcake",
+        "qty": 639.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121269] كشف المولود/Gender Reveal Prop big",
+        "qty": 26.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124203] Munch Fondant White 5 KG ",
+        "qty": 58.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122150] حلوى هيلوكاتي/Hello Kitty TIJ-Gift Set with Candy 10g",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110620] ميني دريم كيك/Dream Mini Cupcake",
+        "qty": 622.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121291] شمعة صغيرة/Small Candle Gold / Silver",
+        "qty": 44.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121212] شمعة فضية/Candles Silver Glitter 6pcs",
+        "qty": 67.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121292] شمعة صغيرة/Spiral Candle Gold / Silver",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121290] شمعة ذهبية/Candle Gold / White, Candle Silver / White",
+        "qty": 67.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110601] ردفلفت ميني كب كيك/Red Velvet Mini Cupcake",
+        "qty": 777.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110227] يونيكورن كيك/Unicorn Cake",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114072] Chocolate Comic Cake Medium | كوميك كيك شوكولاته",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121296] تغريسة الحب/I Love You Red",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121297] شمعة بالون/Ballon Candle",
+        "qty": 14.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121298] Star Candleشمعة نجوم/",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121299] شمعة قلب/Heart Candle",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110220] دريم كيك كبير/Dream Cake -  Large",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121010] 6PCs Flammable",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116025] Cream Cheese Frosting  BAG 10 Kg ",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114154] Carrot pecan cake|كيكة الجزر بالبيكان ",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110693] Snicker mini cupcake |ميني كب كيك سنيكرز ",
+        "qty": 556.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114146] Pina Colada Cake - Medium|كيكة بينا كولادا - وسط ",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112524] Date Loaf |لوف بالتمر  ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112525] Banana Loaf|لوف بالموز  ",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114143] NEW Gender Reveal Medium Blue | كيكة الكشف عن المولود - ازرق - وسط",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110218] ردفلفت كيك/Red Velvet Cake - Large",
+        "qty": 17.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110219] ردفلفت كيك/ Red Velvet Cake - Medium",
+        "qty": 81.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122148] حلوى هيلوكاتي/Hello Kitty TIJ-HK Hand Bag With Candy 40g",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122149] حلوى هيلوكاتي/Hello Kitty TIJ-HK Star Bag with candy 40g",
+        "qty": 12.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122169] Hello Kitty Sticker Dispenser w/candy 19g|هيلوكاتي ستيكر ",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122171] Hello Kitty Candy Container w/candy 14g|هيلوكاتي كونتينر ",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122166] حلوى كوب كاندي/PawPatrol Sticker Stamper w/Candy 6g",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122172] Paw Patrol Twist Turn Pop w/candy 33g|هيلوكاتي باترو تويست ",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121213] شمعة وردي/Candles pink Glitter 6pcs",
+        "qty": 29.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110280] كيكة دريم/Dream Cake-  Medium",
+        "qty": 86.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112832] Lunch Cake Red Velvet 2026|ردفلفت لنش كيك ",
+        "qty": 73.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110175] Red Velvet Jar Cake |ردفلفت جار كيك  ",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "qty": 20.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110292] يونيكورن كيك/Unicorn Red Velvet",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110688] Chocolate Salted Caramel  Mini cupcake |ميني كب كيك شوكولاتة بالكراميل المملح   ",
+        "qty": 605.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114042] كوميك كيك/ ردفلفتComic Cake Round Red Velvet",
+        "qty": 23.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114142] NEW Gender Reveal Medium Strawberry | كيكة الكشف عن المولود - فراولة - وسط",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110691] Hazelnut Truffle Mini Cupcake  |ميني كب كيك ترافل بالبندق ",
+        "qty": 352.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114141] NEW La Mumu cake - green| لامومو كيك - اخضر",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114108] كيكة الدبدوب/Teddy Bear Character Cake",
+        "qty": 31.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112386] ريبون كيك/ Ribbon Character Cake – One person",
+        "qty": 16.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110176] Dream Jar Cake |دريم جار كيك  ",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112526] Lemon Loaf|لوف بالليمون  ",
+        "qty": 6.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112603] Dream Mini Pushup Cake /ميني بوش أب دريم كيك",
+        "qty": 68.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116002] Chocolate Thin Sheet Cake (1 CARTON = 3 PCS)",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112831] Lunch Cake Strawberry 2026|فراولة لنش كيك",
+        "qty": 59.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114147] Lemon Berry cake Large | كيكة الليمون والبلوبيري - كبير",
+        "qty": 3.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110692] Chocolate Ganache Mini Cupcake|ميني كب كيك شوكولاتة بجاناش ",
+        "qty": 765.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110177] Chocolate Jar Cake |تشوكليت جار كيك  ",
+        "qty": 31.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110687] Chocolate Fudge|ميني كب كيك تشوكليت فدج ",
+        "qty": 57.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110223] تشوكليت كيك/Chocolate Cake - Medium",
+        "qty": 58.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112833] Lunch Cake Chocolate 2026|تشوكليت لنش كيك ",
+        "qty": 43.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114140] NEW Ribbon Cake  - white - Medium|كيكة الفيونكة - وسط - ابيض",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112835] Create My Cake | اصنع كيكتي",
+        "qty": 28.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110213] دريم كيك/Dream Cake - Mega",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110201] ردفلفت كيك/Red Velvet Cake - Mega",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "qty": 6.0,
+        "reserved": 0.0
+      }
+    ],
+    "Safa/Stock": [
+      {
+        "product": "[110608] ميني كب كيك الجزر/Carrot Mini Cupcake",
+        "qty": 79.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110619] بربل فلفت ميني كب كيك/Purple Velvet Mini Cupcake",
+        "qty": 287.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110603] فانيلا ميني كب كيك/Vanilla Mini Cupcake",
+        "qty": 154.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110606] كب كيك الفراولة/Strawberry Mini Cupcake",
+        "qty": 266.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110408] كب كيك الجزر/Carrot Cupcake",
+        "qty": 29.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110401] ردفلفت كب كيك/ Red Velvet Cupcake",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110504] منش ميلت/Munch Melt",
+        "qty": 211.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110420] دريم كب كيك/Dream Cupcake",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121249] تغريسة اكريلك/ Acrylic topper ",
+        "qty": 46.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121023] شمعة رقم 2Number 2 Silver / Gold",
+        "qty": 32.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121028] شمعة رقم 7/Number 7 Silver / Gold",
+        "qty": 26.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121208] شمعة ذهبية/Candle Golden 6pcs",
+        "qty": 73.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124256] Vanilla Pastry Cream for Tart - 250 GRAM NEW",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[116025] Cream Cheese Frosting  BAG 10 Kg ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112602] Red Velvet Mini Pushup/ رد فلفت ميني بوش أب",
+        "qty": 36.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112605] Chocolate Mini Pushup/تشوكليت ميني بوش اب",
+        "qty": 30.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[124203] Munch Fondant White 5 KG ",
+        "qty": 7.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121021] شمعة رقم0/Number 0 Silver / Gold",
+        "qty": 36.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121024] شمعة رقم 3Number 3 Silver / Gold",
+        "qty": 64.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121025] شمعة رقم /Number 4 Silver / Gold",
+        "qty": 24.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121026] شمعة رقم5/Number 5 Silver / Gold",
+        "qty": 50.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121027] شمعة رقم 6/Number 6 Silver / Gold",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121029] /8شمعة رقمNumber 8 Silver / Gold",
+        "qty": 38.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121030] شمعة رقم9/Number 9 Silver / Gold",
+        "qty": 47.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122151] حلوى هيلوكاتي/Hello Kitty TIJ-Super Surp. Egg with candy 10g",
+        "qty": 14.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122166] حلوى كوب كاندي/PawPatrol Sticker Stamper w/Candy 6g",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122174] Paw Patrol Water Shooter w/candy 20g|هيلوكاتي شوتر ",
+        "qty": 1.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121296] تغريسة الحب/I Love You Red",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121291] شمعة صغيرة/Small Candle Gold / Silver",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121269] كشف المولود/Gender Reveal Prop big",
+        "qty": 18.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121294] تغريسة حروف/HBD Color letter",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110693] Snicker mini cupcake |ميني كب كيك سنيكرز ",
+        "qty": 331.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114145] Pina Colada Cake - Large |كيكة بينا كولادا -  كبير ",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112524] Date Loaf |لوف بالتمر  ",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110616] نوتيلا ميني كب كيك/Nutella Maltesers Mini Cupcake",
+        "qty": 200.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110610] سوفل ميني كب كيك/Souffle Mini Cupcake",
+        "qty": 381.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122148] حلوى هيلوكاتي/Hello Kitty TIJ-HK Hand Bag With Candy 40g",
+        "qty": 8.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122149] حلوى هيلوكاتي/Hello Kitty TIJ-HK Star Bag with candy 40g",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122169] Hello Kitty Sticker Dispenser w/candy 19g|هيلوكاتي ستيكر ",
+        "qty": 10.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[122172] Paw Patrol Twist Turn Pop w/candy 33g|هيلوكاتي باترو تويست ",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110181] Strawberry Jar|فراولة جار كيك  ",
+        "qty": 13.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112526] Lemon Loaf|لوف بالليمون  ",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110688] Chocolate Salted Caramel  Mini cupcake |ميني كب كيك شوكولاتة بالكراميل المملح   ",
+        "qty": 207.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110691] Hazelnut Truffle Mini Cupcake  |ميني كب كيك ترافل بالبندق ",
+        "qty": 310.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114146] Pina Colada Cake - Medium|كيكة بينا كولادا - وسط ",
+        "qty": 9.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121264] Confcannon mix ",
+        "qty": 5.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110607] بلوفلفت  كب كيك/Blue Velvet Mini Cupcake",
+        "qty": 149.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110620] ميني دريم كيك/Dream Mini Cupcake",
+        "qty": 264.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114142] NEW Gender Reveal Medium Strawberry | كيكة الكشف عن المولود - فراولة - وسط",
+        "qty": 7.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110179] Pina Colada Jar Cake |بيناكولادا جار كيك  ",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[114072] Chocolate Comic Cake Medium | كوميك كيك شوكولاته",
+        "qty": 2.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110687] Chocolate Fudge|ميني كب كيك تشوكليت فدج ",
+        "qty": 271.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121022] /شمعة رقم 1Number 1 Silver Gold",
+        "qty": 43.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110180] Tiramisu Jar|تراميسيو جار كيك  ",
+        "qty": 15.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[121212] شمعة فضية/Candles Silver Glitter 6pcs",
+        "qty": 38.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112525] Banana Loaf|لوف بالموز  ",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[112832] Lunch Cake Red Velvet 2026|ردفلفت لنش كيك ",
+        "qty": 11.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110207] تشوكليت كيك/Chocolate Cake - Mega",
+        "qty": 4.0,
+        "reserved": 0.0
+      },
+      {
+        "product": "[110601] ردفلفت ميني كب كيك/Red Velvet Mini Cupcake",
+        "qty": 109.0,
+        "reserved": 0.0
+      }
+    ]
+  }
+}
