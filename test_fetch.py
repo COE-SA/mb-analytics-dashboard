@@ -42,6 +42,43 @@ class FetchHelpersTest(unittest.TestCase):
         self.assertEqual(result["accounts"][0]["classification"], "direct_cost")
         self.assertEqual(result["accounts"][1]["classification"], "operating_expense")
 
+    def test_rolling_sales_metrics_compares_complete_windows(self) -> None:
+        daily = [
+            {"day": f"2026-06-{(index % 30) + 1:02d}", "revenue": 100 + index, "orders": 10}
+            for index in range(56)
+        ]
+        result = fetch.rolling_sales_metrics(daily)
+        self.assertEqual(len(result["series"]), 56)
+        self.assertIsNotNone(result["series"][-1]["avg_28_revenue"])
+        self.assertIsNotNone(result["last_7_vs_prior_7"]["revenue_change_pct"])
+        self.assertIsNotNone(result["last_28_vs_prior_28"]["revenue_change_pct"])
+        self.assertIsNotNone(result["revenue_acceleration_pp"])
+
+    def test_direct_pos_customer_is_not_classified_as_platform(self) -> None:
+        self.assertIsNone(fetch.aggregator_name("POS Customer (POSZ) ***"))
+        self.assertEqual(fetch.aggregator_name("Keeta(POSZ) ***"), "Keeta")
+
+    def test_channel_portfolio_adds_direct_residual_and_concentration(self) -> None:
+        result = fetch.channel_portfolio(
+            {"Platform A": {"revenue": 300, "orders": 3}, "Platform B": {"revenue": 200, "orders": 4}},
+            {"revenue": 1_000, "orders": 20},
+        )
+        self.assertEqual(result["platform_share_pct"], 50.0)
+        self.assertEqual(result["rows"][0]["channel"], "نقاط البيع المباشرة")
+        self.assertEqual(result["rows"][0]["revenue"], 500)
+        self.assertEqual(result["top_3_share_pct"], 100.0)
+
+    def test_product_portfolio_flags_missing_standard_cost(self) -> None:
+        result = fetch.product_portfolio(
+            [
+                {"product": "A", "category": "Cake", "qty": 2, "revenue": 200, "cogs": 100, "gross_profit": 100},
+                {"product": "B", "category": "Service", "qty": 1, "revenue": 50, "cogs": 0, "gross_profit": 50},
+            ]
+        )
+        self.assertEqual(result["cost_gap_count"], 1)
+        self.assertEqual(result["cost_coverage_pct"], 50.0)
+        self.assertEqual(len(result["categories"]), 2)
+
     def test_month_forecast_uses_actual_number_of_days(self) -> None:
         daily = [
             {"day": "2026-04-01", "revenue": 100, "orders": 2},
@@ -77,7 +114,7 @@ class FetchHelpersTest(unittest.TestCase):
 
     def test_complete_snapshot_passes_release_validation(self) -> None:
         snapshot = {
-            "meta": {"schema_version": 7, "generated_at_iso": "2026-07-21T06:00:00+03:00"},
+            "meta": {"schema_version": 8, "generated_at_iso": "2026-07-21T06:00:00+03:00"},
             "data_health": {"status": "ok", "daily_sales": {"expected_days": 60}},
             "daily_sales": [{"day": f"2026-06-{(index % 30) + 1:02d}"} for index in range(60)],
             "monthly_sales_all": [{"month": "2026-07"}, {"month": "2026-06"}],
@@ -90,6 +127,16 @@ class FetchHelpersTest(unittest.TestCase):
                 "operating_expense": 25,
                 "total": 125,
                 "accounts": [{"account": "مواد خام", "amount": 100}],
+            },
+            "decision_center": {
+                "rolling_sales": {"series": [{"day": "2026-06-01"} for _ in range(60)]},
+                "demand_timing": {"weekday_hour": [{"weekday": day, "hour": hour} for day in range(7) for hour in range(24)]},
+                "channels": {"rows": [{"channel": "POS", "revenue": 100}]},
+                "branches": [{"branch": "A", "revenue": 100}],
+                "payments": {"rows": [{"method": "Cash", "amount": 100}]},
+                "products": {"rows": [{"product": "A", "revenue": 100}], "cost_coverage_pct": 100},
+                "expenses": {"accounts": [{"account": "مواد خام", "amount": 100}]},
+                "profitability": {"weighted_margin_pct": 20},
             },
         }
         with tempfile.TemporaryDirectory() as directory:

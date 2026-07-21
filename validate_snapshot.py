@@ -28,9 +28,10 @@ def main(path: str) -> int:
     daily = data.get("daily_sales", [])
     monthly = data.get("monthly_sales_all", [])
     expense_breakdown = data.get("expense_breakdown")
+    decision_center = data.get("decision_center")
 
-    if int(meta.get("schema_version", 0)) < 7:
-        fail(errors, "schema_version must be 7 or newer")
+    if int(meta.get("schema_version", 0)) < 8:
+        fail(errors, "schema_version must be 8 or newer")
     if not meta.get("generated_at_iso"):
         fail(errors, "missing generated_at_iso metadata")
     if health.get("status") != "ok":
@@ -56,6 +57,37 @@ def main(path: str) -> int:
         total = float(expense_breakdown.get("total", 0) or 0)
         if round(direct_cost + operating_expense - total, 2) != 0:
             fail(errors, "expense_breakdown total does not reconcile")
+
+    if not isinstance(decision_center, dict):
+        fail(errors, "missing decision_center")
+    else:
+        rolling = (decision_center.get("rolling_sales") or {}).get("series") or []
+        heatmap = (decision_center.get("demand_timing") or {}).get("weekday_hour") or []
+        if len(rolling) < 55:
+            fail(errors, f"decision_center rolling series contains only {len(rolling)} rows")
+        if len(heatmap) != 168:
+            fail(errors, f"decision_center heatmap must contain 168 cells, got {len(heatmap)}")
+        for key in ("channels", "branches", "payments", "products", "expenses", "profitability"):
+            if key not in decision_center:
+                fail(errors, f"decision_center is missing {key}")
+        channel_rows = (decision_center.get("channels") or {}).get("rows") or []
+        branch_rows = decision_center.get("branches") or []
+        payment_rows = (decision_center.get("payments") or {}).get("rows") or []
+        product_rows = (decision_center.get("products") or {}).get("rows") or []
+        expense_rows = (decision_center.get("expenses") or {}).get("accounts") or []
+        if not channel_rows:
+            fail(errors, "decision_center channels are empty")
+        if not branch_rows:
+            fail(errors, "decision_center branches are empty")
+        if not payment_rows:
+            fail(errors, "decision_center payments are empty")
+        if not product_rows:
+            fail(errors, "decision_center products are empty")
+        if not expense_rows:
+            fail(errors, "decision_center expense accounts are empty")
+        cost_coverage = float((decision_center.get("products") or {}).get("cost_coverage_pct", 0) or 0)
+        if cost_coverage < 80:
+            warnings.append(f"product standard-cost coverage is only {cost_coverage:.1f}%")
 
     branches = data.get("branches", {})
     if not branches.get("all_time"):

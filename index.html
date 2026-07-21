@@ -140,6 +140,53 @@
   .decision-value { color:var(--text); font-size:16px; font-weight:700; }
   .decision-note { color:var(--muted); font-size:11px; margin-top:4px; }
 
+  /* ── Decision center ── */
+  .decision-page-hero { display:grid; grid-template-columns:minmax(0, 1.55fr) minmax(260px, .75fr); gap:18px; align-items:stretch; margin-bottom:18px; }
+  .decision-page-copy { position:relative; overflow:hidden; min-height:210px; padding:clamp(22px, 4vw, 38px); border-radius:18px; background:linear-gradient(132deg, #173f3b 0%, #1f5a53 52%, #b77b2e 160%); color:#fff; box-shadow:0 18px 40px rgba(23,63,59,.18); }
+  .decision-page-copy::after { content:''; position:absolute; width:220px; height:220px; border-radius:50%; inset:auto -62px -104px auto; border:42px solid rgba(255,255,255,.07); }
+  .decision-eyebrow { display:inline-flex; align-items:center; gap:7px; padding:5px 10px; border:1px solid rgba(255,255,255,.22); border-radius:999px; background:rgba(255,255,255,.09); font-size:11px; font-weight:700; }
+  .decision-page-copy h1 { max-width:650px; margin:18px 0 10px; font-size:clamp(26px, 4vw, 46px); line-height:1.12; letter-spacing:-.025em; }
+  .decision-page-copy p { max-width:670px; color:rgba(255,255,255,.78); line-height:1.8; }
+  .decision-page-meta { display:flex; gap:8px; flex-wrap:wrap; margin-top:20px; }
+  .decision-page-meta span { padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.1); font-size:11px; }
+  .decision-scorecard { display:grid; grid-template-columns:1fr; gap:10px; }
+  .decision-score { min-width:0; padding:15px; border:1px solid var(--border); border-radius:14px; background:var(--surface); box-shadow:var(--shadow); }
+  .decision-score-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .decision-score-label { color:var(--muted); font-size:11px; }
+  .decision-score-value { margin-top:8px; font-size:25px; font-weight:800; color:var(--text); }
+  .decision-score-note { margin-top:5px; color:var(--muted); font-size:11px; line-height:1.55; }
+  .status-dot { width:9px; height:9px; margin-top:3px; border-radius:50%; background:var(--green); box-shadow:0 0 0 5px rgba(22,132,83,.1); flex:0 0 auto; }
+  .status-dot.warn { background:var(--orange); box-shadow:0 0 0 5px rgba(198,98,18,.1); }
+  .decision-section { margin:26px 0 10px; }
+  .decision-section-head { display:flex; align-items:end; justify-content:space-between; gap:12px; margin-bottom:12px; }
+  .decision-section-title { font-size:17px; font-weight:800; color:var(--text); }
+  .decision-section-copy { max-width:640px; color:var(--muted); font-size:11px; line-height:1.6; }
+  .decision-kpis { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:12px; margin-bottom:16px; }
+  .decision-kpi { padding:14px; border:1px solid var(--border); border-radius:12px; background:var(--surface); box-shadow:0 8px 20px rgba(74,56,31,.05); }
+  .decision-kpi-label { color:var(--muted); font-size:11px; }
+  .decision-kpi-value { margin-top:7px; color:var(--gold2); font-size:22px; font-weight:800; }
+  .decision-kpi-note { margin-top:4px; color:var(--muted); font-size:10px; line-height:1.5; }
+  .decision-grid-2 { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; }
+  .decision-note-card { padding:14px; border:1px solid rgba(44,110,173,.22); border-right:4px solid var(--blue); border-radius:12px; background:#f7fbff; color:var(--muted); font-size:11px; line-height:1.7; }
+  .decision-note-card strong { color:var(--text); }
+  .quality-list { display:grid; gap:8px; }
+  .quality-item { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:var(--surface); }
+  .quality-item strong { font-size:12px; }
+  .quality-item small { display:block; margin-top:3px; color:var(--muted); line-height:1.55; }
+  .heatmap-shell { overflow-x:auto; padding-bottom:4px; }
+  .heatmap-grid { display:grid; grid-template-columns:82px repeat(24, minmax(25px, 1fr)); min-width:790px; gap:3px; align-items:stretch; }
+  .heatmap-label, .heatmap-hour { display:flex; align-items:center; justify-content:center; min-height:28px; color:var(--muted); font-size:9px; }
+  .heatmap-label { justify-content:flex-start; font-size:10px; font-weight:700; color:var(--text); }
+  .heatmap-cell { min-height:28px; border-radius:5px; display:flex; align-items:center; justify-content:center; color:transparent; font-size:8px; transition:transform .16s ease, outline-color .16s ease; outline:1px solid transparent; }
+  .heatmap-cell:hover { transform:scale(1.12); outline-color:rgba(45,41,35,.22); color:#fff; z-index:2; }
+  .decision-table td:first-child { font-weight:700; }
+  .meter { width:100%; min-width:90px; height:7px; overflow:hidden; border-radius:999px; background:var(--surface2); }
+  .meter > span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--teal), var(--gold)); }
+  .decision-alerts { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:10px; }
+  .decision-alert { padding:13px; border:1px solid var(--border); border-radius:11px; background:var(--surface); }
+  .decision-alert strong { display:block; color:var(--text); font-size:12px; margin-bottom:5px; }
+  .decision-alert span { color:var(--muted); font-size:11px; line-height:1.6; }
+
   /* ── Comparison block ── */
   .compare-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
   .compare-card {
@@ -223,12 +270,15 @@
     .last-update { text-align:left; }
     .charts-grid { grid-template-columns: 1fr; }
     .chart-wrap.tall { height:280px; }
+    .decision-page-hero { grid-template-columns:1fr; }
+    .decision-scorecard { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .decision-kpis { grid-template-columns:repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 600px) {
     body { font-size:13px; }
     header { gap:10px; padding:11px 14px; }
-    .logo { gap:6px; flex:1 1 auto; }
-    .logo span { max-width:150px; }
+    .logo { gap:6px; flex:1 1 auto; overflow:visible; }
+    .logo span { max-width:none; overflow:visible; text-overflow:clip; font-size:16px; }
     .logo small { display:none; }
     .header-right { flex:0 1 128px; max-width:128px; }
     .last-update { font-size:10px; line-height:1.35; }
@@ -261,6 +311,10 @@
     .chart-wrap.tall { height:250px; }
     .section-title { margin-top:18px; }
     .branch-grid, .app-grid { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .decision-page-copy { min-height:0; padding:22px 18px; }
+    .decision-page-copy h1 { font-size:28px; }
+    .decision-scorecard, .decision-kpis, .decision-grid-2 { grid-template-columns:1fr; }
+    .decision-section-head { align-items:flex-start; flex-direction:column; gap:4px; }
     .table-wrap { margin-left:-14px; margin-right:-14px; padding:0 14px; }
     table { font-size:12px; }
     th, td { padding:8px; }
@@ -289,6 +343,7 @@
 
 <nav>
   <button class="nav-btn active" onclick="showPage('overview',this)">📊 نظرة عامة</button>
+  <button class="nav-btn" onclick="showPage('decision',this)">🧭 مركز القرار</button>
   <button class="nav-btn" onclick="showPage('compare',this)">📈 المقارنات والتوقعات</button>
   <button class="nav-btn" onclick="showPage('branches',this)">🏪 الفروع</button>
   <button class="nav-btn" onclick="showPage('apps',this)">📱 التطبيقات</button>
@@ -335,6 +390,86 @@
       <div class="chart-wrap"><canvas id="chartHourly"></canvas></div>
     </div>
   </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: DECISION CENTER                                                     -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-decision" class="page">
+  <section class="decision-page-hero">
+    <div class="decision-page-copy">
+      <span class="decision-eyebrow">مبني على الفترات المكتملة · بدون بيانات فردية</span>
+      <h1>مركز القرار</h1>
+      <p>يربط حركة المبيعات بمصدرها التشغيلي: الحجم، متوسط السلة، القنوات، الفروع، المنتجات، المدفوعات والمصروفات. المؤشرات التي تحتاج تكلفة مخصصة أو بيانات عميل تظهر كحدود واضحة بدلاً من استنتاجات مضللة.</p>
+      <div class="decision-page-meta"><span id="decision-as-of">حتى —</span><span>توقيت السعودية</span><span>لقطة عامة مجمعة</span></div>
+    </div>
+    <div class="decision-scorecard" id="decision-scorecard"></div>
+  </section>
+
+  <section class="decision-section">
+    <div class="decision-section-head"><div><div class="decision-section-title">جودة النمو</div><div class="decision-section-copy">آخر 7 و28 يوماً مكتملة مع تفكيك الحركة بين الإيراد والطلبات ومتوسط السلة.</div></div></div>
+    <div class="decision-kpis" id="decision-growth-kpis"></div>
+    <div class="decision-grid-2">
+      <div class="chart-card"><div class="chart-title">الإيراد اليومي ومتوسطا 7 و28 يوماً</div><div class="chart-wrap tall"><canvas id="chartDecisionRolling"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">جودة النمو — الإيراد والطلبات وAOV</div><div class="chart-wrap tall"><canvas id="chartDecisionGrowthMix"></canvas></div></div>
+    </div>
+  </section>
+
+  <section class="decision-section">
+    <div class="decision-section-head"><div><div class="decision-section-title">متى يحدث الطلب؟</div><div class="decision-section-copy">خريطة حرارية لثمانية أسابيع مكتملة بتوقيت السعودية، مع نسبة مساهمة نافذة الذروة.</div></div></div>
+    <div class="decision-kpis" id="decision-demand-kpis"></div>
+    <div class="chart-card full"><div class="chart-title">يوم الأسبوع × الساعة — كثافة الإيراد</div><div class="heatmap-shell"><div class="heatmap-grid" id="decision-heatmap"></div></div></div>
+  </section>
+
+  <section class="decision-section">
+    <div class="decision-section-head"><div><div class="decision-section-title">القنوات والفروع</div><div class="decision-section-copy">توضح أين يأتي الإيراد وكيف يختلف متوسط السلة، من دون تسمية الإيراد ربحاً صافياً.</div></div></div>
+    <div class="decision-grid-2">
+      <div class="chart-card"><div class="chart-title">مزيج القنوات — الشهر المكتمل حتى أمس</div><div class="chart-wrap"><canvas id="chartDecisionChannels"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">خريطة الفروع: الطلبات × AOV</div><div class="chart-wrap"><canvas id="chartDecisionBranches"></canvas></div></div>
+    </div>
+    <div class="decision-grid-2">
+      <div class="table-wrap"><table id="decisionChannelTable" class="decision-table"></table></div>
+      <div class="table-wrap"><table id="decisionBranchTable" class="decision-table"></table></div>
+    </div>
+    <div class="decision-note-card"><strong>حدود القراءة:</strong> القنوات لا تشمل رسوم المنصات والخصومات والمرتجعات، والفروع لا تشمل التكاليف المخصصة؛ لذلك تعرض الصفحة جودة المبيعات والمزيج فقط.</div>
+  </section>
+
+  <section class="decision-section">
+    <div class="decision-section-head"><div><div class="decision-section-title">محفظة المنتجات</div><div class="decision-section-copy">مصفوفة الإيراد والهامش المعياري، مع Pareto وجودة تغطية تكلفة المنتج.</div></div></div>
+    <div class="decision-kpis" id="decision-product-kpis"></div>
+    <div class="decision-grid-2">
+      <div class="chart-card"><div class="chart-title">الإيراد × الهامش المعياري</div><div class="chart-wrap tall"><canvas id="chartDecisionProducts"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">الإيراد حسب فئة المنتج</div><div class="chart-wrap tall"><canvas id="chartDecisionCategories"></canvas></div></div>
+    </div>
+    <div class="table-wrap"><table id="decisionProductTable" class="decision-table"></table></div>
+  </section>
+
+  <section class="decision-section">
+    <div class="decision-section-head"><div><div class="decision-section-title">المدفوعات والرقابة النقدية</div><div class="decision-section-copy">مزيج وسائل الدفع وحصة النقد. AOV هنا هو مبلغ الوسيلة لكل عملية دفع، وليس بالضرورة قيمة الطلب عند الدفع المختلط.</div></div></div>
+    <div class="decision-grid-2">
+      <div class="chart-card"><div class="chart-title">مزيج وسائل الدفع</div><div class="chart-wrap"><canvas id="chartDecisionPayments"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">قيمة وسيلة الدفع لكل عملية</div><div class="chart-wrap"><canvas id="chartDecisionPaymentAov"></canvas></div></div>
+    </div>
+    <div class="table-wrap"><table id="decisionPaymentTable" class="decision-table"></table></div>
+  </section>
+
+  <section class="decision-section">
+    <div class="decision-section-head"><div><div class="decision-section-title">الربحية والمصروفات</div><div class="decision-section-copy">اتجاه الهامش، نسبة المصروفات إلى الإيراد، وتركيز حسابات المصروفات على آخر 12 شهراً.</div></div></div>
+    <div class="decision-kpis" id="decision-profit-kpis"></div>
+    <div class="decision-grid-2">
+      <div class="chart-card"><div class="chart-title">هامش النتيجة التشغيلية شهرياً</div><div class="chart-wrap tall"><canvas id="chartDecisionMargin"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Pareto حسابات المصروفات</div><div class="chart-wrap tall"><canvas id="chartDecisionExpensePareto"></canvas></div></div>
+    </div>
+    <div class="table-wrap"><table id="decisionExpenseTable" class="decision-table"></table></div>
+  </section>
+
+  <section class="decision-section">
+    <div class="decision-section-head"><div><div class="decision-section-title">جودة البيانات وحدود القرار</div><div class="decision-section-copy">تعرض الصفحة ما هو صالح للاستخدام الآن وما يحتاج حقولاً إضافية قبل تحويله إلى قرار مالي.</div></div></div>
+    <div class="decision-grid-2">
+      <div class="quality-list" id="decision-quality"></div>
+      <div class="decision-alerts" id="decision-alerts"></div>
+    </div>
+  </section>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════ -->
@@ -634,7 +769,7 @@ function renderDecisionBrief() {
   const completedDay = dtd.current || {};
   const priorDay = dtd.baseline || {};
   const branches = Object.entries(D.branches?.this_month || {}).sort((a, b) => Number(b[1]?.revenue || 0) - Number(a[1]?.revenue || 0));
-  const apps = Object.entries(D.aggregators?.this_month || {}).sort((a, b) => Number(b[1]?.revenue || 0) - Number(a[1]?.revenue || 0));
+  const apps = Object.entries(D.aggregators?.this_month || {}).filter(([name]) => !/^pos customer$/i.test(String(name).trim())).sort((a, b) => Number(b[1]?.revenue || 0) - Number(a[1]?.revenue || 0));
   const monthForecast = D.monthly_comparison?.forecast_month;
   const completedDayChange = pct(completedDay.revenue, priorDay.revenue);
   const topBranch = branches[0];
@@ -684,9 +819,12 @@ function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
+  const brief = document.getElementById('decisionBrief');
+  if (brief) brief.style.display = id === 'decision' ? 'none' : '';
   btn.classList.add('active');
   const renderers = {
     overview: () => { renderPeriodMetrics(); renderOverviewKPIs(); renderOverviewCharts(); },
+    decision: renderDecisionCenter,
     compare: renderComparePage,
     branches: () => { renderBranchCards(); renderBranchCharts(); },
     apps: renderAppsPage,
@@ -825,6 +963,126 @@ function renderOverviewCharts() {
     [{label:'الإيرادات', data: hr.map(r=>r.revenue),
       backgroundColor:'rgba(26,188,156,.7)', borderColor:'#1abc9c', borderWidth:1}]
   );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DECISION CENTER
+// ══════════════════════════════════════════════════════════════════════════════
+const signedPct = value => value === null || value === undefined ? '—' : `${Number(value) >= 0 ? '+' : ''}${Number(value).toFixed(1)}%`;
+const summaryRows = rows => {
+  const revenue = rows.reduce((sum, item) => sum + Number(item.revenue || 0), 0);
+  const orders = rows.reduce((sum, item) => sum + Number(item.orders || 0), 0);
+  return {revenue, orders, aov: orders ? revenue / orders : 0};
+};
+const compareSummaries = (current, baseline) => ({
+  current, baseline,
+  revenue_change_pct: baseline.revenue ? (current.revenue - baseline.revenue) / baseline.revenue * 100 : null,
+  orders_change_pct: baseline.orders ? (current.orders - baseline.orders) / baseline.orders * 100 : null,
+  aov_change_pct: baseline.aov ? (current.aov - baseline.aov) / baseline.aov * 100 : null,
+});
+function addShares(rows, key, totalOverride=null, absolute=false) {
+  const measure = item => absolute ? Math.abs(Number(item[key] || 0)) : Number(item[key] || 0);
+  const total = totalOverride === null ? rows.reduce((sum,item)=>sum+measure(item),0) : Math.abs(Number(totalOverride || 0));
+  let cumulative = 0;
+  return [...rows].sort((a,b)=>measure(b)-measure(a)).map(item => {
+    const share = total ? measure(item) / total * 100 : 0;
+    cumulative += share;
+    return {...item, share_pct:share, cumulative_share_pct:Math.min(cumulative,100)};
+  });
+}
+function fallbackDecisionCenter() {
+  const daily = [...(D.daily_sales || [])].sort((a,b)=>String(a.day).localeCompare(String(b.day))).filter(item=>String(item.day||'') <= String(D.meta?.last_completed_day||''));
+  const rollingSeries = daily.map((item,index) => {
+    const avg = window => index + 1 >= window ? summaryRows(daily.slice(index-window+1,index+1)).revenue / window : null;
+    return {...item, avg_7_revenue:avg(7), avg_28_revenue:avg(28)};
+  });
+  const seven = compareSummaries(summaryRows(daily.slice(-7)), summaryRows(daily.slice(-14,-7)));
+  const twentyEight = compareSummaries(summaryRows(daily.slice(-28)), summaryRows(daily.slice(-56,-28)));
+  const platforms = D.aggregators?.this_month || {};
+  const monthTotal = D.kpis?.this_month || {revenue:0,orders:0};
+  const platformRows = Object.entries(platforms).filter(([channel])=>!/^pos customer$/i.test(String(channel).trim())).map(([channel,value])=>({channel,channel_type:'platform',revenue:Number(value.revenue||0),orders:Number(value.orders||0),aov:Number(value.orders||0)?Number(value.revenue||0)/Number(value.orders):0}));
+  const platformRevenue = platformRows.reduce((sum,row)=>sum+row.revenue,0);
+  const platformOrders = platformRows.reduce((sum,row)=>sum+row.orders,0);
+  const channels = addShares([...platformRows,{channel:'نقاط البيع المباشرة',channel_type:'direct',revenue:Math.max(0,Number(monthTotal.revenue||0)-platformRevenue),orders:Math.max(0,Number(monthTotal.orders||0)-platformOrders),aov:Math.max(0,Number(monthTotal.orders||0)-platformOrders)?Math.max(0,Number(monthTotal.revenue||0)-platformRevenue)/Math.max(1,Number(monthTotal.orders||0)-platformOrders):0}],'revenue',Number(monthTotal.revenue||0));
+  const branches = addShares(Object.entries(D.branches?.this_month||{}).map(([branch,value])=>({branch,revenue:Number(value.revenue||0),orders:Number(value.orders||0),aov:Number(value.orders||0)?Number(value.revenue||0)/Number(value.orders):0})),'revenue');
+  const paymentRows = addShares((D.payment_methods?.this_month||[]).map(row=>({...row,aov:Number(row.count||0)?Number(row.amount||0)/Number(row.count):0})),'amount');
+  const paymentTotal = paymentRows.reduce((sum,row)=>sum+Number(row.amount||0),0);
+  const cashAmount = paymentRows.filter(row=>/cash|نقد/i.test(String(row.method||''))).reduce((sum,row)=>sum+Number(row.amount||0),0);
+  const productRows = addShares(D.top_products?.last_30d||[],'revenue');
+  const categoriesMap = {};
+  productRows.forEach(row=>{ const name=row.category||'غير محدد'; const current=categoriesMap[name]||{category:name,revenue:0,qty:0,gross_profit:0}; current.revenue+=Number(row.revenue||0); current.qty+=Number(row.qty||0); current.gross_profit+=Number(row.gross_profit||0); categoriesMap[name]=current; });
+  const categories = addShares(Object.values(categoriesMap),'revenue');
+  const costGapCount = productRows.filter(row=>Number(row.cogs||0)<=0 && Number(row.qty||0)>0).length;
+  const expenseRows = addShares(D.expense_breakdown?.accounts||[],'amount',Math.abs(Number(D.expense_breakdown?.total||0)),true);
+  const pl = [...(D.pl_monthly||[])].sort((a,b)=>String(a.month).localeCompare(String(b.month))).slice(-12);
+  const revenue = pl.reduce((sum,row)=>sum+Number(row.revenue||0),0); const expenses = pl.reduce((sum,row)=>sum+Number(row.expenses||0),0); const result = pl.reduce((sum,row)=>sum+Number(row.gross_profit||0),0);
+  const margins = pl.map(row=>Number(row.margin_pct||0)); const avgMargin = margins.length?margins.reduce((a,b)=>a+b,0)/margins.length:0; const volatility=margins.length?Math.sqrt(margins.reduce((sum,value)=>sum+(value-avgMargin)**2,0)/margins.length):0;
+  const fallbackHourly=D.hourly_sales||[]; const fallbackPeakRevenue=fallbackHourly.filter(r=>Number(r.hour)>=17&&Number(r.hour)<=20).reduce((sum,r)=>sum+Number(r.revenue||0),0); const fallbackHourlyRevenue=fallbackHourly.reduce((sum,r)=>sum+Number(r.revenue||0),0);
+  return {
+    as_of:D.meta?.last_completed_day,
+    rolling_sales:{series:rollingSeries,last_7_vs_prior_7:seven,last_28_vs_prior_28:twentyEight,revenue_acceleration_pp:seven.revenue_change_pct!==null&&twentyEight.revenue_change_pct!==null?seven.revenue_change_pct-twentyEight.revenue_change_pct:null},
+    demand_timing:{hourly:fallbackHourly,weekday_hour:[],peak_window:'17:00–20:59',peak_revenue:fallbackPeakRevenue,peak_share_pct:fallbackHourlyRevenue?fallbackPeakRevenue/fallbackHourlyRevenue*100:0},
+    channels:{total_revenue:Number(monthTotal.revenue||0),platform_revenue:platformRevenue,platform_share_pct:Number(monthTotal.revenue||0)?platformRevenue/Number(monthTotal.revenue)*100:0,top_1_share_pct:channels[0]?.share_pct||0,top_3_share_pct:channels.slice(0,3).reduce((sum,row)=>sum+row.share_pct,0),rows:channels},
+    branches,
+    payments:{total:paymentTotal,cash_amount:cashAmount,cash_share_pct:paymentTotal?cashAmount/paymentTotal*100:0,rows:paymentRows},
+    products:{rows:productRows,categories,cost_gap_count:costGapCount,cost_coverage_pct:productRows.length?(productRows.length-costGapCount)/productRows.length*100:0},
+    expenses:{accounts:expenseRows,top_3_share_pct:expenseRows.slice(0,3).reduce((sum,row)=>sum+row.share_pct,0),top_10_share_pct:expenseRows.slice(0,10).reduce((sum,row)=>sum+row.share_pct,0)},
+    profitability:{revenue,expenses,operating_result:result,expense_ratio_pct:revenue?expenses/revenue*100:0,weighted_margin_pct:revenue?result/revenue*100:0,average_monthly_margin_pct:avgMargin,margin_volatility_pp:volatility,negative_months:pl.filter(row=>Number(row.gross_profit||0)<0).map(row=>row.month),series:pl},
+    limitations:{channel_margin:'يعرض الإيراد والمزيج فقط؛ لا تتوفر رسوم المنصات والخصومات والمرتجعات بعد.',branch_profit:'يعرض أداء المبيعات فقط؛ لا تتوفر تكاليف مخصصة لكل فرع بعد.',product_margin:'هامش المنتج تقديري مبني على التكلفة المعيارية الحالية.'},
+  };
+}
+function decisionCenter() {
+  if (D.decision_center) return D.decision_center;
+  if (!D.__decisionFallback) D.__decisionFallback = fallbackDecisionCenter();
+  return D.__decisionFallback;
+}
+function decisionKpi(label,value,note='') { return `<div class="decision-kpi"><div class="decision-kpi-label">${escapeHtml(label)}</div><div class="decision-kpi-value">${escapeHtml(value)}</div><div class="decision-kpi-note">${escapeHtml(note)}</div></div>`; }
+function scoreCard(label,value,note,status='ok') { return `<div class="decision-score"><div class="decision-score-top"><div class="decision-score-label">${escapeHtml(label)}</div><span class="status-dot ${status==='warn'?'warn':''}"></span></div><div class="decision-score-value">${escapeHtml(value)}</div><div class="decision-score-note">${escapeHtml(note)}</div></div>`; }
+function renderDecisionHeatmap(dc) {
+  const target=document.getElementById('decision-heatmap'); if(!target) return;
+  const rows=dc.demand_timing?.weekday_hour||[];
+  if(!rows.length){ target.innerHTML=`<div class="empty-state" style="grid-column:1/-1">سيظهر توزيع يوم الأسبوع × الساعة بعد أول تحديث بالنسخة 8.</div>`; return; }
+  const max=Math.max(...rows.map(row=>Number(row.revenue||0)),1); const byKey=new Map(rows.map(row=>[`${row.weekday}-${row.hour}`,row]));
+  const labels=[...new Map(rows.map(row=>[Number(row.weekday),row.weekday_label||String(row.weekday)])).entries()].sort((a,b)=>a[0]-b[0]);
+  let html='<div class="heatmap-hour"></div>'+Array.from({length:24},(_,hour)=>`<div class="heatmap-hour">${hour}</div>`).join('');
+  labels.forEach(([weekday,label])=>{ html+=`<div class="heatmap-label">${escapeHtml(label)}</div>`; for(let hour=0;hour<24;hour++){ const row=byKey.get(`${weekday}-${hour}`)||{}; const intensity=Math.sqrt(Number(row.revenue||0)/max); const alpha=.06+intensity*.88; html+=`<div class="heatmap-cell" style="background:rgba(23,95,83,${alpha.toFixed(2)})" title="${escapeHtml(label)} ${hour}:00 · ${fmt(row.revenue)} ر.س · ${fmt(row.orders)} طلب">${fmt(row.revenue)}</div>`; } });
+  target.innerHTML=html;
+}
+function renderDecisionTables(dc) {
+  const channels=dc.channels?.rows||[]; const branches=dc.branches||[]; const products=(dc.products?.rows||[]).slice(0,20); const payments=dc.payments?.rows||[]; const expenses=(dc.expenses?.accounts||[]).slice(0,20);
+  document.getElementById('decisionChannelTable').innerHTML=`<thead><tr><th>القناة</th><th>الإيراد</th><th>الطلبات</th><th>AOV</th><th>الحصة</th></tr></thead><tbody>${channels.map(row=>`<tr><td>${escapeHtml(row.channel)}</td><td>${fmt(row.revenue)} ر.س</td><td>${fmt(row.orders)}</td><td>${fmt(row.aov)} ر.س</td><td>${Number(row.share_pct||0).toFixed(1)}%</td></tr>`).join('')}</tbody>`;
+  document.getElementById('decisionBranchTable').innerHTML=`<thead><tr><th>الفرع</th><th>الإيراد</th><th>الطلبات</th><th>AOV</th><th>الحصة</th></tr></thead><tbody>${branches.map(row=>`<tr><td>${escapeHtml(row.branch)}</td><td>${fmt(row.revenue)} ر.س</td><td>${fmt(row.orders)}</td><td>${fmt(row.aov)} ر.س</td><td>${Number(row.share_pct||0).toFixed(1)}%</td></tr>`).join('')}</tbody>`;
+  document.getElementById('decisionProductTable').innerHTML=`<thead><tr><th>المنتج</th><th>الفئة</th><th>الإيراد</th><th>الكمية</th><th>الهامش</th><th>جودة التكلفة</th></tr></thead><tbody>${products.map(row=>`<tr><td>${escapeHtml(row.product)}</td><td>${escapeHtml(row.category)}</td><td>${fmt(row.revenue)} ر.س</td><td>${fmt(row.qty)}</td><td>${Number(row.margin_pct||0).toFixed(1)}%</td><td>${Number(row.cogs||0)>0?'<span class="badge badge-green">متاح</span>':'<span class="badge badge-gold">قيد المراجعة</span>'}</td></tr>`).join('')}</tbody>`;
+  document.getElementById('decisionPaymentTable').innerHTML=`<thead><tr><th>الوسيلة</th><th>المبلغ</th><th>العمليات</th><th>مبلغ/عملية</th><th>الحصة</th></tr></thead><tbody>${payments.map(row=>`<tr><td>${escapeHtml(row.method)}</td><td>${fmt(row.amount)} ر.س</td><td>${fmt(row.count)}</td><td>${fmt(row.aov)} ر.س</td><td>${Number(row.share_pct||0).toFixed(1)}%</td></tr>`).join('')}</tbody>`;
+  document.getElementById('decisionExpenseTable').innerHTML=`<thead><tr><th>الحساب</th><th>التصنيف</th><th>المبلغ</th><th>الحصة</th><th>التراكمي</th></tr></thead><tbody>${expenses.map(row=>`<tr><td>${escapeHtml(row.account)}</td><td>${escapeHtml(row.classification_label)}</td><td>${fmt(row.amount)} ر.س</td><td>${Number(row.share_pct||0).toFixed(1)}%</td><td><div class="meter"><span style="width:${Math.min(100,Number(row.cumulative_share_pct||0))}%"></span></div></td></tr>`).join('')}</tbody>`;
+}
+function renderDecisionCenter() {
+  if(!D) return; const dc=decisionCenter(); const rolling=dc.rolling_sales||{}; const seven=rolling.last_7_vs_prior_7||{}; const twentyEight=rolling.last_28_vs_prior_28||{}; const timing=dc.demand_timing||{}; const products=dc.products||{}; const profit=dc.profitability||{}; const expenses=dc.expenses||{};
+  document.getElementById('decision-as-of').textContent=`حتى ${shortDate(dc.as_of||D.meta?.last_completed_day)}`;
+  const health=D.data_health?.decision_center||{}; const schemaCurrent=Number(D.meta?.schema_version||0)>=8;
+  document.getElementById('decision-scorecard').innerHTML=[scoreCard('جاهزية مركز القرار',schemaCurrent?'جاهز':'بانتظار التحديث',schemaCurrent?'البنية 8 ومقاييسها متاحة':'تعرض الصفحة ما يمكن اشتقاقه مؤقتاً',schemaCurrent?'ok':'warn'),scoreCard('تغطية المبيعات',`${health.rolling_complete_days||rolling.series?.length||0} يوم`,'فترات مكتملة فقط',(health.rolling_complete_days||rolling.series?.length||0)>=55?'ok':'warn'),scoreCard('تغطية تكلفة المنتج',`${Number(products.cost_coverage_pct||0).toFixed(1)}%`,`${products.cost_gap_count||0} منتج يحتاج مراجعة`,Number(products.cost_coverage_pct||0)>=90?'ok':'warn')].join('');
+  document.getElementById('decision-growth-kpis').innerHTML=[decisionKpi('نمو إيراد 7 أيام',signedPct(seven.revenue_change_pct),'مقابل 7 أيام سابقة'),decisionKpi('نمو الطلبات 7 أيام',signedPct(seven.orders_change_pct),'يفصل حجم الطلب عن قيمة السلة'),decisionKpi('تغير AOV 7 أيام',signedPct(seven.aov_change_pct),'متوسط قيمة الطلب'),decisionKpi('تسارع النمو',rolling.revenue_acceleration_pp===null||rolling.revenue_acceleration_pp===undefined?'—':`${signedPct(rolling.revenue_acceleration_pp)} نقطة`, 'فرق زخم 7 أيام عن 28 يوماً')].join('');
+  const series=rolling.series||[];
+  mkChart('chartDecisionRolling','bar',series.map(row=>row.day),[{label:'الإيراد اليومي',data:series.map(row=>row.revenue),backgroundColor:'rgba(165,101,23,.35)',borderColor:'#a56517',borderWidth:1,order:3},{label:'متوسط 7 أيام',data:series.map(row=>row.avg_7_revenue),type:'line',borderColor:'#168453',backgroundColor:'transparent',borderWidth:2,pointRadius:0,order:2},{label:'متوسط 28 يوماً',data:series.map(row=>row.avg_28_revenue),type:'line',borderColor:'#2c6ead',backgroundColor:'transparent',borderWidth:2,pointRadius:0,order:1}]);
+  mkChart('chartDecisionGrowthMix','bar',['الإيراد','الطلبات','AOV'],[{label:'آخر 7 أيام',data:[seven.revenue_change_pct,seven.orders_change_pct,seven.aov_change_pct],backgroundColor:['rgba(22,132,83,.72)','rgba(44,110,173,.72)','rgba(165,101,23,.72)']},{label:'آخر 28 يوماً',data:[twentyEight.revenue_change_pct,twentyEight.orders_change_pct,twentyEight.aov_change_pct],backgroundColor:['rgba(22,132,83,.26)','rgba(44,110,173,.26)','rgba(165,101,23,.26)']}]);
+  const hourly=timing.hourly||[]; const topHour=[...hourly].sort((a,b)=>Number(b.revenue||0)-Number(a.revenue||0))[0];
+  document.getElementById('decision-demand-kpis').innerHTML=[decisionKpi('حصة الذروة',`${Number(timing.peak_share_pct||0).toFixed(1)}%`,timing.peak_window||'17:00–20:59'),decisionKpi('إيراد الذروة',`${fmtK(timing.peak_revenue)} ر.س`,'ثمانية أسابيع مكتملة'),decisionKpi('أعلى ساعة',topHour?`${topHour.hour}:00`:'—',topHour?`${fmt(topHour.revenue)} ر.س · ${fmt(topHour.orders)} طلب`:'لا توجد بيانات'),decisionKpi('حجم Heatmap',`${(timing.weekday_hour||[]).length}/168`,'7 أيام × 24 ساعة')].join('');
+  renderDecisionHeatmap(dc);
+  const channels=dc.channels?.rows||[]; mkChart('chartDecisionChannels','doughnut',channels.map(row=>row.channel),[{label:'الإيراد',data:channels.map(row=>row.revenue),backgroundColor:channels.map((_,index)=>COLORS[index%COLORS.length]),borderWidth:0}],{plugins:{legend:{position:'bottom',labels:{color:'#746b60',font:{size:10}}}}});
+  const branches=dc.branches||[]; mkChart('chartDecisionBranches','bubble',branches.map(row=>row.branch),[{label:'الفروع',data:branches.map((row,index)=>({x:row.orders,y:row.aov,r:Math.max(6,Math.min(25,Math.sqrt(Number(row.revenue||0))/18)),label:row.branch,revenue:row.revenue})),backgroundColor:branches.map((_,index)=>COLORS[index%COLORS.length]+'b8')}],{plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw.label}: ${fmt(ctx.raw.revenue)} ر.س · ${fmt(ctx.raw.x)} طلب · AOV ${fmt(ctx.raw.y)}`}}},scales:{x:{title:{display:true,text:'الطلبات'},ticks:{color:'#746b60'},grid:{color:'#eee6dc'}},y:{title:{display:true,text:'AOV (ر.س)'},ticks:{color:'#746b60'},grid:{color:'#eee6dc'}}}});
+  document.getElementById('decision-product-kpis').innerHTML=[decisionKpi('تغطية التكلفة',`${Number(products.cost_coverage_pct||0).toFixed(1)}%`,'تكلفة معيارية متاحة'),decisionKpi('فجوات التكلفة',`${products.cost_gap_count||0}`,'منتجات بكمية وCOGS غير متاح'),decisionKpi('حصة Top 10',`${(products.rows||[]).slice(0,10).reduce((sum,row)=>sum+Number(row.share_pct||0),0).toFixed(1)}%`,'تركيز الإيراد'),decisionKpi('الفئات الظاهرة',`${(products.categories||[]).length}`,'حسب تصنيف Odoo')].join('');
+  const productRows=(products.rows||[]).slice(0,40); mkChart('chartDecisionProducts','bubble',productRows.map(row=>row.product),[{label:'المنتجات',data:productRows.map((row,index)=>({x:row.revenue,y:row.margin_pct,r:Math.max(5,Math.min(23,Math.sqrt(Number(row.qty||0))*1.7)),label:row.product,qty:row.qty,cogs:row.cogs})),backgroundColor:productRows.map(row=>Number(row.cogs||0)>0?'rgba(22,132,83,.62)':'rgba(198,98,18,.68)')}],{plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw.label}: ${fmt(ctx.raw.x)} ر.س · هامش ${Number(ctx.raw.y||0).toFixed(1)}% · كمية ${fmt(ctx.raw.qty)}`}}},scales:{x:{title:{display:true,text:'الإيراد (ر.س)'},ticks:{color:'#746b60'},grid:{color:'#eee6dc'}},y:{title:{display:true,text:'الهامش المعياري %'},ticks:{color:'#746b60'},grid:{color:'#eee6dc'}}}});
+  const categories=products.categories||[]; mkChart('chartDecisionCategories','bar',categories.map(row=>row.category),[{label:'الإيراد',data:categories.map(row=>row.revenue),backgroundColor:'rgba(44,110,173,.68)'}]);
+  const payments=dc.payments?.rows||[]; mkChart('chartDecisionPayments','doughnut',payments.map(row=>row.method),[{label:'المبلغ',data:payments.map(row=>row.amount),backgroundColor:payments.map((_,index)=>COLORS[index%COLORS.length]),borderWidth:0}],{plugins:{legend:{position:'bottom',labels:{color:'#746b60',font:{size:10}}}}});
+  mkChart('chartDecisionPaymentAov','bar',payments.map(row=>row.method),[{label:'مبلغ/عملية',data:payments.map(row=>row.aov),backgroundColor:'rgba(118,82,168,.68)'}]);
+  document.getElementById('decision-profit-kpis').innerHTML=[decisionKpi('نسبة المصروفات/الإيراد',`${Number(profit.expense_ratio_pct||0).toFixed(1)}%`,'آخر 12 شهراً'),decisionKpi('هامش النتيجة التشغيلية',`${Number(profit.weighted_margin_pct||0).toFixed(1)}%`,'هامش موزون بالإيراد'),decisionKpi('تقلب الهامش',`${Number(profit.margin_volatility_pp||0).toFixed(1)} نقطة`,'الانحراف الشهري'),decisionKpi('أشهر سالبة',`${(profit.negative_months||[]).length}`,(profit.negative_months||[]).join('، ')||'لا توجد')].join('');
+  const pl=profit.series||[]; mkChart('chartDecisionMargin','line',pl.map(row=>row.month),[{label:'الهامش %',data:pl.map(row=>row.margin_pct),borderColor:'#168453',backgroundColor:'rgba(22,132,83,.12)',fill:true,tension:.25,pointRadius:3},{label:'متوسط الفترة',data:pl.map(()=>profit.average_monthly_margin_pct),borderColor:'#c2413b',borderDash:[6,5],pointRadius:0,fill:false}]);
+  const expenseRows=(expenses.accounts||[]).slice(0,15); mkChart('chartDecisionExpensePareto','bar',expenseRows.map(row=>String(row.account||'').slice(0,26)),[{label:'المبلغ',data:expenseRows.map(row=>Math.abs(Number(row.amount||0))),backgroundColor:'rgba(194,65,59,.58)',yAxisID:'y'},{label:'الحصة التراكمية %',data:expenseRows.map(row=>row.cumulative_share_pct),type:'line',borderColor:'#2c6ead',backgroundColor:'transparent',pointRadius:2,yAxisID:'y1'}],{scales:{x:{ticks:{color:'#746b60',font:{size:9},maxRotation:45},grid:{color:'#eee6dc'}},y:{position:'left',ticks:{color:'#746b60'},grid:{color:'#eee6dc'}},y1:{position:'right',min:0,max:100,ticks:{color:'#2c6ead',callback:value=>value+'%'},grid:{drawOnChartArea:false}}}});
+  const quality=[{title:'السلسلة اليومية',value:`${D.data_health?.daily_sales?.expected_days||rolling.series?.length||0} يوم`,note:'الفترات المكتملة متاحة للحساب'},{title:'Heatmap الطلب',value:`${(timing.weekday_hour||[]).length}/168`,note:(timing.weekday_hour||[]).length===168?'التغطية كاملة':'تحتاج تحديث البنية 8'},{title:'تكلفة المنتج',value:`${Number(products.cost_coverage_pct||0).toFixed(1)}%`,note:`${products.cost_gap_count||0} فجوة تكلفة`},{title:'تفصيل المصروفات',value:`${expenses.accounts?.length||0} حساب`,note:'قيود محاسبية مرحّلة'}];
+  document.getElementById('decision-quality').innerHTML=quality.map(item=>`<div class="quality-item"><div><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.note)}</small></div><span class="badge ${/تحتاج|فجوة/.test(item.note)?'badge-gold':'badge-green'}">${escapeHtml(item.value)}</span></div>`).join('');
+  const alerts=[{title:'تركيز القنوات',text:`أكبر قناة تمثل ${Number(dc.channels?.top_1_share_pct||0).toFixed(1)}%، وأكبر 3 قنوات ${Number(dc.channels?.top_3_share_pct||0).toFixed(1)}% من إيراد الفترة.`},{title:'تركيز المصروفات',text:`أكبر 3 حسابات تمثل ${Number(expenses.top_3_share_pct||0).toFixed(1)}%، وأكبر 10 حسابات ${Number(expenses.top_10_share_pct||0).toFixed(1)}%.`},{title:'حد هامش القناة',text:dc.limitations?.channel_margin||'لا تتوفر رسوم المنصات بعد.'},{title:'حد ربحية الفرع',text:dc.limitations?.branch_profit||'لا تتوفر تكاليف فرع مخصصة بعد.'}];
+  document.getElementById('decision-alerts').innerHTML=alerts.map(item=>`<div class="decision-alert"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text)}</span></div>`).join('');
+  renderDecisionTables(dc);
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1279,6 +1537,7 @@ async function init() {
 
     renderOverviewKPIs();
     renderOverviewCharts();
+    renderDecisionCenter();
     renderComparePage();
     renderBranchCards();
     renderBranchCharts();
@@ -1287,6 +1546,12 @@ async function init() {
     renderPLPage();
     renderPaymentsPage();
     renderHistoryPage();
+
+    const requestedPage = new URLSearchParams(window.location.search).get('page');
+    if (requestedPage) {
+      const requestedButton = [...document.querySelectorAll('.nav-btn')].find(button => String(button.getAttribute('onclick') || '').includes(`'${requestedPage}'`));
+      if (requestedButton && document.getElementById('page-' + requestedPage)) showPage(requestedPage, requestedButton);
+    }
   } catch(e) {
     console.error('Failed to load data:', e);
     document.getElementById('lastUpdate').textContent = '⚠️ خطأ في تحميل البيانات';
