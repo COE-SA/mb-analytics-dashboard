@@ -25,6 +25,21 @@ class FetchHelpersTest(unittest.TestCase):
         self.assertEqual(fetch.week_start_sunday(date(2026, 7, 21)), date(2026, 7, 19))
         self.assertEqual(fetch.week_start_sunday(date(2026, 7, 25)), date(2026, 7, 19))
 
+    @patch("fetch.search_count")
+    @patch("fetch.read_group_all")
+    def test_branch_breakdown_keeps_duplicate_unnamed_configs(self, read_group_mock, search_count_mock) -> None:
+        read_group_mock.return_value = [
+            {"config_id": [11, "not used"], "amount_total": 1_000},
+            {"config_id": [22, "not used"], "amount_total": 2_000},
+        ]
+        search_count_mock.side_effect = [10, 20]
+        result = fetch.pos_by_branch()
+        self.assertEqual(len(result), 2)
+        self.assertIn("فرع غير مسمى #11", result)
+        self.assertIn("فرع غير مسمى #22", result)
+        self.assertEqual(sum(item["revenue"] for item in result.values()), 3_000)
+        self.assertEqual(sum(item["orders"] for item in result.values()), 30)
+
     @patch("fetch.read_group_all")
     def test_expense_breakdown_reconciles_direct_and_operating_costs(self, read_group_mock) -> None:
         read_group_mock.side_effect = [

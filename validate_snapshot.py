@@ -94,6 +94,9 @@ def main(path: str) -> int:
         warnings.append("no all-time branch rows were generated")
     if branches.get("all_time") == branches.get("this_month") and branches.get("all_time"):
         warnings.append("all-time branch totals equal current-month totals; inspect source data if unexpected")
+    unnamed_branches = [name for name in (branches.get("all_time") or {}) if str(name).startswith("فرع غير مسمى")]
+    if unnamed_branches:
+        warnings.append(f"{len(unnamed_branches)} POS configurations have no approved branch name")
 
     aggregators = data.get("aggregators", {})
     if aggregators.get("all_time") == aggregators.get("last_30d") and aggregators.get("all_time"):

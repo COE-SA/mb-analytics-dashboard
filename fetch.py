@@ -532,7 +532,11 @@ def pos_by_branch(extra: Iterable[list[Any]] | None = None) -> dict[str, dict[st
     result: dict[str, dict[str, float | int]] = {}
     for group in groups:
         config_id, config_name = many2one(group.get("config_id"), "غير محدد")
-        branch_name = short_branch_name(config_name)
+        branch_name = short_branch_name(config_name).strip()
+        if branch_name.casefold() in {"not used", "not set", "غير مستخدم", "غير محدد"}:
+            branch_name = f"فرع غير مسمى #{config_id or 'unknown'}"
+        if branch_name in result:
+            branch_name = f"{branch_name} #{config_id or 'unknown'}"
         group_domain = domain + [["config_id", "=", config_id]] if config_id else domain + [["config_id", "=", False]]
         result[branch_name] = {
             "revenue": round(number(group.get("amount_total")), 2),
@@ -1027,6 +1031,7 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
                 "rolling_complete_days": len(complete_daily),
                 "heatmap_cells": len(heatmap),
                 "product_cost_coverage_pct": decision_center["products"]["cost_coverage_pct"],
+                "unnamed_branch_count": sum(1 for row in decision_center["branches"] if str(row.get("branch", "")).startswith("فرع غير مسمى")),
             },
         },
         "kpis": {
