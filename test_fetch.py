@@ -42,11 +42,22 @@ class FetchHelpersTest(unittest.TestCase):
 
     @patch("fetch.search_count")
     @patch("fetch.read_group_all")
-    def test_branch_config_4_maps_to_hamadaniyah(self, read_group_mock, search_count_mock) -> None:
-        read_group_mock.return_value = [{"config_id": [4, "not used"], "amount_total": 15_000}]
-        search_count_mock.return_value = 150
+    def test_approved_branch_aliases_override_placeholder_names(self, read_group_mock, search_count_mock) -> None:
+        read_group_mock.return_value = [
+            {"config_id": [4, "not used"], "amount_total": 15_000},
+            {"config_id": [5, "not used"], "amount_total": 10_000},
+            {"config_id": [8, "not used"], "amount_total": 8_000},
+        ]
+        search_count_mock.side_effect = [150, 100, 80]
         result = fetch.pos_by_branch()
-        self.assertEqual(result, {"Hamadaniyah": {"revenue": 15_000.0, "orders": 150}})
+        self.assertEqual(
+            result,
+            {
+                "Hamadaniyah": {"revenue": 15_000.0, "orders": 150},
+                "Marwah": {"revenue": 10_000.0, "orders": 100},
+                "Waziriyah": {"revenue": 8_000.0, "orders": 80},
+            },
+        )
 
     @patch("fetch.read_group_all")
     def test_expense_breakdown_reconciles_direct_and_operating_costs(self, read_group_mock) -> None:

@@ -528,6 +528,8 @@ def pos_monthly_range(start: date, end_exclusive: date) -> list[dict[str, Any]]:
 
 BRANCH_CONFIG_ALIASES = {
     4: "Hamadaniyah",
+    5: "Marwah",
+    8: "Waziriyah",
 }
 
 
