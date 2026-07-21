@@ -1,43 +1,43 @@
 {
   "meta": {
-    "generated_at": "2026-07-21 09:47:56 KSA",
-    "generated_at_iso": "2026-07-21T09:47:56.850103+03:00",
+    "generated_at": "2026-07-21 09:59:40 KSA",
+    "generated_at_iso": "2026-07-21T09:59:40.001937+03:00",
     "today": "2026-07-21",
     "yesterday": "2026-07-20",
     "schema_version": 3
   },
   "kpis": {
     "today": {
-      "revenue": 0,
-      "orders": 0
+      "revenue": 118.0,
+      "orders": 1
     },
     "yesterday": {
       "revenue": 22222.45,
       "orders": 274
     },
     "this_week": {
-      "revenue": 207324.44,
-      "orders": 2496
+      "revenue": 207442.44,
+      "orders": 2497
     },
     "this_month": {
-      "revenue": 756033.43,
-      "orders": 8694
+      "revenue": 756151.43,
+      "orders": 8695
     },
     "last_month": {
       "revenue": 1378191.47,
       "orders": 15208
     },
     "this_year": {
-      "revenue": 6849416.41,
-      "orders": 79447
+      "revenue": 6849534.41,
+      "orders": 79448
     },
     "last_year": {
       "revenue": 10173018.33,
       "orders": 127665
     },
     "all_time": {
-      "revenue": 19311392.99,
-      "orders": 239601
+      "revenue": 19311510.99,
+      "orders": 239602
     }
   },
   "daily_sales": [
@@ -165,7 +165,7 @@
     },
     {
       "month": "July 2026",
-      "revenue": 756033.43,
+      "revenue": 756151.43,
       "orders": 0
     }
   ],
@@ -232,7 +232,7 @@
     },
     {
       "month": "July 2026",
-      "revenue": 756033.43,
+      "revenue": 756151.43,
       "orders": 0
     }
   ],
@@ -259,8 +259,8 @@
     },
     {
       "hour": 9,
-      "revenue": 839.82,
-      "orders": 13
+      "revenue": 957.82,
+      "orders": 14
     },
     {
       "hour": 10,
@@ -378,9 +378,9 @@
     },
     {
       "month": "July 2026",
-      "revenue": 671655.72,
-      "expenses": 180677.36,
-      "gross_profit": 490978.36,
+      "revenue": 671758.33,
+      "expenses": 180733.36,
+      "gross_profit": 491024.97,
       "margin_pct": 73.1
     },
     {
@@ -427,7 +427,12 @@
     }
   ],
   "branches": {
-    "today": {},
+    "today": {
+      "Safa": {
+        "revenue": 118.0,
+        "orders": 0
+      }
+    },
     "yesterday": {
       "Hamadaniyah": {
         "revenue": 5540.9,
@@ -438,7 +443,7 @@
         "orders": 0
       },
       "not used": {
-        "revenue": 2738.5,
+        "revenue": 4840.05,
         "orders": 0
       },
       "Defaa": {
@@ -447,6 +452,10 @@
       },
       "Waziriyah": {
         "revenue": 1865.5,
+        "orders": 0
+      },
+      "Safa": {
+        "revenue": 2738.5,
         "orders": 0
       }
     },
@@ -460,7 +469,7 @@
         "orders": 0
       },
       "not used": {
-        "revenue": 109965.59,
+        "revenue": 163052.5,
         "orders": 0
       },
       "Defaa": {
@@ -469,6 +478,10 @@
       },
       "Waziriyah": {
         "revenue": 72898.87,
+        "orders": 0
+      },
+      "Safa": {
+        "revenue": 110083.59,
         "orders": 0
       }
     },
@@ -482,7 +495,7 @@
         "orders": 0
       },
       "not used": {
-        "revenue": 216201.88,
+        "revenue": 267097.15,
         "orders": 0
       },
       "Defaa": {
@@ -491,6 +504,10 @@
       },
       "Waziriyah": {
         "revenue": 136530.22,
+        "orders": 0
+      },
+      "Safa": {
+        "revenue": 216201.88,
         "orders": 0
       }
     },
@@ -504,7 +521,7 @@
         "orders": 0
       },
       "not used": {
-        "revenue": 934575.32,
+        "revenue": 1405987.11,
         "orders": 0
       },
       "Defaa": {
@@ -513,6 +530,10 @@
       },
       "Waziriyah": {
         "revenue": 668425.48,
+        "orders": 0
+      },
+      "Safa": {
+        "revenue": 934693.32,
         "orders": 0
       }
     },
@@ -526,7 +547,7 @@
         "orders": 0
       },
       "not used": {
-        "revenue": 934575.32,
+        "revenue": 4260553.67,
         "orders": 0
       },
       "Defaa": {
@@ -535,6 +556,10 @@
       },
       "Waziriyah": {
         "revenue": 2128126.11,
+        "orders": 0
+      },
+      "Safa": {
+        "revenue": 934693.32,
         "orders": 0
       }
     },
@@ -553,7 +578,7 @@
       },
       "not used": {
         "?": {
-          "revenue": 934575.32,
+          "revenue": 2295127.19,
           "orders": 0
         }
       },
@@ -566,6 +591,12 @@
       "Waziriyah": {
         "?": {
           "revenue": 1139321.87,
+          "orders": 0
+        }
+      },
+      "Safa": {
+        "?": {
+          "revenue": 934693.32,
           "orders": 0
         }
       }
@@ -582,7 +613,7 @@
         "orders": 0
       },
       "Hunger Station (POSZ) ***": {
-        "revenue": 3875816.65,
+        "revenue": 3875934.65,
         "orders": 0
       },
       "JAHEZ (POSZ) ***": {
@@ -668,7 +699,7 @@
         "orders": 0
       },
       "Hunger Station (POSZ) ***": {
-        "revenue": 326436.8,
+        "revenue": 326554.8,
         "orders": 0
       },
       "JAHEZ (POSZ) ***": {
@@ -726,7 +757,7 @@
         "orders": 0
       },
       "Hunger Station (POSZ) ***": {
-        "revenue": 186951.1,
+        "revenue": 187069.1,
         "orders": 0
       },
       "JAHEZ (POSZ) ***": {
@@ -776,7 +807,7 @@
         "orders": 0
       },
       "Hunger Station (POSZ) ***": {
-        "revenue": 1616785.51,
+        "revenue": 1616903.51,
         "orders": 0
       },
       "JAHEZ (POSZ) ***": {
@@ -841,7 +872,7 @@
         "?": 14297.89
       },
       "Hunger Station (POSZ) ***": {
-        "?": 2331585.41
+        "?": 2331703.41
       },
       "JAHEZ (POSZ) ***": {
         "?": 225037.88
@@ -887,7 +918,7 @@
       },
       {
         "method": "Online Paid",
-        "amount": 693236.7,
+        "amount": 693354.7,
         "count": 0
       },
       {
@@ -944,7 +975,7 @@
       },
       {
         "method": "Online Paid",
-        "amount": 367332.04,
+        "amount": 367450.04,
         "count": 0
       },
       {
@@ -1001,7 +1032,7 @@
       },
       {
         "method": "Online Paid",
-        "amount": 3546988.92,
+        "amount": 3547106.92,
         "count": 0
       },
       {

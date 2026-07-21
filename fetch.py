@@ -78,29 +78,28 @@ def pos_total(domain_extra=[]):
     base = [['state','!=','cancel']] + domain_extra
     res = rg('pos.order', base, ['amount_total','id'], [])
     if res: return {'revenue': round(res[0].get('amount_total',0),2),
-                    'orders':  res[0].get('__count',0)}
+                    'orders':  res[0].get('__count', res[0].get('id_count', 0))}
     return {'revenue':0,'orders':0}
 
 def pos_by_partner(domain_extra=[]):
     base = [['state','!=','cancel'],['partner_id','!=',False]] + domain_extra
-    rows = rg('pos.order', base, ['partner_id','amount_total'], ['partner_id'], limit=50)
+    rows = rg('pos.order', base, ['partner_id','amount_total','id'], ['partner_id'], limit=50)
     out = {}
     for r in rows:
         name = r['partner_id'][1] if r.get('partner_id') else 'Unknown'
         out[name] = {'revenue': round(r.get('amount_total',0),2),
-                     'orders':  r.get('__count',0)}
+                     'orders':  r.get('__count', r.get('id_count', 0))}
     return out
 
 def pos_by_branch(domain_extra=[]):
     base = [['state','!=','cancel']] + domain_extra
-    rows = rg('pos.order', base, ['config_id','amount_total'], ['config_id'], limit=20)
+    rows = rg('pos.order', base, ['config_id','amount_total','id'], ['config_id'], limit=20)
     out = {}
     for r in rows:
         name = r['config_id'][1] if r.get('config_id') else 'Unknown'
-        # shorten name
         short = name.split('(')[-1].replace(')','').strip() if '(' in name else name
         out[short] = {'revenue': round(r.get('amount_total',0),2),
-                      'orders':  r.get('__count',0)}
+                      'orders':  r.get('__count', r.get('id_count', 0))}
     return out
 
 def pos_monthly(domain_extra=[], since=d365):
@@ -272,10 +271,10 @@ def stock_summary():
     return by_loc
 
 def all_time_totals():
-    res = rg('pos.order', [['state','!=','cancel']], ['amount_total'], [])
+    res = rg('pos.order', [['state','!=','cancel']], ['amount_total','id'], [])
     if res:
         return {'revenue': round(res[0].get('amount_total',0),2),
-                'orders':  res[0].get('__count',0)}
+                'orders':  res[0].get('__count', res[0].get('id_count', 0))}
     return {'revenue':0,'orders':0}
 
 def all_time_monthly():
