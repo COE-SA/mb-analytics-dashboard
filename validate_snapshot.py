@@ -28,8 +28,8 @@ def main(path: str) -> int:
     daily = data.get("daily_sales", [])
     monthly = data.get("monthly_sales_all", [])
 
-    if int(meta.get("schema_version", 0)) < 5:
-        fail(errors, "schema_version must be 5 or newer")
+    if int(meta.get("schema_version", 0)) < 6:
+        fail(errors, "schema_version must be 6 or newer")
     if not meta.get("generated_at_iso"):
         fail(errors, "missing generated_at_iso metadata")
     if health.get("status") != "ok":

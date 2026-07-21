@@ -194,6 +194,11 @@ def add_months(first_of_month: date, months: int) -> date:
     return date(ordinal // 12, ordinal % 12 + 1, 1)
 
 
+def week_start_sunday(value: date) -> date:
+    """Return the Sunday that begins the KSA reporting week for a given date."""
+    return value - timedelta(days=(value.weekday() + 1) % 7)
+
+
 def number(value: Any) -> float:
     try:
         return float(value or 0)
@@ -564,6 +569,13 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
     current_year_start = date(today.year, 1, 1)
     same_month_last_year_start = date(today.year - 1, today.month, 1)
     same_month_last_year_end = add_months(same_month_last_year_start, 1)
+    current_week_start = week_start_sunday(today)
+    days_completed_this_week = (today - current_week_start).days
+    previous_week_aligned_start = current_week_start - timedelta(days=7)
+    previous_week_aligned_end = previous_week_aligned_start + timedelta(days=days_completed_this_week)
+    last_completed_week_start = current_week_start - timedelta(days=7)
+    week_before_last_start = current_week_start - timedelta(days=14)
+    year_before_last_start = date(today.year - 2, 1, 1)
 
     days_into_month = min(today.day, calendar.monthrange(last_month_start.year, last_month_start.month)[1])
     last_month_mtd_end = last_month_start + timedelta(days=days_into_month)
@@ -573,8 +585,13 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
     log("Building KPI aggregates…")
     today_kpi = pos_total(day_domain("date_order", today, tomorrow))
     yesterday_kpi = pos_total(day_domain("date_order", yesterday, today))
+    day_before_yesterday_kpi = pos_total(day_domain("date_order", yesterday - timedelta(days=1), yesterday))
     rolling_7_days = pos_total(day_domain("date_order", today - timedelta(days=6), tomorrow))
     prior_7_days = pos_total(day_domain("date_order", today - timedelta(days=13), today - timedelta(days=6)))
+    current_wtd = pos_total(day_domain("date_order", current_week_start, today))
+    prior_wtd = pos_total(day_domain("date_order", previous_week_aligned_start, previous_week_aligned_end))
+    last_completed_week = pos_total(day_domain("date_order", last_completed_week_start, current_week_start))
+    week_before_last = pos_total(day_domain("date_order", week_before_last_start, last_completed_week_start))
     month_to_date = pos_total(day_domain("date_order", current_month_start, tomorrow))
     last_month_full = pos_total(day_domain("date_order", last_month_start, current_month_start))
     last_month_mtd = pos_total(day_domain("date_order", last_month_start, last_month_mtd_end))
@@ -589,6 +606,7 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
     )
     lytd = pos_total(day_domain("date_order", last_year_start, equivalent_prior_year_day))
     last_year_full = pos_total(day_domain("date_order", last_year_start, current_year_start))
+    year_before_last_full = pos_total(day_domain("date_order", year_before_last_start, last_year_start))
     all_time = pos_total()
 
     log("Building complete daily and monthly sales series…")
@@ -643,7 +661,8 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
             "this_month": today.strftime("%B %Y"),
             "currency": "SAR",
             "timezone": "Asia/Riyadh",
-            "schema_version": 5,
+            "last_completed_day": yesterday.isoformat(),
+            "schema_version": 6,
         },
         "data_health": {
             "status": "ok",
@@ -658,6 +677,9 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
         "kpis": {
             "today": today_kpi,
             "yesterday": yesterday_kpi,
+            "dtd": yesterday_kpi,
+            "wtd": current_wtd,
+            "ytd": this_year_closed,
             "last_7_days": rolling_7_days,
             "this_month": month_to_date,
             "last_month": last_month_full,
@@ -667,20 +689,60 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
         },
         "overview_comparisons": {
             "today": {"baseline": yesterday_kpi, "label": "مقارنة بأمس"},
-            "yesterday": {"baseline": pos_total(day_domain("date_order", yesterday - timedelta(days=7), yesterday - timedelta(days=6))), "label": "مقارنة بنفس اليوم الأسبوع السابق"},
+            "yesterday": {"baseline": day_before_yesterday_kpi, "label": "مقارنة باليوم الذي قبله"},
+            "dtd": {"baseline": day_before_yesterday_kpi, "label": "مقارنة باليوم الذي قبله"},
+            "wtd": {"baseline": prior_wtd, "label": "مقارنة بنفس أيام الأسبوع السابق"},
+            "ytd": {"baseline": lytd, "label": "مقارنة بالفترة المناظرة من العام الماضي"},
             "last_7_days": {"baseline": prior_7_days, "label": "مقارنة بالـ 7 أيام السابقة"},
             "this_month": {"baseline": last_month_mtd, "label": "مقارنة بنفس عدد الأيام من الشهر الماضي"},
             "last_month": {"baseline": same_month_last_year_full, "label": "مقارنة بنفس الشهر العام الماضي"},
             "this_year": {"baseline": lytd, "label": "مقارنة بنفس الفترة المكتملة العام الماضي"},
-            "last_year": {"baseline": None, "label": "لا توجد فترة مقارنة معتمدة"},
+            "last_year": {"baseline": year_before_last_full, "label": "مقارنة بالعام الذي قبله"},
             "all_time": {"baseline": None, "label": "إجمالي تراكمي"},
+        },
+        "period_metrics": {
+            "dtd": {
+                "current": yesterday_kpi,
+                "baseline": day_before_yesterday_kpi,
+                "as_of": yesterday.isoformat(),
+                "current_label": "آخر يوم مكتمل",
+                "baseline_label": "اليوم الذي قبله",
+            },
+            "wtd": {
+                "current": current_wtd,
+                "baseline": prior_wtd,
+                "start": current_week_start.isoformat(),
+                "as_of": yesterday.isoformat(),
+                "baseline_start": previous_week_aligned_start.isoformat(),
+                "baseline_end": (previous_week_aligned_end - timedelta(days=1)).isoformat(),
+                "current_label": "الأسبوع حتى آخر يوم مكتمل",
+                "baseline_label": "نفس أيام الأسبوع السابق",
+            },
+            "ytd": {
+                "current": this_year_closed,
+                "baseline": lytd,
+                "start": current_year_start.isoformat(),
+                "as_of": yesterday.isoformat(),
+                "baseline_start": last_year_start.isoformat(),
+                "baseline_end": (equivalent_prior_year_day - timedelta(days=1)).isoformat(),
+                "current_label": "السنة حتى آخر يوم مكتمل",
+                "baseline_label": "الفترة المناظرة من العام الماضي",
+            },
         },
         "daily_sales": list(reversed(daily_raw)),
         "daily_comparison": {
             "today": today_kpi,
             "yesterday": yesterday_kpi,
-            "same_day_last_week": pos_total(day_domain("date_order", today - timedelta(days=7), today - timedelta(days=6))),
+            "latest_completed_day": yesterday_kpi,
+            "prior_completed_day": day_before_yesterday_kpi,
+            "same_day_last_week": pos_total(day_domain("date_order", yesterday - timedelta(days=7), yesterday - timedelta(days=6))),
             "forecast_tomorrow": forecast_next_day(daily_raw, today),
+        },
+        "weekly_comparison": {
+            "last_completed_week": last_completed_week,
+            "week_before_last": week_before_last,
+            "week_start": last_completed_week_start.isoformat(),
+            "week_end": (current_week_start - timedelta(days=1)).isoformat(),
         },
         "monthly_sales_all": list(reversed(monthly_raw)),
         "monthly_sales_12m": list(reversed([item for item in monthly_raw if item["month"] >= twelve_month_start.strftime("%Y-%m")])),
@@ -694,6 +756,8 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
         "yearly_comparison": {
             "this_year": this_year_closed,
             "last_year": last_year_full,
+            "last_completed_year": last_year_full,
+            "year_before_last": year_before_last_full,
             "lytd": lytd,
             "forecast_year": forecast_year(this_year_closed, today),
         },

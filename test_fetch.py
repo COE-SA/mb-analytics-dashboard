@@ -19,6 +19,11 @@ class FetchHelpersTest(unittest.TestCase):
         self.assertEqual(fetch.month_key("2026-07-21"), "2026-07")
         self.assertEqual(fetch.month_key(None), None)
 
+    def test_week_start_uses_sunday_for_ksa_reporting(self) -> None:
+        self.assertEqual(fetch.week_start_sunday(date(2026, 7, 19)), date(2026, 7, 19))
+        self.assertEqual(fetch.week_start_sunday(date(2026, 7, 21)), date(2026, 7, 19))
+        self.assertEqual(fetch.week_start_sunday(date(2026, 7, 25)), date(2026, 7, 19))
+
     def test_month_forecast_uses_actual_number_of_days(self) -> None:
         daily = [
             {"day": "2026-04-01", "revenue": 100, "orders": 2},
@@ -54,7 +59,7 @@ class FetchHelpersTest(unittest.TestCase):
 
     def test_complete_snapshot_passes_release_validation(self) -> None:
         snapshot = {
-            "meta": {"schema_version": 5, "generated_at_iso": "2026-07-21T06:00:00+03:00"},
+            "meta": {"schema_version": 6, "generated_at_iso": "2026-07-21T06:00:00+03:00"},
             "data_health": {"status": "ok", "daily_sales": {"expected_days": 60}},
             "daily_sales": [{"day": f"2026-06-{(index % 30) + 1:02d}"} for index in range(60)],
             "monthly_sales_all": [{"month": "2026-07"}, {"month": "2026-06"}],

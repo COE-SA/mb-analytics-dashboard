@@ -7,58 +7,63 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --bg:       #0d0d0d;
-    --surface:  #1a1a1a;
-    --surface2: #222;
-    --border:   #2e2e2e;
-    --gold:     #f5a623;
-    --gold2:    #e8941a;
-    --green:    #27ae60;
-    --red:      #e74c3c;
-    --blue:     #3498db;
-    --purple:   #9b59b6;
-    --teal:     #1abc9c;
-    --orange:   #e67e22;
-    --text:     #e8e8e8;
-    --muted:    #888;
-    --radius:   10px;
+    --bg:       #f7f4ee;
+    --surface:  #ffffff;
+    --surface2: #f1ece2;
+    --border:   #e5ddd0;
+    --gold:     #a56517;
+    --gold2:    #854d0d;
+    --green:    #168453;
+    --red:      #c2413b;
+    --blue:     #2c6ead;
+    --purple:   #7652a8;
+    --teal:     #0b8077;
+    --orange:   #c66212;
+    --text:     #2d2923;
+    --muted:    #746b60;
+    --shadow:   0 10px 26px rgba(74, 56, 31, .08);
+    --radius:   12px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 14px; }
+  html, body { max-width:100%; overflow-x:hidden; }
+  body { min-width:320px; background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 14px; line-height:1.45; }
+  button, input, select, textarea { font: inherit; }
 
   /* ── Header ── */
   header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 20px; background: var(--surface);
-    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+    gap:16px; padding: 13px clamp(14px, 3vw, 28px); background: rgba(255,255,255,.94);
+    border-bottom: 1px solid var(--border); box-shadow: 0 4px 18px rgba(74,56,31,.05); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(14px);
   }
-  .logo { display: flex; align-items: center; gap: 10px; }
-  .logo span { font-size: 20px; font-weight: 700; color: var(--gold); }
+  .logo { display: flex; align-items: center; gap: 10px; min-width:0; }
+  .logo span { min-width:0; font-size: 20px; font-weight: 700; color: var(--gold); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .logo small { color: var(--muted); font-size: 12px; }
-  .header-right { display: flex; align-items: center; gap: 12px; }
+  .header-right { display: flex; align-items: center; gap: 12px; min-width:0; }
   .last-update { color: var(--muted); font-size: 12px; }
   .btn-refresh {
-    background: var(--gold); color: #000; border: none; border-radius: 6px;
-    padding: 6px 14px; cursor: pointer; font-weight: 600; font-size: 13px;
+    background: var(--gold); color: #fff; border: none; border-radius: 8px;
+    padding: 7px 14px; cursor: pointer; font-weight: 700; font-size: 13px; box-shadow:0 4px 10px rgba(165,101,23,.18);
   }
   .btn-refresh:hover { background: var(--gold2); }
 
   /* ── Nav ── */
   nav {
-    display: flex; gap: 4px; padding: 10px 20px;
-    background: var(--surface); border-bottom: 1px solid var(--border);
-    overflow-x: auto; white-space: nowrap;
+    display: flex; gap: 6px; padding: 10px clamp(14px, 3vw, 28px);
+    background: rgba(247,244,238,.92); border-bottom: 1px solid var(--border);
+    overflow-x: auto; white-space: nowrap; scrollbar-width: none;
   }
+  nav::-webkit-scrollbar { display:none; }
   .nav-btn {
-    padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border);
-    background: transparent; color: var(--muted); cursor: pointer; font-size: 13px;
-    transition: all .2s;
+    padding: 8px 15px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--muted); cursor: pointer; font-size: 13px;
+    transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease; flex:0 0 auto;
   }
-  .nav-btn.active { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 600; }
-  .nav-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+  .nav-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); font-weight: 700; box-shadow:0 4px 12px rgba(165,101,23,.22); }
+  .nav-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold2); transform:translateY(-1px); }
+  .nav-btn:focus-visible, .period-btn:focus-visible, .btn-refresh:focus-visible { outline:3px solid rgba(44,110,173,.25); outline-offset:2px; }
 
   /* ── Pages ── */
-  .page { display: none; padding: 20px; }
+  .page { display: none; max-width: 1500px; margin: 0 auto; padding: clamp(16px, 3vw, 28px); }
   .page.active { display: block; }
 
   /* ── Period filter ── */
@@ -68,13 +73,13 @@
     background: transparent; color: var(--muted); cursor: pointer; font-size: 12px;
     transition: all .2s;
   }
-  .period-btn.active { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 600; }
+  .period-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); font-weight: 700; }
 
   /* ── KPI Cards ── */
   .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }
   .kpi-card {
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 16px; position: relative; overflow: hidden;
+    padding: 16px; position: relative; overflow: hidden; box-shadow: var(--shadow);
   }
   .kpi-card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -93,20 +98,40 @@
   .kpi-delta.down { color: var(--red); }
   .kpi-delta.neutral { color: var(--muted); }
 
+  /* ── Completed-period sales cards ── */
+  .period-summary { margin-bottom:22px; }
+  .period-summary-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:12px; }
+  .period-summary-title { color:var(--gold2); font-size:16px; font-weight:800; }
+  .period-summary-note { color:var(--muted); font-size:11px; }
+  .period-metrics-grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px; }
+  .period-metric-card { position:relative; overflow:hidden; padding:16px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); box-shadow:var(--shadow); }
+  .period-metric-card::before { content:''; position:absolute; inset:0 auto 0 0; width:4px; background:var(--gold); }
+  .period-metric-card.wtd::before { background:var(--blue); }
+  .period-metric-card.ytd::before { background:var(--teal); }
+  .period-metric-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+  .period-code { letter-spacing:.08em; color:var(--gold2); font-size:12px; font-weight:800; }
+  .period-metric-card.wtd .period-code { color:var(--blue); }
+  .period-metric-card.ytd .period-code { color:var(--teal); }
+  .period-caption { color:var(--muted); font-size:11px; }
+  .period-sales { color:var(--text); font-size:24px; font-weight:800; line-height:1; }
+  .period-sales small { color:var(--muted); font-size:11px; font-weight:600; }
+  .period-detail { color:var(--muted); font-size:11px; margin-top:7px; }
+  .period-metric-card .kpi-delta { margin-top:7px; }
+
   /* ── Data quality status ── */
-  .data-health { display:flex; align-items:center; gap:8px; margin:12px 20px 0; padding:10px 12px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--muted); font-size:12px; }
-  .data-health.ok { border-color:rgba(39,174,96,.45); color:#9fe0b9; }
-  .data-health.warn { border-color:rgba(245,166,35,.55); color:#f5c56e; }
-  .data-health.error { border-color:rgba(231,76,60,.55); color:#f29d96; }
-  .empty-state { min-height:160px; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; color:var(--muted); font-size:13px; }
+  .data-health { display:flex; align-items:center; gap:8px; margin:12px clamp(14px, 3vw, 28px) 0; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--muted); font-size:12px; box-shadow:0 4px 14px rgba(74,56,31,.04); }
+  .data-health.ok { border-color:rgba(22,132,83,.35); color:#0d6b41; background:#f1faf5; }
+  .data-health.warn { border-color:rgba(165,101,23,.35); color:#89500c; background:#fff8e8; }
+  .data-health.error { border-color:rgba(194,65,59,.35); color:#a32f2a; background:#fff2f1; }
+  .empty-state { min-height:160px; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; color:var(--muted); font-size:13px; background:rgba(255,255,255,.55); border-radius:var(--radius); }
 
   /* ── Executive brief ── */
-  .decision-brief { margin: 16px 20px 0; padding: 16px; border-radius: var(--radius); border: 1px solid rgba(245,166,35,.45); background: linear-gradient(120deg, rgba(245,166,35,.11), rgba(26,26,26,.96) 45%); }
+  .decision-brief { margin: 16px clamp(14px, 3vw, 28px) 0; padding: 16px; border-radius: var(--radius); border: 1px solid rgba(165,101,23,.26); background: linear-gradient(135deg, #fff7e5, #fff 58%); box-shadow:var(--shadow); }
   .decision-brief[hidden] { display:none; }
-  .decision-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; color:var(--gold); font-size:14px; font-weight:700; }
+  .decision-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; color:var(--gold2); font-size:14px; font-weight:700; }
   .decision-subtitle { color:var(--muted); font-size:11px; font-weight:400; }
   .decision-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; }
-  .decision-item { padding:10px; border-radius:8px; background:rgba(13,13,13,.48); }
+  .decision-item { padding:10px; border-radius:9px; background:rgba(255,255,255,.78); border:1px solid rgba(229,221,208,.75); }
   .decision-label { color:var(--muted); font-size:11px; margin-bottom:4px; }
   .decision-value { color:var(--text); font-size:16px; font-weight:700; }
   .decision-note { color:var(--muted); font-size:11px; margin-top:4px; }
@@ -114,22 +139,22 @@
   /* ── Comparison block ── */
   .compare-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
   .compare-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow:var(--shadow);
   }
-  .compare-title { color: var(--gold); font-weight: 600; margin-bottom: 12px; font-size: 14px; }
-  .compare-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .compare-title { color: var(--gold2); font-weight: 700; margin-bottom: 12px; font-size: 14px; }
+  .compare-row { display: flex; justify-content: space-between; align-items: center; gap:12px; padding: 7px 0; border-bottom: 1px solid var(--border); }
   .compare-row:last-child { border-bottom: none; }
   .compare-label { color: var(--muted); font-size: 12px; }
   .compare-val { font-weight: 600; font-size: 13px; }
   .forecast-badge {
-    display: inline-block; background: rgba(245,166,35,.15); border: 1px solid var(--gold);
-    color: var(--gold); border-radius: 6px; padding: 2px 8px; font-size: 11px; margin-right: 6px;
+    display: inline-block; background: rgba(165,101,23,.10); border: 1px solid rgba(165,101,23,.35);
+    color: var(--gold2); border-radius: 999px; padding: 2px 8px; font-size: 11px; margin-right: 6px;
   }
 
   /* ── Charts ── */
   .charts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; margin-bottom: 24px; }
   .chart-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow:var(--shadow);
   }
   .chart-card.full { grid-column: 1 / -1; }
   .chart-title { color: var(--text); font-size: 13px; font-weight: 600; margin-bottom: 12px; }
@@ -141,7 +166,7 @@
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th { background: var(--surface2); color: var(--muted); padding: 8px 10px; text-align: right; font-weight: 600; white-space: nowrap; }
   td { padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
-  tr:hover td { background: rgba(255,255,255,.03); }
+  tr:hover td { background: rgba(165,101,23,.06); }
   .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;
   }
@@ -182,13 +207,66 @@
 
   /* ── Scrollbar ── */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-track { background: var(--surface2); }
+  ::-webkit-scrollbar-thumb { background: #cfc3b2; border-radius: 3px; }
 
   /* ── Responsive ── */
-  @media (max-width: 600px) {
+  @media (max-width: 820px) {
+    header { align-items:flex-start; }
+    .logo { min-width:0; }
+    .logo span { font-size:18px; }
+    .header-right { flex-direction:column; align-items:flex-end; gap:5px; }
+    .last-update { text-align:left; }
     .charts-grid { grid-template-columns: 1fr; }
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .chart-wrap.tall { height:280px; }
+  }
+  @media (max-width: 600px) {
+    body { font-size:13px; }
+    header { gap:10px; padding:11px 14px; }
+    .logo { gap:6px; flex:1 1 auto; }
+    .logo span { max-width:150px; }
+    .logo small { display:none; }
+    .header-right { flex:0 1 128px; max-width:128px; }
+    .last-update { font-size:10px; line-height:1.35; }
+    .btn-refresh { min-height:36px; padding:7px 12px; }
+    nav { padding:9px 14px; }
+    .nav-btn { min-height:38px; padding:8px 13px; }
+    .page { padding:16px 14px 24px; }
+    .period-bar { flex-wrap:nowrap; overflow-x:auto; padding-bottom:2px; scrollbar-width:none; }
+    .period-bar::-webkit-scrollbar { display:none; }
+    .period-btn { min-height:34px; flex:0 0 auto; }
+    .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px; margin-bottom:18px; }
+    .period-summary-head { align-items:flex-start; flex-direction:column; gap:3px; }
+    .period-metrics-grid { grid-template-columns:minmax(0, 1fr); width:100%; min-width:0; gap:10px; }
+    .period-metric-card { width:100%; min-width:0; padding:14px; }
+    .period-metric-top { align-items:flex-start; }
+    .period-caption, .period-detail { overflow-wrap:anywhere; }
+    .charts-grid, .compare-grid, .kpi-grid, .branch-grid, .app-grid { width:100%; min-width:0; }
+    .kpi-card { padding:13px; }
+    .kpi-value { font-size:22px; }
+    .kpi-label { min-height:30px; }
+    .decision-brief { margin:12px 14px 0; padding:13px; }
+    .decision-title { align-items:flex-start; flex-direction:column; gap:3px; }
+    .decision-grid { grid-template-columns:1fr; }
+    .compare-grid { grid-template-columns:1fr; gap:10px; }
+    .compare-card { padding:13px; }
+    .compare-row { align-items:flex-start; }
+    .compare-val { text-align:left; }
+    .chart-card { padding:12px; }
+    .chart-wrap { height:220px; }
+    .chart-wrap.tall { height:250px; }
+    .section-title { margin-top:18px; }
+    .branch-grid, .app-grid { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .table-wrap { margin-left:-14px; margin-right:-14px; padding:0 14px; }
+    table { font-size:12px; }
+    th, td { padding:8px; }
+  }
+  @media (max-width: 390px) {
+    .kpi-grid, .branch-grid, .app-grid { grid-template-columns:1fr; }
+    .header-right { max-width:120px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior:auto !important; transition:none !important; }
   }
 </style>
 </head>
@@ -222,9 +300,15 @@
 <!-- PAGE: OVERVIEW                                                            -->
 <!-- ══════════════════════════════════════════════════════════════════════════ -->
 <div id="page-overview" class="page active">
-  <div class="period-bar" id="overview-periods">
-    <button class="period-btn active" onclick="setOverviewPeriod('today',this)">اليوم</button>
-    <button class="period-btn" onclick="setOverviewPeriod('yesterday',this)">أمس</button>
+  <section class="period-summary" aria-labelledby="periodSummaryTitle">
+    <div class="period-summary-head">
+      <h1 class="period-summary-title" id="periodSummaryTitle">ملخص المبيعات بالفترات المكتملة</h1>
+      <p class="period-summary-note">تُستبعد مبيعات اليوم الجاري حتى تصبح المقارنة عادلة.</p>
+    </div>
+    <div class="period-metrics-grid" id="period-metrics"></div>
+  </section>
+  <div class="period-bar" id="overview-periods" aria-label="تصفية مؤشرات النظرة العامة">
+    <button class="period-btn active" onclick="setOverviewPeriod('yesterday',this)">أمس</button>
     <button class="period-btn" onclick="setOverviewPeriod('last_7_days',this)">آخر 7 أيام</button>
     <button class="period-btn" onclick="setOverviewPeriod('this_month',this)">هذا الشهر</button>
     <button class="period-btn" onclick="setOverviewPeriod('last_month',this)">الشهر الماضي</button>
@@ -253,13 +337,16 @@
 <!-- PAGE: COMPARE & FORECAST                                                  -->
 <!-- ══════════════════════════════════════════════════════════════════════════ -->
 <div id="page-compare" class="page">
-  <div class="section-title">📅 مقارنة يومية</div>
+  <div class="section-title">📅 مقارنة آخر يوم مكتمل</div>
   <div class="compare-grid" id="daily-compare-cards"></div>
+
+  <div class="section-title">🗓️ مقارنة آخر أسبوع مكتمل</div>
+  <div class="compare-grid" id="weekly-compare-cards"></div>
 
   <div class="section-title">📆 مقارنة شهرية</div>
   <div class="compare-grid" id="monthly-compare-cards"></div>
 
-  <div class="section-title">📊 مقارنة سنوية</div>
+  <div class="section-title">📊 مقارنة آخر سنة مكتملة</div>
   <div class="compare-grid" id="yearly-compare-cards"></div>
 
   <div class="charts-grid">
@@ -501,24 +588,25 @@ function renderDataHealth() {
 function renderDecisionBrief() {
   const target = document.getElementById('decisionBrief');
   if (!target || !D) return;
-  const isCurrentSnapshot = Number(D.meta?.schema_version || 0) >= 5 && D.data_health?.status === 'ok';
+  const isCurrentSnapshot = Number(D.meta?.schema_version || 0) >= 6 && D.data_health?.status === 'ok';
   if (!isCurrentSnapshot) {
     target.hidden = true;
     return;
   }
-  const today = D.daily_comparison?.today || D.kpis?.today || {};
-  const yesterday = D.daily_comparison?.yesterday || D.kpis?.yesterday || {};
+  const dtd = D.period_metrics?.dtd || {};
+  const completedDay = dtd.current || {};
+  const priorDay = dtd.baseline || {};
   const branches = Object.entries(D.branches?.this_month || {}).sort((a, b) => Number(b[1]?.revenue || 0) - Number(a[1]?.revenue || 0));
   const apps = Object.entries(D.aggregators?.this_month || {}).sort((a, b) => Number(b[1]?.revenue || 0) - Number(a[1]?.revenue || 0));
   const monthForecast = D.monthly_comparison?.forecast_month;
-  const todayChange = pct(today.revenue, yesterday.revenue);
+  const completedDayChange = pct(completedDay.revenue, priorDay.revenue);
   const topBranch = branches[0];
   const topApp = apps[0];
   target.hidden = false;
   target.innerHTML = `
-    <div class="decision-title"><span>ملخص القرار التنفيذي</span><span class="decision-subtitle">لقراءة المشهد خلال دقيقة</span></div>
+    <div class="decision-title"><span>ملخص القرار التنفيذي</span><span class="decision-subtitle">مبني على آخر فترة مكتملة</span></div>
     <div class="decision-grid">
-      <div class="decision-item"><div class="decision-label">مبيعات اليوم</div><div class="decision-value">${fmt(today.revenue)} ر.س</div><div class="decision-note">${todayChange === null ? 'لا يوجد مرجع مكتمل' : `${Number(todayChange) >= 0 ? '▲' : '▼'} ${Math.abs(Number(todayChange)).toFixed(1)}% مقارنة بأمس`}</div></div>
+      <div class="decision-item"><div class="decision-label">مبيعات DTD</div><div class="decision-value">${fmt(completedDay.revenue)} ر.س</div><div class="decision-note">${completedDayChange === null ? 'لا يوجد مرجع مكتمل' : `${Number(completedDayChange) >= 0 ? '▲' : '▼'} ${Math.abs(Number(completedDayChange)).toFixed(1)}% مقارنة باليوم الذي قبله`}</div></div>
       <div class="decision-item"><div class="decision-label">أفضل فرع هذا الشهر</div><div class="decision-value">${topBranch ? escapeHtml(topBranch[0]) : '—'}</div><div class="decision-note">${topBranch ? `${fmt(topBranch[1].revenue)} ر.س` : 'لا توجد بيانات'}</div></div>
       <div class="decision-item"><div class="decision-label">أكبر قناة تطبيقات هذا الشهر</div><div class="decision-value">${topApp ? escapeHtml(topApp[0]) : '—'}</div><div class="decision-note">${topApp ? `${fmt(topApp[1].revenue)} ر.س` : 'لا توجد بيانات'}</div></div>
       <div class="decision-item"><div class="decision-label">توقع نهاية الشهر</div><div class="decision-value">${monthForecast ? `${fmt(monthForecast.projected_month_revenue)} ر.س` : '—'}</div><div class="decision-note">${monthForecast ? forecastMethod(monthForecast.method) : 'لا توجد عينة مكتملة كافية'}</div></div>
@@ -537,7 +625,7 @@ function mkChart(id, type, labels, datasets, opts={}) {
     ctx.width = Math.max(320, Math.floor(rect.width || 320));
     ctx.height = Math.max(180, Math.floor(rect.height || 180));
     drawing.clearRect(0, 0, ctx.width, ctx.height);
-    drawing.fillStyle = '#888';
+    drawing.fillStyle = '#746b60';
     drawing.font = '13px Segoe UI, Tahoma, sans-serif';
     drawing.textAlign = 'center';
     drawing.fillText('لا توجد بيانات متاحة لهذه الفترة', ctx.width / 2, ctx.height / 2);
@@ -545,10 +633,10 @@ function mkChart(id, type, labels, datasets, opts={}) {
   }
   const defaults = {
     responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { labels: { color:'#888', font:{size:11} } } },
+    plugins: { legend: { labels: { color:'#746b60', font:{size:11} } } },
     scales: type==='doughnut'||type==='pie' ? {} : {
-      x: { ticks:{ color:'#888', font:{size:10}, maxRotation:45 }, grid:{ color:'#2e2e2e' } },
-      y: { ticks:{ color:'#888', font:{size:10} }, grid:{ color:'#2e2e2e' } }
+      x: { ticks:{ color:'#746b60', font:{size:10}, maxRotation:45 }, grid:{ color:'#eee6dc' } },
+      y: { ticks:{ color:'#746b60', font:{size:10} }, grid:{ color:'#eee6dc' } }
     }
   };
   charts[id] = new Chart(ctx, { type, data:{labels, datasets}, options: Object.assign(defaults, opts) });
@@ -561,7 +649,7 @@ function showPage(id, btn) {
   document.getElementById('page-'+id).classList.add('active');
   btn.classList.add('active');
   const renderers = {
-    overview: () => { renderOverviewKPIs(); renderOverviewCharts(); },
+    overview: () => { renderPeriodMetrics(); renderOverviewKPIs(); renderOverviewCharts(); },
     compare: renderComparePage,
     branches: () => { renderBranchCards(); renderBranchCharts(); },
     apps: renderAppsPage,
@@ -582,7 +670,46 @@ function setPeriodBtn(container, btn) {
 // ══════════════════════════════════════════════════════════════════════════════
 // OVERVIEW PAGE
 // ══════════════════════════════════════════════════════════════════════════════
-let overviewPeriod = 'today';
+let overviewPeriod = 'yesterday';
+
+function shortDate(value) {
+  if (!value) return '—';
+  const [year, month, day] = String(value).split('-');
+  return year && month && day ? `${day}/${month}/${year}` : String(value);
+}
+
+function renderPeriodMetrics() {
+  const target = document.getElementById('period-metrics');
+  if (!target || !D) return;
+  const hasCurrentSchema = Number(D.meta?.schema_version || 0) >= 6;
+  const metrics = hasCurrentSchema ? (D.period_metrics || {}) : {
+    dtd: {current: D.kpis?.yesterday, baseline: null, as_of: D.meta?.yesterday, current_label: 'أمس', baseline_label: 'يتطلب التحديث الجديد'},
+    wtd: null,
+    ytd: null,
+  };
+  const definitions = [
+    {code: 'DTD', key: 'dtd', title: 'مبيعات آخر يوم مكتمل', className: 'dtd'},
+    {code: 'WTD', key: 'wtd', title: 'مبيعات الأسبوع حتى آخر يوم مكتمل', className: 'wtd'},
+    {code: 'YTD', key: 'ytd', title: 'مبيعات السنة حتى آخر يوم مكتمل', className: 'ytd'},
+  ];
+  target.innerHTML = definitions.map(({code, key, title, className}) => {
+    const metric = metrics[key];
+    const current = metric?.current;
+    const baseline = metric?.baseline;
+    const range = metric?.start && metric?.as_of ? `${shortDate(metric.start)} — ${shortDate(metric.as_of)}` : metric?.as_of ? `حتى ${shortDate(metric.as_of)}` : 'يتطلب لقطة البيانات الجديدة';
+    const comparison = current && baseline
+      ? deltaHtml(current.revenue, baseline.revenue, metric.baseline_label || 'مقارنة بالفترة المرجعية')
+      : '<div class="kpi-delta neutral">لا توجد مقارنة مكتملة بعد</div>';
+    return `
+      <article class="period-metric-card ${className}">
+        <div class="period-metric-top"><span class="period-code">${code}</span><span class="period-caption">${escapeHtml(title)}</span></div>
+        <div class="period-sales">${current ? fmtK(current.revenue) : '—'} <small>ر.س</small></div>
+        <div class="period-detail">${escapeHtml(range)}${current ? ` · ${fmt(current.orders)} طلب` : ''}</div>
+        ${comparison}
+      </article>`;
+  }).join('');
+}
+
 function setOverviewPeriod(p, btn) {
   overviewPeriod = p;
   setPeriodBtn(document.getElementById('overview-periods'), btn);
@@ -594,7 +721,6 @@ function renderOverviewKPIs() {
   const legacyKey = overviewPeriod === 'last_7_days' && !D.kpis.last_7_days ? 'this_week' : overviewPeriod;
   const kpi = D.kpis[legacyKey] || {revenue: 0, orders: 0};
   const legacyBaselines = {
-    today: D.kpis.yesterday,
     yesterday: null,
     last_7_days: null,
     this_month: D.kpis.last_month,
@@ -611,7 +737,7 @@ function renderOverviewKPIs() {
 
   document.getElementById('overview-kpis').innerHTML = `
     <div class="kpi-card">
-      <div class="kpi-label">الإيرادات</div>
+      <div class="kpi-label">إيرادات الفترة المختارة</div>
       <div class="kpi-value">${fmtK(kpi.revenue)}</div>
       <div class="kpi-sub">${fmt(kpi.revenue)} ر.س</div>
       ${prev ? deltaHtml(kpi.revenue, prev.revenue, comparisonLabel) : '<div class="kpi-delta neutral">لا توجد مقارنة متكافئة لهذه الفترة</div>'}
@@ -678,28 +804,31 @@ function comparisonChange(current, baseline) {
 }
 
 function salesComparisonCard(title, currentLabel, current, baselineLabel, baseline) {
+  const hasCurrent = current && typeof current.revenue !== 'undefined';
   const hasBaseline = baseline && typeof baseline.revenue !== 'undefined';
   return `
     <div class="compare-card">
       <div class="compare-title">${escapeHtml(title)}</div>
-      <div class="compare-row"><span class="compare-label">${escapeHtml(currentLabel)}</span><span class="compare-val">${fmt(current?.revenue)} ر.س &nbsp; (${fmt(current?.orders)} طلب)</span></div>
+      <div class="compare-row"><span class="compare-label">${escapeHtml(currentLabel)}</span><span class="compare-val">${hasCurrent ? `${fmt(current.revenue)} ر.س &nbsp; (${fmt(current.orders)} طلب)` : 'تتطلب لقطة البيانات الجديدة'}</span></div>
       <div class="compare-row"><span class="compare-label">${escapeHtml(baselineLabel)}</span><span class="compare-val">${hasBaseline ? `${fmt(baseline.revenue)} ر.س &nbsp; (${fmt(baseline.orders)} طلب)` : 'تتطلب لقطة البيانات الجديدة'}</span></div>
-      <div class="compare-row"><span class="compare-label">الفرق</span>${hasBaseline ? comparisonChange(current?.revenue, baseline?.revenue) : '<span class="compare-val">غير متاح حتى يكتمل التحديث</span>'}</div>
+      <div class="compare-row"><span class="compare-label">الفرق</span>${hasCurrent && hasBaseline ? comparisonChange(current.revenue, baseline.revenue) : '<span class="compare-val">غير متاح حتى يكتمل التحديث</span>'}</div>
     </div>`;
 }
 
 function renderComparePage() {
   if (!D) return;
   const dc = D.daily_comparison || {};
+  const wc = D.weekly_comparison || {};
   const mc = D.monthly_comparison || {};
   const yc = D.yearly_comparison || {};
   const kpis = D.kpis || {};
+  const isCurrentSnapshot = Number(D.meta?.schema_version || 0) >= 6;
 
-  const isCurrentSnapshot = Number(D.meta?.schema_version || 0) >= 5;
+  const latestCompletedDay = isCurrentSnapshot ? (dc.latest_completed_day || null) : (dc.yesterday || null);
+  const priorCompletedDay = isCurrentSnapshot ? (dc.prior_completed_day || null) : null;
   const tomorrowForecast = isCurrentSnapshot ? dc.forecast_tomorrow : null;
   document.getElementById('daily-compare-cards').innerHTML =
-    salesComparisonCard('📅 اليوم مقابل أمس', 'اليوم', dc.today, 'أمس', dc.yesterday) +
-    salesComparisonCard('📅 اليوم مقابل نفس اليوم الأسبوع الماضي', 'اليوم', dc.today, 'نفس اليوم (أسبوع سابق)', dc.same_day_last_week) +
+    salesComparisonCard('📅 آخر يوم مكتمل مقابل اليوم الذي قبله', 'آخر يوم مكتمل', latestCompletedDay, 'اليوم الذي قبله', priorCompletedDay) +
     `<div class="compare-card">
       <div class="compare-title">🔮 توقع الغد</div>
       ${tomorrowForecast ? `
@@ -708,6 +837,18 @@ function renderComparePage() {
         <div class="compare-row"><span class="compare-label">المنهج</span><span class="compare-val">${forecastMethod(tomorrowForecast.method)}</span></div>
         <div class="compare-row"><span class="compare-label">حجم العينة</span><span class="compare-val">${fmt(tomorrowForecast.sample_size || 0)} يوم مكتمل</span></div>
       ` : '<div class="compare-row"><span class="compare-label">بيانات مكتملة غير كافية لإصدار توقع موثوق.</span></div>'}
+    </div>`;
+
+  const lastCompletedWeek = isCurrentSnapshot ? (wc.last_completed_week || null) : null;
+  const weekBeforeLast = isCurrentSnapshot ? (wc.week_before_last || null) : null;
+  document.getElementById('weekly-compare-cards').innerHTML =
+    salesComparisonCard('🗓️ الأسبوع الماضي مقابل الأسبوع الذي قبله', 'الأسبوع الماضي', lastCompletedWeek, 'الأسبوع الذي قبله', weekBeforeLast) +
+    `<div class="compare-card">
+      <div class="compare-title">نطاق الفترة المقارنة</div>
+      ${isCurrentSnapshot && wc.week_start && wc.week_end ? `
+        <div class="compare-row"><span class="compare-label">الأسبوع الماضي</span><span class="compare-val">${shortDate(wc.week_start)} — ${shortDate(wc.week_end)}</span></div>
+        <div class="compare-row"><span class="compare-label">المنهج</span><span class="compare-val">أسبوع مكتمل من الأحد إلى السبت</span></div>
+      ` : '<div class="compare-row"><span class="compare-label">تتطلب لقطة البيانات الجديدة.</span></div>'}
     </div>`;
 
   const thisMonth = mc.this_month || kpis.this_month || {revenue: 0, orders: 0};
@@ -727,13 +868,13 @@ function renderComparePage() {
       ` : '<div class="compare-row"><span class="compare-label">لا يوجد عدد كافٍ من الأيام المكتملة لإصدار توقع الشهر.</span></div>'}
     </div>`;
 
-  const thisYear = yc.this_year || kpis.this_year || {revenue: 0, orders: 0};
-  const lytd = isCurrentSnapshot ? (yc.lytd || null) : null;
+  const lastCompletedYear = isCurrentSnapshot ? (yc.last_completed_year || yc.last_year || null) : null;
+  const yearBeforeLast = isCurrentSnapshot ? (yc.year_before_last || null) : null;
   const yearForecast = isCurrentSnapshot ? yc.forecast_year : null;
   document.getElementById('yearly-compare-cards').innerHTML =
-    salesComparisonCard('📊 هذا العام مقابل نفس الفترة العام الماضي', 'هذا العام حتى آخر يوم مكتمل', thisYear, 'نفس الفترة العام الماضي', lytd) +
+    salesComparisonCard('📊 العام الماضي مقابل العام الذي قبله', 'العام الماضي', lastCompletedYear, 'العام الذي قبله', yearBeforeLast) +
     `<div class="compare-card">
-      <div class="compare-title">🔮 توقع نهاية العام</div>
+      <div class="compare-title">🔮 توقع نهاية العام الجاري</div>
       ${yearForecast ? `
         <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(yearForecast.projected_year_revenue)} ر.س</span></div>
         <div class="compare-row"><span class="compare-label">معدل اليوم الواحد</span><span class="compare-val">${fmt(yearForecast.daily_run_rate)} ر.س</span></div>
@@ -745,15 +886,15 @@ function renderComparePage() {
   const daily = [...(D.daily_sales || [])];
   const averageRevenue = daily.reduce((sum, item) => sum + Number(item.revenue || 0), 0) / (daily.length || 1);
   mkChart('chartDailyTrend', 'bar', daily.map(item => item.day), [
-    {label: 'الإيرادات', data: daily.map(item => item.revenue), backgroundColor: 'rgba(245,166,35,.6)', borderColor: '#f5a623', borderWidth: 1, order: 2},
-    {label: 'متوسط الفترة', data: daily.map(() => Math.round(averageRevenue)), type: 'line', borderColor: '#e74c3c', borderWidth: 2, pointRadius: 0, fill: false, order: 1}
+    {label: 'الإيرادات', data: daily.map(item => item.revenue), backgroundColor: 'rgba(165,101,23,.58)', borderColor: '#a56517', borderWidth: 1, order: 2},
+    {label: 'متوسط الفترة', data: daily.map(() => Math.round(averageRevenue)), type: 'line', borderColor: '#c2413b', borderWidth: 2, pointRadius: 0, fill: false, order: 1}
   ]);
 
   const monthly = [...(D.monthly_sales_all || [])];
   mkChart('chartMonthlyAll', 'bar', monthly.map(item => item.month), [
     {label: 'الإيرادات (ر.س)', data: monthly.map(item => item.revenue),
-      backgroundColor: monthly.map(item => item.revenue > 0 ? 'rgba(52,152,219,.7)' : 'rgba(231,76,60,.5)'),
-      borderColor: monthly.map(item => item.revenue > 0 ? '#3498db' : '#e74c3c'), borderWidth: 1}
+      backgroundColor: monthly.map(item => item.revenue > 0 ? 'rgba(44,110,173,.65)' : 'rgba(194,65,59,.48)'),
+      borderColor: monthly.map(item => item.revenue > 0 ? '#2c6ead' : '#c2413b'), borderWidth: 1}
   ]);
 }
 
@@ -1056,6 +1197,7 @@ async function init() {
     document.getElementById('lastUpdate').textContent = 'آخر تحديث: ' + (D.meta?.generated_at || '—');
     renderDataHealth();
     renderDecisionBrief();
+    renderPeriodMetrics();
 
     renderOverviewKPIs();
     renderOverviewCharts();
