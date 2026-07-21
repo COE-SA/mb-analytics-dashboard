@@ -27,9 +27,10 @@ def main(path: str) -> int:
     health = data.get("data_health", {})
     daily = data.get("daily_sales", [])
     monthly = data.get("monthly_sales_all", [])
+    expense_breakdown = data.get("expense_breakdown")
 
-    if int(meta.get("schema_version", 0)) < 6:
-        fail(errors, "schema_version must be 6 or newer")
+    if int(meta.get("schema_version", 0)) < 7:
+        fail(errors, "schema_version must be 7 or newer")
     if not meta.get("generated_at_iso"):
         fail(errors, "missing generated_at_iso metadata")
     if health.get("status") != "ok":
@@ -42,6 +43,19 @@ def main(path: str) -> int:
         fail(errors, f"daily_sales contains only {len(daily)} entries; expected at least 55")
     if len(monthly) < 2:
         fail(errors, "monthly_sales_all must contain more than one month")
+
+    if not isinstance(expense_breakdown, dict):
+        fail(errors, "missing expense_breakdown")
+    else:
+        if not expense_breakdown.get("period_start") or not expense_breakdown.get("period_end"):
+            fail(errors, "expense_breakdown is missing its period")
+        if not isinstance(expense_breakdown.get("accounts"), list):
+            fail(errors, "expense_breakdown.accounts must be a list")
+        direct_cost = float(expense_breakdown.get("direct_cost", 0) or 0)
+        operating_expense = float(expense_breakdown.get("operating_expense", 0) or 0)
+        total = float(expense_breakdown.get("total", 0) or 0)
+        if round(direct_cost + operating_expense - total, 2) != 0:
+            fail(errors, "expense_breakdown total does not reconcile")
 
     branches = data.get("branches", {})
     if not branches.get("all_time"):

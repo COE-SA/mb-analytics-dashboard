@@ -432,6 +432,54 @@ def pl_monthly(start: date) -> list[dict[str, Any]]:
     return result
 
 
+def expense_breakdown(start: date, end_exclusive: date) -> dict[str, Any]:
+    """Return accounting-expense accounts split between direct cost and operating expense."""
+    categories = (
+        ("direct_cost", "تكاليف مباشرة", "expense_direct_cost"),
+        ("operating_expense", "مصروفات تشغيلية", "expense"),
+    )
+    accounts: list[dict[str, Any]] = []
+    totals = {"direct_cost": 0.0, "operating_expense": 0.0}
+    for classification, classification_label, account_type in categories:
+        grouped = read_group_all(
+            "account.move.line",
+            [
+                ["date", ">=", start.isoformat()],
+                ["date", "<", end_exclusive.isoformat()],
+                ["move_id.state", "=", "posted"],
+                ["account_id.account_type", "=", account_type],
+            ],
+            ["debit", "credit"],
+            ["account_id"],
+        )
+        for item in grouped:
+            account_id, account_name = many2one(item.get("account_id"), "غير محدد")
+            if account_id is None:
+                continue
+            amount = round(number(item.get("debit")) - number(item.get("credit")), 2)
+            if amount == 0:
+                continue
+            totals[classification] = round(totals[classification] + amount, 2)
+            accounts.append(
+                {
+                    "account_id": account_id,
+                    "account": account_name,
+                    "classification": classification,
+                    "classification_label": classification_label,
+                    "amount": amount,
+                }
+            )
+    accounts.sort(key=lambda item: abs(number(item["amount"])), reverse=True)
+    return {
+        "period_start": start.isoformat(),
+        "period_end": (end_exclusive - timedelta(days=1)).isoformat(),
+        "direct_cost": round(totals["direct_cost"], 2),
+        "operating_expense": round(totals["operating_expense"], 2),
+        "total": round(totals["direct_cost"] + totals["operating_expense"], 2),
+        "accounts": accounts,
+    }
+
+
 def purchase_monthly(start: date, end_exclusive: date) -> list[dict[str, Any]]:
     rows = search_read_all(
         "purchase.order",
@@ -640,6 +688,7 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
     branch_monthly = monthly_by_dimension("config_id", HISTORY_START, tomorrow)
     aggregator_monthly = monthly_by_dimension("partner_id", HISTORY_START, tomorrow, include_aggregators_only=True)
     pl_raw = pl_monthly(HISTORY_START)
+    expense_structure = expense_breakdown(twelve_month_start, tomorrow)
     purchase_raw = purchase_monthly(HISTORY_START, tomorrow)
     purchases_recent = search_read_all(
         "purchase.order",
@@ -662,7 +711,7 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
             "currency": "SAR",
             "timezone": "Asia/Riyadh",
             "last_completed_day": yesterday.isoformat(),
-            "schema_version": 6,
+            "schema_version": 7,
         },
         "data_health": {
             "status": "ok",
@@ -673,6 +722,7 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
                 "range_end": today.isoformat(),
             },
             "monthly_sales_months": len(monthly_raw),
+            "expense_breakdown_accounts": len(expense_structure["accounts"]),
         },
         "kpis": {
             "today": today_kpi,
@@ -773,6 +823,7 @@ def build_snapshot(now: datetime) -> dict[str, Any]:
             "all_time": top_products(),
         },
         "pl_monthly": list(reversed(pl_raw)),
+        "expense_breakdown": expense_structure,
         "purchases": {
             "monthly": list(reversed(purchase_raw)),
             "total": round(sum(number(item.get("amount")) for item in purchase_raw), 2),

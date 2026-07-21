@@ -118,6 +118,10 @@
   .period-detail { color:var(--muted); font-size:11px; margin-top:7px; }
   .period-metric-card .kpi-delta { margin-top:7px; }
 
+  /* ── Financial breakdown note ── */
+  .finance-note { margin:16px 0; padding:12px 14px; border:1px solid var(--border); border-right:4px solid var(--blue); border-radius:10px; background:var(--surface); color:var(--muted); font-size:12px; line-height:1.65; box-shadow:0 4px 14px rgba(74,56,31,.04); }
+  .finance-note strong { color:var(--text); }
+
   /* ── Data quality status ── */
   .data-health { display:flex; align-items:center; gap:8px; margin:12px clamp(14px, 3vw, 28px) 0; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--muted); font-size:12px; box-shadow:0 4px 14px rgba(74,56,31,.04); }
   .data-health.ok { border-color:rgba(22,132,83,.35); color:#0d6b41; background:#f1faf5; }
@@ -475,7 +479,7 @@
       <div class="kpi-value" id="pl-exp">—</div>
     </div>
     <div class="kpi-card green">
-      <div class="kpi-label">إجمالي الربح (12 شهر)</div>
+      <div class="kpi-label">النتيجة التشغيلية (12 شهر)</div>
       <div class="kpi-value" id="pl-profit">—</div>
     </div>
     <div class="kpi-card blue">
@@ -486,7 +490,7 @@
   </div>
   <div class="charts-grid">
     <div class="chart-card full">
-      <div class="chart-title">الإيرادات والمصاريف والربح الإجمالي — شهرياً (من الأحدث للأقدم)</div>
+      <div class="chart-title">الإيرادات والمصاريف والنتيجة التشغيلية — شهرياً (من الأحدث للأقدم)</div>
       <div class="chart-wrap tall"><canvas id="chartPL"></canvas></div>
     </div>
     <div class="chart-card">
@@ -500,6 +504,39 @@
   </div>
   <div class="section-title">تقرير الربح والخسارة الشهري (من الأحدث للأقدم)</div>
   <div class="table-wrap"><table id="plTable"></table></div>
+
+  <div class="section-title">هيكل المصروفات المحاسبي — آخر 12 شهر</div>
+  <div class="finance-note" id="expense-breakdown-note">يتم تحميل تفصيل المصروفات من القيود المحاسبية المرحّلة.</div>
+  <div class="kpi-grid">
+    <div class="kpi-card red">
+      <div class="kpi-label">تكاليف مباشرة</div>
+      <div class="kpi-value" id="expense-direct">—</div>
+      <div class="kpi-sub" id="expense-direct-sub">—</div>
+    </div>
+    <div class="kpi-card gold">
+      <div class="kpi-label">مصروفات تشغيلية</div>
+      <div class="kpi-value" id="expense-operating">—</div>
+      <div class="kpi-sub" id="expense-operating-sub">—</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">إجمالي الحسابات</div>
+      <div class="kpi-value" id="expense-account-count">—</div>
+      <div class="kpi-sub">حسابات مصروفات ظاهرة</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">إجمالي المصروفات المفصّلة</div>
+      <div class="kpi-value" id="expense-total">—</div>
+      <div class="kpi-sub" id="expense-total-sub">—</div>
+    </div>
+  </div>
+  <div class="charts-grid">
+    <div class="chart-card full">
+      <div class="chart-title">أعلى حسابات المصروفات — آخر 12 شهر</div>
+      <div class="chart-wrap tall"><canvas id="chartExpenseAccounts"></canvas></div>
+    </div>
+  </div>
+  <div class="section-title">تفاصيل الحسابات</div>
+  <div class="table-wrap"><table id="expenseTable"></table></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════ -->
@@ -1092,28 +1129,28 @@ function renderPLPage() {
 
   mkChart('chartPL','bar', chartPl.map(r=>r.month),
     [
-      {label:'الإيرادات', data:chartPl.map(r=>r.revenue), backgroundColor:'rgba(52,152,219,.7)'},
-      {label:'المصاريف',  data:chartPl.map(r=>r.expenses), backgroundColor:'rgba(231,76,60,.7)'},
-      {label:'الربح',     data:chartPl.map(r=>r.gross_profit), type:'line',
-       borderColor:'#27ae60', backgroundColor:'transparent', borderWidth:2, pointRadius:3}
+      {label:'الإيرادات', data:chartPl.map(r=>r.revenue), backgroundColor:'rgba(44,110,173,.68)'},
+      {label:'المصاريف',  data:chartPl.map(r=>r.expenses), backgroundColor:'rgba(194,65,59,.64)'},
+      {label:'النتيجة التشغيلية', data:chartPl.map(r=>r.gross_profit), type:'line',
+       borderColor:'#168453', backgroundColor:'transparent', borderWidth:2, pointRadius:3}
     ]
   );
 
   mkChart('chartMargin','line', chartPl.map(r=>r.month),
-    [{label:'هامش %', data:chartPl.map(r=>r.margin_pct),
-      borderColor:'#f5a623', backgroundColor:'rgba(245,166,35,.1)',
+    [{label:'الهامش %', data:chartPl.map(r=>r.margin_pct),
+      borderColor:'#a56517', backgroundColor:'rgba(165,101,23,.1)',
       fill:true, tension:.3, pointRadius:4}]
   );
 
   // Purchases chart — newest first → reverse for chart
   const purch = [...(D.purchases?.monthly||[])];
   mkChart('chartPurchases','bar', purch.map(r=>r.month),
-    [{label:'المشتريات', data:purch.map(r=>r.amount), backgroundColor:'rgba(155,89,182,.7)'}]
+    [{label:'المشتريات', data:purch.map(r=>r.amount), backgroundColor:'rgba(117,84,163,.65)'}]
   );
 
   // P&L Table (newest first)
   document.getElementById('plTable').innerHTML = `
-    <thead><tr><th>الشهر</th><th>الإيرادات</th><th>المصاريف</th><th>الربح الإجمالي</th><th>هامش %</th></tr></thead>
+    <thead><tr><th>الشهر</th><th>الإيرادات</th><th>المصاريف</th><th>النتيجة التشغيلية</th><th>هامش %</th></tr></thead>
     <tbody>${pl.map(r=>`
       <tr>
         <td>${r.month}</td>
@@ -1122,6 +1159,47 @@ function renderPLPage() {
         <td class="${r.gross_profit>=0?'trend-up':'trend-down'}">${fmt(r.gross_profit)} ر.س</td>
         <td><span class="badge ${r.margin_pct>=30?'badge-green':r.margin_pct>=0?'badge-gold':'badge-red'}">${r.margin_pct}%</span></td>
       </tr>`).join('')}
+    </tbody>`;
+
+  const hasExpenseBreakdown = Number(D.meta?.schema_version || 0) >= 7 && D.expense_breakdown;
+  const expense = hasExpenseBreakdown ? D.expense_breakdown : null;
+  const accounts = [...(expense?.accounts || [])];
+  const directCost = Number(expense?.direct_cost || 0);
+  const operatingExpense = Number(expense?.operating_expense || 0);
+  const expenseTotal = Number(expense?.total || 0);
+  const directShare = expenseTotal ? directCost / expenseTotal * 100 : 0;
+  const operatingShare = expenseTotal ? operatingExpense / expenseTotal * 100 : 0;
+  const note = document.getElementById('expense-breakdown-note');
+
+  document.getElementById('expense-direct').textContent = expense ? fmtK(directCost) : '—';
+  document.getElementById('expense-direct-sub').textContent = expense ? `${directShare.toFixed(1)}% من الإجمالي` : 'يتطلب لقطة البيانات الجديدة';
+  document.getElementById('expense-operating').textContent = expense ? fmtK(operatingExpense) : '—';
+  document.getElementById('expense-operating-sub').textContent = expense ? `${operatingShare.toFixed(1)}% من الإجمالي` : 'يتطلب لقطة البيانات الجديدة';
+  document.getElementById('expense-account-count').textContent = expense ? fmt(accounts.length) : '—';
+  document.getElementById('expense-total').textContent = expense ? fmtK(expenseTotal) : '—';
+  document.getElementById('expense-total-sub').textContent = expense ? `${shortDate(expense.period_start)} — ${shortDate(expense.period_end)}` : 'يتطلب لقطة البيانات الجديدة';
+
+  note.innerHTML = expense
+    ? `<strong>الفترة:</strong> ${shortDate(expense.period_start)} — ${shortDate(expense.period_end)}. تُستخرج البنود من القيود المحاسبية المرحّلة فقط، وتفصل بين التكاليف المباشرة والمصروفات التشغيلية.`
+    : '<strong>تفصيل الحسابات غير متاح في اللقطة الحالية.</strong> سيظهر بعد تشغيل التحديث الآمن الذي ينشئ لقطة البيانات بالإصدار 7.';
+
+  const topAccounts = accounts.slice(0, 12);
+  mkChart('chartExpenseAccounts','bar', topAccounts.map(item=>item.account),
+    [{label:'المصروفات', data:topAccounts.map(item=>item.amount), backgroundColor:topAccounts.map(item=>item.classification === 'direct_cost' ? 'rgba(194,65,59,.66)' : 'rgba(165,101,23,.65)')}]
+  );
+
+  document.getElementById('expenseTable').innerHTML = `
+    <thead><tr><th>الحساب</th><th>التصنيف</th><th>المبلغ</th><th>الحصة من الإجمالي</th></tr></thead>
+    <tbody>${accounts.length ? accounts.map(item=>{
+      const share = expenseTotal ? Number(item.amount) / expenseTotal * 100 : 0;
+      const badge = item.classification === 'direct_cost' ? 'badge-red' : 'badge-gold';
+      return `<tr>
+        <td>${escapeHtml(item.account)}</td>
+        <td><span class="badge ${badge}">${escapeHtml(item.classification_label)}</span></td>
+        <td class="${Number(item.amount)>=0?'trend-down':'trend-up'}">${fmt(item.amount)} ر.س</td>
+        <td>${share.toFixed(1)}%</td>
+      </tr>`;
+    }).join('') : '<tr><td colspan="4" class="empty-state">لا تتوفر حسابات مصروفات مفصّلة حتى يتم تحديث لقطة البيانات الجديدة.</td></tr>'}
     </tbody>`;
 }
 

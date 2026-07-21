@@ -31,6 +31,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Test snapshot logic
+        run: python -m unittest -v test_fetch.py
+
       - name: Generate dashboard snapshot
         run: python fetch.py
 
