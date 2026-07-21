@@ -40,6 +40,14 @@ class FetchHelpersTest(unittest.TestCase):
         self.assertEqual(sum(item["revenue"] for item in result.values()), 3_000)
         self.assertEqual(sum(item["orders"] for item in result.values()), 30)
 
+    @patch("fetch.search_count")
+    @patch("fetch.read_group_all")
+    def test_branch_config_4_maps_to_hamadaniyah(self, read_group_mock, search_count_mock) -> None:
+        read_group_mock.return_value = [{"config_id": [4, "not used"], "amount_total": 15_000}]
+        search_count_mock.return_value = 150
+        result = fetch.pos_by_branch()
+        self.assertEqual(result, {"Hamadaniyah": {"revenue": 15_000.0, "orders": 150}})
+
     @patch("fetch.read_group_all")
     def test_expense_breakdown_reconciles_direct_and_operating_costs(self, read_group_mock) -> None:
         read_group_mock.side_effect = [

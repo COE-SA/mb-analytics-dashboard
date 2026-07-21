@@ -526,13 +526,18 @@ def pos_monthly_range(start: date, end_exclusive: date) -> list[dict[str, Any]]:
     ]
 
 
+BRANCH_CONFIG_ALIASES = {
+    4: "Hamadaniyah",
+}
+
+
 def pos_by_branch(extra: Iterable[list[Any]] | None = None) -> dict[str, dict[str, float | int]]:
     domain = pos_domain(extra)
     groups = read_group_all("pos.order", domain, ["amount_total"], ["config_id"])
     result: dict[str, dict[str, float | int]] = {}
     for group in groups:
         config_id, config_name = many2one(group.get("config_id"), "غير محدد")
-        branch_name = short_branch_name(config_name).strip()
+        branch_name = BRANCH_CONFIG_ALIASES.get(config_id, short_branch_name(config_name).strip())
         if branch_name.casefold() in {"not used", "not set", "غير مستخدم", "غير محدد"}:
             branch_name = f"فرع غير مسمى #{config_id or 'unknown'}"
         if branch_name in result:
