@@ -5,141 +5,204 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Munch Bakery — لوحة التحكم المالية</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <style>
   :root {
-    --bg: #0f1117; --card: #1a1d27; --card2: #22263a;
-    --accent: #f5a623; --accent2: #e8630a; --green: #22c55e;
-    --red: #ef4444; --blue: #3b82f6; --purple: #a855f7;
-    --text: #f0f0f0; --muted: #8892a4; --border: #2a2f45;
-    --radius: 14px;
+    --bg:       #0d0d0d;
+    --surface:  #1a1a1a;
+    --surface2: #222;
+    --border:   #2e2e2e;
+    --gold:     #f5a623;
+    --gold2:    #e8941a;
+    --green:    #27ae60;
+    --red:      #e74c3c;
+    --blue:     #3498db;
+    --purple:   #9b59b6;
+    --teal:     #1abc9c;
+    --orange:   #e67e22;
+    --text:     #e8e8e8;
+    --muted:    #888;
+    --radius:   10px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Arial, sans-serif; font-size: 14px; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 14px; }
 
   /* ── Header ── */
-  header { background: var(--card); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px; background: var(--surface);
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+  }
   .logo { display: flex; align-items: center; gap: 10px; }
-  .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg,var(--accent),var(--accent2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-  .logo-text { font-size: 18px; font-weight: 700; color: var(--accent); }
-  .logo-sub { font-size: 11px; color: var(--muted); }
-  .header-right { display: flex; align-items: center; gap: 16px; }
-  .last-update { font-size: 11px; color: var(--muted); }
-  .refresh-btn { background: var(--accent); color: #000; border: none; padding: 7px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: opacity .2s; }
-  .refresh-btn:hover { opacity: .85; }
+  .logo span { font-size: 20px; font-weight: 700; color: var(--gold); }
+  .logo small { color: var(--muted); font-size: 12px; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .last-update { color: var(--muted); font-size: 12px; }
+  .btn-refresh {
+    background: var(--gold); color: #000; border: none; border-radius: 6px;
+    padding: 6px 14px; cursor: pointer; font-weight: 600; font-size: 13px;
+  }
+  .btn-refresh:hover { background: var(--gold2); }
 
-  /* ── Nav Tabs ── */
-  .tabs { background: var(--card); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; }
-  .tab { padding: 12px 20px; cursor: pointer; border-bottom: 3px solid transparent; font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; transition: all .2s; }
-  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .tab:hover:not(.active) { color: var(--text); }
+  /* ── Nav ── */
+  nav {
+    display: flex; gap: 4px; padding: 10px 20px;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    overflow-x: auto; white-space: nowrap;
+  }
+  .nav-btn {
+    padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--muted); cursor: pointer; font-size: 13px;
+    transition: all .2s;
+  }
+  .nav-btn.active { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 600; }
+  .nav-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
 
-  /* ── Layout ── */
-  .page { display: none; padding: 20px 24px; }
+  /* ── Pages ── */
+  .page { display: none; padding: 20px; }
   .page.active { display: block; }
 
-  /* ── Period Selector ── */
-  .period-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
-  .period-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--card); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .2s; }
-  .period-btn.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; }
-  .section-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  /* ── Period filter ── */
+  .period-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .period-btn {
+    padding: 5px 14px; border-radius: 16px; border: 1px solid var(--border);
+    background: transparent; color: var(--muted); cursor: pointer; font-size: 12px;
+    transition: all .2s;
+  }
+  .period-btn.active { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 600; }
 
   /* ── KPI Cards ── */
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
-  .kpi-card { background: var(--card); border-radius: var(--radius); padding: 18px; border: 1px solid var(--border); position: relative; overflow: hidden; }
-  .kpi-card::before { content: ''; position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: var(--accent); border-radius: 0 var(--radius) var(--radius) 0; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .kpi-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; position: relative; overflow: hidden;
+  }
+  .kpi-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold);
+  }
   .kpi-card.green::before { background: var(--green); }
   .kpi-card.blue::before  { background: var(--blue); }
-  .kpi-card.purple::before{ background: var(--purple); }
+  .kpi-card.purple::before { background: var(--purple); }
+  .kpi-card.teal::before  { background: var(--teal); }
   .kpi-card.red::before   { background: var(--red); }
-  .kpi-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
-  .kpi-value { font-size: 22px; font-weight: 800; color: var(--text); }
-  .kpi-sub   { font-size: 11px; color: var(--muted); margin-top: 4px; }
-  .kpi-delta { font-size: 12px; font-weight: 700; margin-top: 6px; }
+  .kpi-label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+  .kpi-value { font-size: 26px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .kpi-sub   { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .kpi-delta { font-size: 12px; margin-top: 6px; font-weight: 600; }
   .kpi-delta.up   { color: var(--green); }
   .kpi-delta.down { color: var(--red); }
+  .kpi-delta.neutral { color: var(--muted); }
 
-  /* ── Chart Cards ── */
-  .chart-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); gap: 16px; margin-bottom: 24px; }
-  .chart-card { background: var(--card); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
-  .chart-card.full { grid-column: 1 / -1; }
-  .chart-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text); display: flex; justify-content: space-between; align-items: center; }
-  .chart-wrap { position: relative; height: 260px; }
-  .chart-wrap.tall { height: 320px; }
-  .chart-wrap.short { height: 200px; }
-
-  /* ── Tables ── */
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { background: var(--card2); color: var(--muted); font-weight: 600; padding: 10px 12px; text-align: right; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; border-bottom: 1px solid var(--border); }
-  td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text); }
-  tr:hover td { background: var(--card2); }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; }
-  .badge-green  { background: rgba(34,197,94,.15);  color: var(--green); }
-  .badge-red    { background: rgba(239,68,68,.15);   color: var(--red); }
-  .badge-orange { background: rgba(245,166,35,.15);  color: var(--accent); }
-  .badge-blue   { background: rgba(59,130,246,.15);  color: var(--blue); }
-
-  /* ── Progress Bar ── */
-  .prog-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 4px; }
-  .prog-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,var(--accent),var(--accent2)); }
-
-  /* ── Responsive ── */
-  @media(max-width:700px) {
-    .chart-grid { grid-template-columns: 1fr; }
-    .kpi-grid   { grid-template-columns: repeat(2,1fr); }
-    header { padding: 10px 14px; }
-    .page  { padding: 14px; }
+  /* ── Comparison block ── */
+  .compare-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .compare-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px;
+  }
+  .compare-title { color: var(--gold); font-weight: 600; margin-bottom: 12px; font-size: 14px; }
+  .compare-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-label { color: var(--muted); font-size: 12px; }
+  .compare-val { font-weight: 600; font-size: 13px; }
+  .forecast-badge {
+    display: inline-block; background: rgba(245,166,35,.15); border: 1px solid var(--gold);
+    color: var(--gold); border-radius: 6px; padding: 2px 8px; font-size: 11px; margin-right: 6px;
   }
 
-  /* ── Loading ── */
-  #loading { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; gap: 16px; }
-  .spinner { width: 48px; height: 48px; border: 4px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  /* ── Charts ── */
+  .charts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .chart-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px;
+  }
+  .chart-card.full { grid-column: 1 / -1; }
+  .chart-title { color: var(--text); font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+  .chart-wrap { position: relative; height: 240px; }
+  .chart-wrap.tall { height: 320px; }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; margin-top: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--surface2); color: var(--muted); padding: 8px 10px; text-align: right; font-weight: 600; white-space: nowrap; }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  tr:hover td { background: rgba(255,255,255,.03); }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;
+  }
+  .badge-green { background: rgba(39,174,96,.2); color: var(--green); }
+  .badge-red   { background: rgba(231,76,60,.2);  color: var(--red); }
+  .badge-gold  { background: rgba(245,166,35,.2); color: var(--gold); }
+  .badge-blue  { background: rgba(52,152,219,.2); color: var(--blue); }
+
+  /* ── Branch cards ── */
+  .branch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .branch-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 14px; text-align: center;
+  }
+  .branch-name { font-weight: 700; color: var(--gold); margin-bottom: 6px; font-size: 14px; }
+  .branch-rev  { font-size: 20px; font-weight: 700; }
+  .branch-sub  { color: var(--muted); font-size: 11px; margin-top: 4px; }
+
+  /* ── App cards ── */
+  .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .app-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 12px; text-align: center;
+  }
+  .app-name { font-weight: 600; font-size: 12px; margin-bottom: 6px; }
+  .app-rev  { font-size: 18px; font-weight: 700; color: var(--gold); }
+  .app-sub  { color: var(--muted); font-size: 11px; }
+
+  /* ── Scrollable section title ── */
+  .section-title {
+    font-size: 15px; font-weight: 700; color: var(--gold);
+    margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Trend sparkline ── */
+  .trend-up   { color: var(--green); }
+  .trend-down { color: var(--red); }
 
   /* ── Scrollbar ── */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .charts-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
 
-<div id="loading">
-  <div class="spinner"></div>
-  <div style="color:var(--muted);font-size:13px;">جاري تحميل البيانات...</div>
-</div>
-
 <header>
   <div class="logo">
-    <div class="logo-icon">🧁</div>
-    <div>
-      <div class="logo-text">Munch Bakery</div>
-      <div class="logo-sub">لوحة التحكم المالية والتشغيلية</div>
-    </div>
+    <span>🧁 Munch Bakery</span>
+    <small>لوحة التحكم المالية والتشغيلية</small>
   </div>
   <div class="header-right">
-    <div class="last-update" id="lastUpdate">—</div>
-    <button class="refresh-btn" onclick="location.reload()">⟳ تحديث</button>
+    <span class="last-update" id="lastUpdate">جاري التحميل...</span>
+    <button class="btn-refresh" onclick="location.reload()">⟳ تحديث</button>
   </div>
 </header>
 
-<nav class="tabs">
-  <div class="tab active" onclick="showPage('overview',this)">📊 نظرة عامة</div>
-  <div class="tab" onclick="showPage('branches',this)">🏪 الفروع</div>
-  <div class="tab" onclick="showPage('apps',this)">📱 التطبيقات</div>
-  <div class="tab" onclick="showPage('products',this)">🧁 المنتجات</div>
-  <div class="tab" onclick="showPage('pl',this)">💰 الربح والخسارة</div>
-  <div class="tab" onclick="showPage('payments',this)">💳 طرق الدفع</div>
-  <div class="tab" onclick="showPage('history',this)">📅 التاريخ الكامل</div>
+<nav>
+  <button class="nav-btn active" onclick="showPage('overview',this)">📊 نظرة عامة</button>
+  <button class="nav-btn" onclick="showPage('compare',this)">📈 المقارنات والتوقعات</button>
+  <button class="nav-btn" onclick="showPage('branches',this)">🏪 الفروع</button>
+  <button class="nav-btn" onclick="showPage('apps',this)">📱 التطبيقات</button>
+  <button class="nav-btn" onclick="showPage('products',this)">🧁 المنتجات</button>
+  <button class="nav-btn" onclick="showPage('pl',this)">💰 الربح والخسارة</button>
+  <button class="nav-btn" onclick="showPage('payments',this)">💳 طرق الدفع</button>
+  <button class="nav-btn" onclick="showPage('history',this)">📅 التاريخ الكامل</button>
 </nav>
 
-<!-- ══════════════════════════════════════════════════════════════════════════
-     PAGE 1 — OVERVIEW
-══════════════════════════════════════════════════════════════════════════ -->
-<div class="page active" id="page-overview">
-  <div class="period-bar">
-    <span style="color:var(--muted);font-size:12px;">الفترة:</span>
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: OVERVIEW                                                            -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-overview" class="page active">
+  <div class="period-bar" id="overview-periods">
     <button class="period-btn active" onclick="setOverviewPeriod('today',this)">اليوم</button>
     <button class="period-btn" onclick="setOverviewPeriod('yesterday',this)">أمس</button>
     <button class="period-btn" onclick="setOverviewPeriod('this_week',this)">هذا الأسبوع</button>
@@ -149,12 +212,10 @@
     <button class="period-btn" onclick="setOverviewPeriod('last_year',this)">العام الماضي</button>
     <button class="period-btn" onclick="setOverviewPeriod('all_time',this)">الكل</button>
   </div>
-
-  <div class="kpi-grid" id="kpi-overview"></div>
-
-  <div class="chart-grid">
+  <div class="kpi-grid" id="overview-kpis"></div>
+  <div class="charts-grid">
     <div class="chart-card full">
-      <div class="chart-title">المبيعات اليومية — آخر 30 يوم <span style="color:var(--muted);font-size:11px;">ر.س</span></div>
+      <div class="chart-title">المبيعات اليومية — آخر 60 يوم (ر.س) — من الأحدث للأقدم</div>
       <div class="chart-wrap tall"><canvas id="chartDaily"></canvas></div>
     </div>
     <div class="chart-card">
@@ -168,12 +229,36 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════════════
-     PAGE 2 — BRANCHES
-══════════════════════════════════════════════════════════════════════════ -->
-<div class="page" id="page-branches">
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: COMPARE & FORECAST                                                  -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-compare" class="page">
+  <div class="section-title">📅 مقارنة يومية</div>
+  <div class="compare-grid" id="daily-compare-cards"></div>
+
+  <div class="section-title">📆 مقارنة شهرية</div>
+  <div class="compare-grid" id="monthly-compare-cards"></div>
+
+  <div class="section-title">📊 مقارنة سنوية</div>
+  <div class="compare-grid" id="yearly-compare-cards"></div>
+
+  <div class="charts-grid">
+    <div class="chart-card full">
+      <div class="chart-title">المبيعات اليومية — آخر 60 يوم مع خط الاتجاه</div>
+      <div class="chart-wrap tall"><canvas id="chartDailyTrend"></canvas></div>
+    </div>
+    <div class="chart-card full">
+      <div class="chart-title">المبيعات الشهرية — كامل التاريخ (من الأحدث للأقدم)</div>
+      <div class="chart-wrap tall"><canvas id="chartMonthlyAll"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: BRANCHES                                                            -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-branches" class="page">
   <div class="period-bar">
-    <span style="color:var(--muted);font-size:12px;">الفترة:</span>
     <button class="period-btn active" onclick="setBranchPeriod('this_month',this)">هذا الشهر</button>
     <button class="period-btn" onclick="setBranchPeriod('last_month',this)">الشهر الماضي</button>
     <button class="period-btn" onclick="setBranchPeriod('today',this)">اليوم</button>
@@ -181,10 +266,8 @@
     <button class="period-btn" onclick="setBranchPeriod('this_year',this)">هذا العام</button>
     <button class="period-btn" onclick="setBranchPeriod('all_time',this)">الكل</button>
   </div>
-
-  <div class="kpi-grid" id="kpi-branches"></div>
-
-  <div class="chart-grid">
+  <div class="branch-grid" id="branch-cards"></div>
+  <div class="charts-grid">
     <div class="chart-card">
       <div class="chart-title">إيرادات الفروع</div>
       <div class="chart-wrap"><canvas id="chartBranchBar"></canvas></div>
@@ -194,24 +277,42 @@
       <div class="chart-wrap"><canvas id="chartBranchDonut"></canvas></div>
     </div>
     <div class="chart-card full">
-      <div class="chart-title">أداء الفروع الشهري — آخر 12 شهر</div>
+      <div class="chart-title">أداء الفروع الشهري — من الأحدث للأقدم</div>
       <div class="chart-wrap tall"><canvas id="chartBranchMonthly"></canvas></div>
     </div>
   </div>
-
-  <div class="chart-card" style="margin-bottom:20px;">
-    <div class="chart-title">تفاصيل الفروع</div>
-    <div class="table-wrap"><table id="tableBranches"><thead><tr><th>الفرع</th><th>الإيرادات</th><th>الطلبات</th><th>متوسط الطلب</th><th>الحصة</th></tr></thead><tbody></tbody></table></div>
-  </div>
+  <div class="section-title">تفاصيل الفروع</div>
+  <div class="table-wrap"><table id="branchTable"></table></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════════════
-     PAGE 3 — APPS
-══════════════════════════════════════════════════════════════════════════ -->
-<div class="page" id="page-apps">
-  <div class="kpi-grid" id="kpi-apps"></div>
-
-  <div class="chart-grid">
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: APPS                                                                -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-apps" class="page">
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">إجمالي التطبيقات (كل الوقت)</div>
+      <div class="kpi-value" id="agg-total-rev">—</div>
+      <div class="kpi-sub" id="agg-total-sub">—</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">حصة التطبيقات من الإجمالي</div>
+      <div class="kpi-value" id="agg-share">—</div>
+      <div class="kpi-sub" id="agg-share-sub">—</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">هنقر ستيشن (كل الوقت)</div>
+      <div class="kpi-value" id="agg-hs">—</div>
+      <div class="kpi-sub">أكبر تطبيق</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">كيتا (كل الوقت)</div>
+      <div class="kpi-value" id="agg-keeta">—</div>
+      <div class="kpi-sub">ثاني أكبر تطبيق</div>
+    </div>
+  </div>
+  <div class="app-grid" id="app-cards"></div>
+  <div class="charts-grid">
     <div class="chart-card">
       <div class="chart-title">حصة التطبيقات من إجمالي المبيعات (كل الوقت)</div>
       <div class="chart-wrap"><canvas id="chartAppsDonut"></canvas></div>
@@ -221,58 +322,64 @@
       <div class="chart-wrap"><canvas id="chartAppsBar"></canvas></div>
     </div>
     <div class="chart-card full">
-      <div class="chart-title">أداء التطبيقات الشهري — آخر 12 شهر</div>
+      <div class="chart-title">أداء التطبيقات الشهري — من الأحدث للأقدم</div>
       <div class="chart-wrap tall"><canvas id="chartAppsMonthly"></canvas></div>
     </div>
   </div>
-
-  <div class="chart-card" style="margin-bottom:20px;">
-    <div class="chart-title">تفاصيل التطبيقات (كل الوقت)</div>
-    <div class="table-wrap"><table id="tableApps"><thead><tr><th>التطبيق</th><th>إجمالي الإيرادات</th><th>آخر 30 يوم</th><th>هذا الشهر</th><th>هذا العام</th><th>الحصة %</th></tr></thead><tbody></tbody></table></div>
-  </div>
+  <div class="section-title">تفاصيل التطبيقات (كل الوقت)</div>
+  <div class="table-wrap"><table id="appsTable"></table></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════════════
-     PAGE 4 — PRODUCTS
-══════════════════════════════════════════════════════════════════════════ -->
-<div class="page" id="page-products">
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: PRODUCTS                                                            -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-products" class="page">
   <div class="period-bar">
-    <span style="color:var(--muted);font-size:12px;">الفترة:</span>
     <button class="period-btn active" onclick="setProdPeriod('last_30d',this)">آخر 30 يوم</button>
     <button class="period-btn" onclick="setProdPeriod('this_month',this)">هذا الشهر</button>
     <button class="period-btn" onclick="setProdPeriod('this_year',this)">هذا العام</button>
     <button class="period-btn" onclick="setProdPeriod('all_time',this)">الكل</button>
   </div>
-
-  <div class="chart-grid">
+  <div class="charts-grid">
     <div class="chart-card">
       <div class="chart-title">أفضل 10 منتجات — الإيرادات</div>
-      <div class="chart-wrap tall"><canvas id="chartProdRev"></canvas></div>
+      <div class="chart-wrap"><canvas id="chartProdRev"></canvas></div>
     </div>
     <div class="chart-card">
       <div class="chart-title">أفضل 10 منتجات — الكمية</div>
-      <div class="chart-wrap tall"><canvas id="chartProdQty"></canvas></div>
+      <div class="chart-wrap"><canvas id="chartProdQty"></canvas></div>
     </div>
   </div>
-
-  <div class="chart-card" style="margin-bottom:20px;">
-    <div class="chart-title">تفاصيل المنتجات مع هامش الربح</div>
-    <div class="table-wrap"><table id="tableProducts">
-      <thead><tr><th>#</th><th>المنتج</th><th>الفئة</th><th>الكمية</th><th>الإيرادات</th><th>التكلفة</th><th>إجمالي الربح</th><th>هامش %</th></tr></thead>
-      <tbody></tbody>
-    </table></div>
-  </div>
+  <div class="section-title">تفاصيل المنتجات مع هامش الربح</div>
+  <div class="table-wrap"><table id="prodTable"></table></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════════════
-     PAGE 5 — P&L
-══════════════════════════════════════════════════════════════════════════ -->
-<div class="page" id="page-pl">
-  <div class="kpi-grid" id="kpi-pl"></div>
-
-  <div class="chart-grid">
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: P&L                                                                 -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-pl" class="page">
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">إجمالي الإيرادات (12 شهر)</div>
+      <div class="kpi-value" id="pl-rev">—</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">إجمالي المصاريف (12 شهر)</div>
+      <div class="kpi-value" id="pl-exp">—</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">إجمالي الربح (12 شهر)</div>
+      <div class="kpi-value" id="pl-profit">—</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">متوسط هامش الربح</div>
+      <div class="kpi-value" id="pl-margin">—</div>
+      <div class="kpi-sub">آخر 12 شهر</div>
+    </div>
+  </div>
+  <div class="charts-grid">
     <div class="chart-card full">
-      <div class="chart-title">الإيرادات والمصاريف والربح الإجمالي — شهرياً (آخر 12 شهر)</div>
+      <div class="chart-title">الإيرادات والمصاريف والربح الإجمالي — شهرياً (من الأحدث للأقدم)</div>
       <div class="chart-wrap tall"><canvas id="chartPL"></canvas></div>
     </div>
     <div class="chart-card">
@@ -280,671 +387,606 @@
       <div class="chart-wrap"><canvas id="chartMargin"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">المشتريات الشهرية</div>
+      <div class="chart-title">المشتريات الشهرية (من الأحدث للأقدم)</div>
       <div class="chart-wrap"><canvas id="chartPurchases"></canvas></div>
     </div>
   </div>
-
-  <div class="chart-card" style="margin-bottom:20px;">
-    <div class="chart-title">تقرير الربح والخسارة الشهري</div>
-    <div class="table-wrap"><table id="tablePL">
-      <thead><tr><th>الشهر</th><th>الإيرادات</th><th>المصاريف</th><th>الربح الإجمالي</th><th>هامش %</th></tr></thead>
-      <tbody></tbody>
-    </table></div>
-  </div>
+  <div class="section-title">تقرير الربح والخسارة الشهري (من الأحدث للأقدم)</div>
+  <div class="table-wrap"><table id="plTable"></table></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════════════
-     PAGE 6 — PAYMENTS
-══════════════════════════════════════════════════════════════════════════ -->
-<div class="page" id="page-payments">
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: PAYMENTS                                                            -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-payments" class="page">
   <div class="period-bar">
-    <span style="color:var(--muted);font-size:12px;">الفترة:</span>
     <button class="period-btn active" onclick="setPayPeriod('last_30d',this)">آخر 30 يوم</button>
     <button class="period-btn" onclick="setPayPeriod('this_month',this)">هذا الشهر</button>
     <button class="period-btn" onclick="setPayPeriod('this_year',this)">هذا العام</button>
   </div>
-
-  <div class="chart-grid">
+  <div class="charts-grid">
     <div class="chart-card">
       <div class="chart-title">توزيع طرق الدفع</div>
       <div class="chart-wrap"><canvas id="chartPayDonut"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">إيرادات حسب طريقة الدفع</div>
+      <div class="chart-title">مبالغ طرق الدفع</div>
       <div class="chart-wrap"><canvas id="chartPayBar"></canvas></div>
     </div>
   </div>
-
-  <div class="chart-card" style="margin-bottom:20px;">
-    <div class="chart-title">تفاصيل طرق الدفع</div>
-    <div class="table-wrap"><table id="tablePayments">
-      <thead><tr><th>طريقة الدفع</th><th>المبلغ</th><th>عدد المعاملات</th><th>متوسط المعاملة</th><th>الحصة %</th></tr></thead>
-      <tbody></tbody>
-    </table></div>
-  </div>
+  <div class="section-title">تفاصيل طرق الدفع</div>
+  <div class="table-wrap"><table id="payTable"></table></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════════════
-     PAGE 7 — HISTORY
-══════════════════════════════════════════════════════════════════════════ -->
-<div class="page" id="page-history">
-  <div class="kpi-grid" id="kpi-history"></div>
-
-  <div class="chart-grid">
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE: HISTORY                                                             -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<div id="page-history" class="page">
+  <div class="section-title">كامل التاريخ — منذ أكتوبر 2024 حتى اليوم (من الأحدث للأقدم)</div>
+  <div class="charts-grid">
     <div class="chart-card full">
-      <div class="chart-title">المبيعات الشهرية — كامل التاريخ (منذ أكتوبر 2024)</div>
-      <div class="chart-wrap tall"><canvas id="chartHistoryAll"></canvas></div>
-    </div>
-    <div class="chart-card full">
-      <div class="chart-title">مقارنة سنوية — الفروع</div>
-      <div class="chart-wrap tall"><canvas id="chartYearlyBranch"></canvas></div>
+      <div class="chart-title">المبيعات الشهرية — كامل التاريخ</div>
+      <div class="chart-wrap tall"><canvas id="chartHistMonthly"></canvas></div>
     </div>
   </div>
-
-  <div class="chart-card" style="margin-bottom:20px;">
-    <div class="chart-title">المبيعات الشهرية التاريخية</div>
-    <div class="table-wrap"><table id="tableHistory">
-      <thead><tr><th>الشهر</th><th>الإيرادات</th><th>الطلبات</th><th>متوسط الطلب</th><th>النمو %</th></tr></thead>
-      <tbody></tbody>
-    </table></div>
-  </div>
+  <div class="table-wrap"><table id="histTable"></table></div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                                                -->
+<!-- ══════════════════════════════════════════════════════════════════════════ -->
 <script>
-// ════════════════════════════════════════════════════════════════════════════
-// GLOBALS
-// ════════════════════════════════════════════════════════════════════════════
-let D = null; // data.json
-const CHARTS = {};
+// ── Global state ──────────────────────────────────────────────────────────────
+let D = null;
+const charts = {};
 
-const COLORS = ['#f5a623','#3b82f6','#22c55e','#a855f7','#ef4444','#06b6d4','#f97316','#84cc16','#ec4899','#14b8a6','#8b5cf6','#f59e0b'];
-const BRANCH_COLORS = { 'Hamadaniyah':'#f5a623','Marwah':'#3b82f6','Ajaweed':'#22c55e','Defaa':'#a855f7','Waziriyah':'#ef4444','Safa':'#06b6d4','not used':'#8892a4' };
+// ── Utilities ─────────────────────────────────────────────────────────────────
+const fmt  = n => Number(n||0).toLocaleString('en-US', {maximumFractionDigits:0});
+const fmtK = n => { n=Number(n||0); return n>=1e6 ? (n/1e6).toFixed(1)+'M' : n>=1e3 ? (n/1e3).toFixed(1)+'K' : n.toFixed(0); };
+const pct  = (a,b) => b>0 ? ((a-b)/b*100).toFixed(1) : null;
+const deltaHtml = (a,b,label='') => {
+  const p = pct(a,b);
+  if(p===null) return '';
+  const cls = p>=0?'up':'down', arrow = p>=0?'▲':'▼';
+  return `<div class="kpi-delta ${cls}">${arrow} ${Math.abs(p)}% ${label}</div>`;
+};
 
-function fmt(n, dec=0) {
-  if (n == null || isNaN(n)) return '—';
-  return Number(n).toLocaleString('ar-SA', {minimumFractionDigits: dec, maximumFractionDigits: dec});
-}
-function fmtSAR(n) { return fmt(n) + ' ر.س'; }
-function pct(a,b) { if (!b) return 0; return Math.round(a/b*100*10)/10; }
-function delta(now, prev) {
-  if (!prev) return null;
-  return Math.round((now-prev)/prev*100*10)/10;
-}
-function deltaHtml(d) {
-  if (d == null) return '';
-  const cls = d >= 0 ? 'up' : 'down';
-  const arrow = d >= 0 ? '▲' : '▼';
-  return `<div class="kpi-delta ${cls}">${arrow} ${Math.abs(d)}%</div>`;
-}
+const COLORS = ['#f5a623','#3498db','#27ae60','#9b59b6','#1abc9c','#e67e22','#e74c3c','#2ecc71','#f39c12','#16a085','#8e44ad','#2980b9','#d35400'];
 
-// ════════════════════════════════════════════════════════════════════════════
-// CHART FACTORY
-// ════════════════════════════════════════════════════════════════════════════
-Chart.defaults.color = '#8892a4';
-Chart.defaults.borderColor = '#2a2f45';
-Chart.defaults.font.family = "'Segoe UI', Tahoma, Arial, sans-serif";
-
-function mkChart(id, cfg) {
-  if (CHARTS[id]) CHARTS[id].destroy();
+function mkChart(id, type, labels, datasets, opts={}) {
   const ctx = document.getElementById(id);
   if (!ctx) return;
-  CHARTS[id] = new Chart(ctx, cfg);
-  return CHARTS[id];
-}
-
-function barCfg(labels, datasets, opts={}) {
-  return {
-    type: 'bar',
-    data: { labels, datasets },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: datasets.length > 1, position: 'bottom', labels: { boxWidth: 12, padding: 12 } }, tooltip: { callbacks: { label: ctx => ' ' + fmtSAR(ctx.raw) } } },
-      scales: { x: { grid: { display: false } }, y: { grid: { color: '#2a2f45' }, ticks: { callback: v => fmt(v/1000)+'K' } } },
-      ...opts
+  if (charts[id]) { charts[id].destroy(); }
+  const defaults = {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color:'#888', font:{size:11} } } },
+    scales: type==='doughnut'||type==='pie' ? {} : {
+      x: { ticks:{ color:'#888', font:{size:10}, maxRotation:45 }, grid:{ color:'#2e2e2e' } },
+      y: { ticks:{ color:'#888', font:{size:10} }, grid:{ color:'#2e2e2e' } }
     }
   };
+  charts[id] = new Chart(ctx, { type, data:{labels, datasets}, options: Object.assign(defaults, opts) });
 }
 
-function lineCfg(labels, datasets, opts={}) {
-  return {
-    type: 'line',
-    data: { labels, datasets },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: datasets.length > 1, position: 'bottom', labels: { boxWidth: 12, padding: 12 } }, tooltip: { callbacks: { label: ctx => ' ' + fmtSAR(ctx.raw) } } },
-      scales: { x: { grid: { display: false } }, y: { grid: { color: '#2a2f45' }, ticks: { callback: v => fmt(v/1000)+'K' } } },
-      elements: { line: { tension: 0.35 }, point: { radius: 3 } },
-      ...opts
-    }
-  };
-}
-
-function donutCfg(labels, data, colors) {
-  return {
-    type: 'doughnut',
-    data: { labels, datasets: [{ data, backgroundColor: colors || COLORS, borderWidth: 2, borderColor: '#1a1d27', hoverOffset: 6 }] },
-    options: {
-      responsive: true, maintainAspectRatio: false, cutout: '62%',
-      plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 11 } } },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${fmtSAR(ctx.raw)} (${pct(ctx.raw, ctx.dataset.data.reduce((a,b)=>a+b,0))}%)` } }
-      }
-    }
-  };
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// PAGE SWITCHING
-// ════════════════════════════════════════════════════════════════════════════
-function showPage(id, el) {
+// ── Page navigation ───────────────────────────────────────────────────────────
+function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  el.classList.add('active');
-  if (D) renderPage(id);
+  btn.classList.add('active');
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// OVERVIEW
-// ════════════════════════════════════════════════════════════════════════════
+// ── Period helpers ────────────────────────────────────────────────────────────
+function setPeriodBtn(container, btn) {
+  container.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// OVERVIEW PAGE
+// ══════════════════════════════════════════════════════════════════════════════
 let overviewPeriod = 'today';
-function setOverviewPeriod(p, el) {
+function setOverviewPeriod(p, btn) {
   overviewPeriod = p;
-  document.querySelectorAll('#page-overview .period-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  renderOverview();
+  setPeriodBtn(document.getElementById('overview-periods'), btn);
+  renderOverviewKPIs();
 }
 
-function renderOverview() {
-  const k = D.kpis;
-  const cur = k[overviewPeriod] || {revenue:0, orders:0};
-  const prevMap = { today:'yesterday', this_week:'last_month', this_month:'last_month', this_year:'last_year' };
-  const prev = k[prevMap[overviewPeriod]] || null;
+function renderOverviewKPIs() {
+  if (!D) return;
+  const kpi = D.kpis[overviewPeriod] || {revenue:0,orders:0};
+  const prev = {
+    today: D.kpis.yesterday,
+    yesterday: D.kpis.this_week,
+    this_week: D.kpis.last_month,
+    this_month: D.kpis.last_month,
+    last_month: D.kpis.this_year,
+    this_year: D.kpis.last_year,
+    last_year: D.kpis.all_time,
+    all_time: null,
+  }[overviewPeriod];
 
-  const d_rev = prev ? delta(cur.revenue, prev.revenue) : null;
-  const d_ord = prev ? delta(cur.orders,  prev.orders)  : null;
-  const avg   = cur.orders ? Math.round(cur.revenue / cur.orders) : 0;
-  const p_avg = prev && prev.orders ? Math.round(prev.revenue / prev.orders) : null;
-  const d_avg = p_avg ? delta(avg, p_avg) : null;
+  const avg = kpi.orders > 0 ? (kpi.revenue / kpi.orders) : 0;
+  const prevAvg = prev && prev.orders > 0 ? (prev.revenue / prev.orders) : 0;
 
-  document.getElementById('kpi-overview').innerHTML = `
+  document.getElementById('overview-kpis').innerHTML = `
     <div class="kpi-card">
       <div class="kpi-label">الإيرادات</div>
-      <div class="kpi-value">${fmt(Math.round(cur.revenue/1000))}K</div>
-      <div class="kpi-sub">${fmtSAR(cur.revenue)}</div>
-      ${deltaHtml(d_rev)}
+      <div class="kpi-value">${fmtK(kpi.revenue)}</div>
+      <div class="kpi-sub">${fmt(kpi.revenue)} ر.س</div>
+      ${prev ? deltaHtml(kpi.revenue, prev.revenue, 'مقارنة بالفترة السابقة') : ''}
     </div>
     <div class="kpi-card green">
       <div class="kpi-label">عدد الطلبات</div>
-      <div class="kpi-value">${fmt(cur.orders)}</div>
+      <div class="kpi-value">${fmt(kpi.orders)}</div>
       <div class="kpi-sub">طلب</div>
-      ${deltaHtml(d_ord)}
+      ${prev ? deltaHtml(kpi.orders, prev.orders, '') : ''}
     </div>
     <div class="kpi-card blue">
       <div class="kpi-label">متوسط الطلب</div>
       <div class="kpi-value">${fmt(avg)}</div>
       <div class="kpi-sub">ريال / طلب</div>
-      ${deltaHtml(d_avg)}
+      ${prev ? deltaHtml(avg, prevAvg, '') : ''}
     </div>
     <div class="kpi-card purple">
       <div class="kpi-label">إجمالي كل الوقت</div>
-      <div class="kpi-value">${fmt(Math.round(k.all_time.revenue/1000000),1)}M</div>
-      <div class="kpi-sub">${fmt(k.all_time.orders)} طلب</div>
+      <div class="kpi-value">${fmtK(D.kpis.all_time.revenue)}</div>
+      <div class="kpi-sub">${fmt(D.kpis.all_time.orders)} طلب</div>
     </div>
   `;
+}
 
-  // Daily chart
-  const daily = D.daily_sales || [];
-  mkChart('chartDaily', lineCfg(
-    daily.map(d => d.day.slice(5)),
-    [{ label: 'الإيرادات', data: daily.map(d => d.revenue), borderColor: '#f5a623', backgroundColor: 'rgba(245,166,35,.12)', fill: true }]
-  ));
+function renderOverviewCharts() {
+  if (!D) return;
 
-  // Monthly 12m
-  const m12 = D.monthly_sales_12m || [];
-  mkChart('chartMonthly12', barCfg(
-    m12.map(m => m.month),
-    [{ label: 'الإيرادات', data: m12.map(m => m.revenue), backgroundColor: COLORS[0], borderRadius: 6 }]
-  ));
+  // Daily (60d) — newest first → reverse for chart (oldest left)
+  const daily = [...(D.daily_sales||[])].reverse();
+  mkChart('chartDaily','bar',
+    daily.map(r=>r.day),
+    [{label:'الإيرادات (ر.س)', data: daily.map(r=>r.revenue),
+      backgroundColor:'rgba(245,166,35,.7)', borderColor:'#f5a623', borderWidth:1}]
+  );
+
+  // Monthly 12m — newest first → reverse for chart
+  const m12 = [...(D.monthly_sales_12m||[])].reverse();
+  mkChart('chartMonthly12','bar',
+    m12.map(r=>r.month),
+    [{label:'الإيرادات (ر.س)', data: m12.map(r=>r.revenue),
+      backgroundColor:'rgba(52,152,219,.7)', borderColor:'#3498db', borderWidth:1}]
+  );
 
   // Hourly
-  const hourly = D.hourly_sales || [];
-  const hLabels = Array.from({length:24}, (_,i) => `${(i+3)%24}:00`);
-  const hData   = Array(24).fill(0);
-  hourly.forEach(h => { hData[h.hour] = h.revenue; });
-  mkChart('chartHourly', barCfg(
-    hLabels, [{ label: 'الإيرادات', data: hData, backgroundColor: COLORS[1], borderRadius: 4 }]
-  ));
+  const hr = D.hourly_sales||[];
+  mkChart('chartHourly','bar',
+    hr.map(r=>`${r.hour}:00`),
+    [{label:'الإيرادات', data: hr.map(r=>r.revenue),
+      backgroundColor:'rgba(26,188,156,.7)', borderColor:'#1abc9c', borderWidth:1}]
+  );
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// BRANCHES
-// ════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════
+// COMPARE PAGE
+// ══════════════════════════════════════════════════════════════════════════════
+function renderComparePage() {
+  if (!D) return;
+  const dc = D.daily_comparison || {};
+  const mc = D.monthly_comparison || {};
+  const yc = D.yearly_comparison || {};
+
+  // Daily comparison
+  const fc_tmrw = dc.forecast_tomorrow;
+  document.getElementById('daily-compare-cards').innerHTML = `
+    <div class="compare-card">
+      <div class="compare-title">📅 اليوم مقابل أمس</div>
+      <div class="compare-row"><span class="compare-label">اليوم</span><span class="compare-val">${fmt(dc.today?.revenue||0)} ر.س &nbsp; (${fmt(dc.today?.orders||0)} طلب)</span></div>
+      <div class="compare-row"><span class="compare-label">أمس</span><span class="compare-val">${fmt(dc.yesterday?.revenue||0)} ر.س &nbsp; (${fmt(dc.yesterday?.orders||0)} طلب)</span></div>
+      <div class="compare-row"><span class="compare-label">التغيير</span><span class="compare-val ${(dc.today?.revenue||0)>=(dc.yesterday?.revenue||0)?'trend-up':'trend-down'}">${pct(dc.today?.revenue||0, dc.yesterday?.revenue||1)}%</span></div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-title">📅 اليوم مقابل نفس اليوم الأسبوع الماضي</div>
+      <div class="compare-row"><span class="compare-label">اليوم</span><span class="compare-val">${fmt(dc.today?.revenue||0)} ر.س</span></div>
+      <div class="compare-row"><span class="compare-label">نفس اليوم (أسبوع سابق)</span><span class="compare-val">${fmt(dc.same_day_last_week?.revenue||0)} ر.س</span></div>
+      <div class="compare-row"><span class="compare-label">التغيير</span><span class="compare-val ${(dc.today?.revenue||0)>=(dc.same_day_last_week?.revenue||0)?'trend-up':'trend-down'}">${pct(dc.today?.revenue||0, dc.same_day_last_week?.revenue||1)}%</span></div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-title">🔮 توقع الغد</div>
+      ${fc_tmrw ? `
+      <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(fc_tmrw.revenue)} ر.س</span></div>
+      <div class="compare-row"><span class="compare-label">الطلبات المتوقعة</span><span class="compare-val">${fmt(fc_tmrw.orders)} طلب</span></div>
+      <div class="compare-row"><span class="compare-label">الأساس</span><span class="compare-val">متوسط آخر 7 أيام</span></div>
+      ` : '<div class="compare-row"><span class="compare-label">بيانات غير كافية</span></div>'}
+    </div>
+  `;
+
+  // Monthly comparison — use D.kpis for accurate live data
+  const this_month_kpi = D.kpis.this_month || {revenue:0,orders:0};
+  const last_month_kpi = D.kpis.last_month || {revenue:0,orders:0};
+  const same_month_ly  = mc.same_month_ly  || {revenue:0,orders:0};
+  const fc_mo = mc.forecast_month;
+  document.getElementById('monthly-compare-cards').innerHTML = `
+    <div class="compare-card">
+      <div class="compare-title">📆 هذا الشهر مقابل الشهر الماضي</div>
+      <div class="compare-row"><span class="compare-label">هذا الشهر</span><span class="compare-val">${fmt(this_month_kpi.revenue)} ر.س &nbsp; (${fmt(this_month_kpi.orders)} طلب)</span></div>
+      <div class="compare-row"><span class="compare-label">الشهر الماضي</span><span class="compare-val">${fmt(last_month_kpi.revenue)} ر.س &nbsp; (${fmt(last_month_kpi.orders)} طلب)</span></div>
+      <div class="compare-row"><span class="compare-label">التغيير</span><span class="compare-val ${this_month_kpi.revenue>=last_month_kpi.revenue?'trend-up':'trend-down'}">${pct(this_month_kpi.revenue, last_month_kpi.revenue)}%</span></div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-title">📆 هذا الشهر مقابل نفس الشهر العام الماضي</div>
+      <div class="compare-row"><span class="compare-label">هذا الشهر</span><span class="compare-val">${fmt(this_month_kpi.revenue)} ر.س</span></div>
+      <div class="compare-row"><span class="compare-label">نفس الشهر (عام سابق)</span><span class="compare-val">${fmt(same_month_ly.revenue)} ر.س</span></div>
+      <div class="compare-row"><span class="compare-label">النمو السنوي (YoY)</span><span class="compare-val ${this_month_kpi.revenue>=(same_month_ly.revenue||0)?'trend-up':'trend-down'}">${same_month_ly.revenue>0?pct(this_month_kpi.revenue,same_month_ly.revenue):'N/A'}%</span></div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-title">🔮 توقع نهاية الشهر</div>
+      ${fc_mo ? `
+      <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(fc_mo.projected_month_revenue)} ر.س</span></div>
+      <div class="compare-row"><span class="compare-label">معدل اليومي الحالي</span><span class="compare-val">${fmt(fc_mo.daily_run_rate)} ر.س/يوم</span></div>
+      <div class="compare-row"><span class="compare-label">أيام مضت</span><span class="compare-val">${fc_mo.days_elapsed} يوم</span></div>
+      ` : '<div class="compare-row"><span class="compare-label">بيانات غير كافية</span></div>'}
+    </div>
+  `;
+
+  // Yearly comparison — use D.kpis for accurate live data
+  const this_year_kpi = D.kpis.this_year || {revenue:0,orders:0};
+  const last_year_kpi = D.kpis.last_year || {revenue:0,orders:0};
+  const lytd = yc.lytd || {revenue:0,orders:0};
+  const fc_yr = yc.forecast_year;
+  document.getElementById('yearly-compare-cards').innerHTML = `
+    <div class="compare-card">
+      <div class="compare-title">📊 هذا العام مقابل العام الماضي</div>
+      <div class="compare-row"><span class="compare-label">هذا العام (YTD)</span><span class="compare-val">${fmt(this_year_kpi.revenue)} ر.س &nbsp; (${fmt(this_year_kpi.orders)} طلب)</span></div>
+      <div class="compare-row"><span class="compare-label">العام الماضي (كامل)</span><span class="compare-val">${fmt(last_year_kpi.revenue)} ر.س &nbsp; (${fmt(last_year_kpi.orders)} طلب)</span></div>
+      <div class="compare-row"><span class="compare-label">نفس الفترة العام الماضي (LYTD)</span><span class="compare-val">${lytd.revenue>0?fmt(lytd.revenue)+' ر.س':'N/A'}</span></div>
+      <div class="compare-row"><span class="compare-label">النمو YoY (vs LYTD)</span><span class="compare-val ${lytd.revenue>0&&this_year_kpi.revenue>=lytd.revenue?'trend-up':'trend-down'}">${lytd.revenue>0?pct(this_year_kpi.revenue,lytd.revenue)+'%':'مقارنة بالعام الكامل: '+pct(this_year_kpi.revenue,last_year_kpi.revenue)+'%'}</span></div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-title">🔮 توقع نهاية العام</div>
+      ${fc_yr ? `
+      <div class="compare-row"><span class="compare-label">الإيرادات المتوقعة</span><span class="compare-val"><span class="forecast-badge">توقع</span>${fmt(fc_yr.projected_year_revenue)} ر.س</span></div>
+      <div class="compare-row"><span class="compare-label">معدل الشهري الحالي</span><span class="compare-val">${fmt(fc_yr.monthly_run_rate)} ر.س/شهر</span></div>
+      <div class="compare-row"><span class="compare-label">أشهر مضت</span><span class="compare-val">${fc_yr.months_elapsed}</span></div>
+      <div class="compare-row"><span class="compare-label">YTD الفعلي</span><span class="compare-val">${fmt(fc_yr.ytd_revenue)} ر.س</span></div>
+      ` : '<div class="compare-row"><span class="compare-label">بيانات غير كافية</span></div>'}
+    </div>
+  `;
+
+  // Daily trend chart (oldest→newest for chart)
+  const daily = [...(D.daily_sales||[])].reverse();
+  const avgRev = daily.reduce((s,r)=>s+r.revenue,0) / (daily.length||1);
+  mkChart('chartDailyTrend','bar',
+    daily.map(r=>r.day),
+    [
+      {label:'الإيرادات', data: daily.map(r=>r.revenue),
+       backgroundColor:'rgba(245,166,35,.6)', borderColor:'#f5a623', borderWidth:1, order:2},
+      {label:'المتوسط', data: daily.map(()=>Math.round(avgRev)),
+       type:'line', borderColor:'#e74c3c', borderWidth:2, pointRadius:0, fill:false, order:1}
+    ]
+  );
+
+  // Monthly all (oldest→newest for chart)
+  const mall = [...(D.monthly_sales_all||[])].reverse();
+  mkChart('chartMonthlyAll','bar',
+    mall.map(r=>r.month),
+    [{label:'الإيرادات (ر.س)', data: mall.map(r=>r.revenue),
+      backgroundColor: mall.map(r=>r.revenue>0?'rgba(52,152,219,.7)':'rgba(231,76,60,.5)'),
+      borderColor: mall.map(r=>r.revenue>0?'#3498db':'#e74c3c'), borderWidth:1}]
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// BRANCHES PAGE
+// ══════════════════════════════════════════════════════════════════════════════
 let branchPeriod = 'this_month';
-function setBranchPeriod(p, el) {
+let branchBarChart=null, branchDonutChart=null, branchMonthlyChart=null;
+
+function setBranchPeriod(p, btn) {
   branchPeriod = p;
-  document.querySelectorAll('#page-branches .period-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  renderBranches();
+  setPeriodBtn(btn.closest('.period-bar'), btn);
+  renderBranchCards();
+  renderBranchCharts();
 }
 
-function renderBranches() {
-  const bdata = D.branches[branchPeriod] || {};
-  const entries = Object.entries(bdata).sort((a,b) => b[1].revenue - a[1].revenue);
-  const totalRev = entries.reduce((s,[,v]) => s+v.revenue, 0);
+function renderBranchCards() {
+  if (!D) return;
+  const data = D.branches[branchPeriod] || {};
+  const sorted = Object.entries(data).sort((a,b)=>b[1].revenue-a[1].revenue);
+  document.getElementById('branch-cards').innerHTML = sorted.map(([name,v])=>`
+    <div class="branch-card">
+      <div class="branch-name">${name}</div>
+      <div class="branch-rev">${fmtK(v.revenue)}</div>
+      <div class="branch-sub">${fmt(v.orders)} طلب | متوسط ${v.orders>0?fmt(v.revenue/v.orders):0} ر.س</div>
+    </div>
+  `).join('');
+}
 
-  // KPIs
-  document.getElementById('kpi-branches').innerHTML = entries.map(([name, v], i) => {
-    const avg = v.orders ? Math.round(v.revenue/v.orders) : 0;
-    const share = pct(v.revenue, totalRev);
-    return `<div class="kpi-card ${['','green','blue','purple','red',''][i]||''}">
-      <div class="kpi-label">${name}</div>
-      <div class="kpi-value">${fmt(Math.round(v.revenue/1000))}K</div>
-      <div class="kpi-sub">${fmt(v.orders)} طلب | متوسط ${fmt(avg)} ر.س</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:${share}%"></div></div>
-    </div>`;
-  }).join('');
+function renderBranchCharts() {
+  if (!D) return;
+  const data = D.branches[branchPeriod] || {};
+  const sorted = Object.entries(data).sort((a,b)=>b[1].revenue-a[1].revenue);
+  const labels = sorted.map(([n])=>n);
+  const revs   = sorted.map(([,v])=>v.revenue);
 
-  // Bar
-  mkChart('chartBranchBar', barCfg(
-    entries.map(([n]) => n),
-    [{ label: 'الإيرادات', data: entries.map(([,v]) => v.revenue),
-       backgroundColor: entries.map(([n]) => BRANCH_COLORS[n] || COLORS[5]), borderRadius: 6 }]
-  ));
+  mkChart('chartBranchBar','bar', labels,
+    [{label:'الإيرادات', data:revs, backgroundColor:COLORS.slice(0,labels.length)}]);
+
+  mkChart('chartBranchDonut','doughnut', labels,
+    [{data:revs, backgroundColor:COLORS.slice(0,labels.length)}]);
+
+  // Monthly detail — newest first → reverse for chart
+  const bm = D.branch_monthly || {};
+  const allMonths = [...new Set(Object.values(bm).flatMap(m=>Object.keys(m)))].sort().reverse().slice(0,12).reverse();
+  const branchNames = Object.keys(bm);
+  mkChart('chartBranchMonthly','line', allMonths,
+    branchNames.map((b,i)=>({
+      label:b, data: allMonths.map(mo=>bm[b][mo]?.revenue||0),
+      borderColor:COLORS[i%COLORS.length], backgroundColor:'transparent',
+      tension:.3, pointRadius:3
+    }))
+  );
+
+  // Table
+  const total = sorted.reduce((s,[,v])=>s+v.revenue,0);
+  document.getElementById('branchTable').innerHTML = `
+    <thead><tr><th>الفرع</th><th>الإيرادات</th><th>الطلبات</th><th>متوسط الطلب</th><th>الحصة</th></tr></thead>
+    <tbody>${sorted.map(([n,v],i)=>`
+      <tr>
+        <td><span style="color:${COLORS[i%COLORS.length]}">●</span> ${n}</td>
+        <td>${fmt(v.revenue)} ر.س</td>
+        <td>${fmt(v.orders)}</td>
+        <td>${v.orders>0?fmt(v.revenue/v.orders):0} ر.س</td>
+        <td><span class="badge badge-gold">${total>0?(v.revenue/total*100).toFixed(1):0}%</span></td>
+      </tr>`).join('')}
+    </tbody>`;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// APPS PAGE
+// ══════════════════════════════════════════════════════════════════════════════
+function renderAppsPage() {
+  if (!D) return;
+  const all = D.aggregators?.all_time || {};
+  const l30 = D.aggregators?.last_30d || {};
+  const monthly = D.aggregators?.monthly || {};
+  const totalRev = D.summary?.total_revenue || 1;
+  const aggTotal = Object.values(all).reduce((s,v)=>s+v.revenue,0);
+
+  document.getElementById('agg-total-rev').textContent = fmtK(aggTotal);
+  document.getElementById('agg-total-sub').textContent = fmt(aggTotal) + ' ر.س';
+  document.getElementById('agg-share').textContent = (aggTotal/totalRev*100).toFixed(1)+'%';
+  document.getElementById('agg-share-sub').textContent = 'من إجمالي '+fmtK(totalRev)+' ر.س';
+  document.getElementById('agg-hs').textContent = fmtK(all['Hunger Station']?.revenue||0);
+  document.getElementById('agg-keeta').textContent = fmtK(all['Keeta']?.revenue||0);
+
+  // App cards
+  const sorted = Object.entries(all).sort((a,b)=>b[1].revenue-a[1].revenue);
+  document.getElementById('app-cards').innerHTML = sorted.map(([name,v],i)=>`
+    <div class="app-card">
+      <div class="app-name" style="color:${COLORS[i%COLORS.length]}">${name}</div>
+      <div class="app-rev">${fmtK(v.revenue)}</div>
+      <div class="app-sub">${(v.revenue/aggTotal*100).toFixed(1)}% من التطبيقات</div>
+    </div>
+  `).join('');
 
   // Donut
-  mkChart('chartBranchDonut', donutCfg(
-    entries.map(([n]) => n),
-    entries.map(([,v]) => v.revenue),
-    entries.map(([n]) => BRANCH_COLORS[n] || COLORS[5])
-  ));
-
-  // Monthly detail
-  const md = D.branches.monthly_detail || {};
-  const months = [...new Set(Object.values(md).flatMap(b => Object.keys(b)))].sort();
-  const branchNames = Object.keys(md);
-  mkChart('chartBranchMonthly', lineCfg(
-    months,
-    branchNames.map((bn, i) => ({
-      label: bn,
-      data: months.map(mo => md[bn][mo]?.revenue || 0),
-      borderColor: BRANCH_COLORS[bn] || COLORS[i],
-      backgroundColor: 'transparent',
-    }))
-  ));
-
-  // Table
-  const tbody = document.querySelector('#tableBranches tbody');
-  tbody.innerHTML = entries.map(([name, v]) => {
-    const avg = v.orders ? Math.round(v.revenue/v.orders) : 0;
-    const share = pct(v.revenue, totalRev);
-    return `<tr>
-      <td><span style="color:${BRANCH_COLORS[name]||'#f5a623'};font-weight:700;">●</span> ${name}</td>
-      <td>${fmtSAR(v.revenue)}</td>
-      <td>${fmt(v.orders)}</td>
-      <td>${fmtSAR(avg)}</td>
-      <td><span class="badge badge-orange">${share}%</span></td>
-    </tr>`;
-  }).join('');
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// APPS
-// ════════════════════════════════════════════════════════════════════════════
-function renderApps() {
-  const allTime  = D.aggregators.all_time  || {};
-  const last30   = D.aggregators.last_30d  || {};
-  const thisMonth= D.aggregators.this_month|| {};
-  const thisYear = D.aggregators.this_year || {};
-  const monthly  = D.aggregators.monthly   || {};
-
-  // filter out POS Customer (walk-in)
-  const isApp = name => name.includes('POSZ') || ['Hunger Station','Keeta','Taker','ToYou','Ninja','Marsool','JAHEZ','Chefz','Noon','Careem','Mandoob'].some(a => name.includes(a));
-
-  const apps = Object.entries(allTime).filter(([n]) => isApp(n) && n !== 'POS Customer (POSZ) ***').sort((a,b) => b[1].revenue - a[1].revenue);
-  const totalApps = apps.reduce((s,[,v]) => s+v.revenue, 0);
-  const totalAll  = Object.values(allTime).reduce((s,v) => s+v.revenue, 0);
-  const walkIn    = allTime['POS Customer (POSZ) ***']?.revenue || 0;
-
-  // KPIs
-  document.getElementById('kpi-apps').innerHTML = `
-    <div class="kpi-card">
-      <div class="kpi-label">إجمالي التطبيقات (كل الوقت)</div>
-      <div class="kpi-value">${fmt(Math.round(totalApps/1000))}K</div>
-      <div class="kpi-sub">${fmtSAR(totalApps)}</div>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">حصة التطبيقات من الإجمالي</div>
-      <div class="kpi-value">${pct(totalApps, totalAll)}%</div>
-      <div class="kpi-sub">من إجمالي ${fmtSAR(totalAll)}</div>
-    </div>
-    <div class="kpi-card blue">
-      <div class="kpi-label">هنقر ستيشن (كل الوقت)</div>
-      <div class="kpi-value">${fmt(Math.round((allTime['Hunger Station (POSZ) ***']?.revenue||0)/1000))}K</div>
-      <div class="kpi-sub">${fmtSAR(allTime['Hunger Station (POSZ) ***']?.revenue||0)}</div>
-    </div>
-    <div class="kpi-card purple">
-      <div class="kpi-label">كيتا (كل الوقت)</div>
-      <div class="kpi-value">${fmt(Math.round((allTime['Keeta(POSZ) ***']?.revenue||0)/1000))}K</div>
-      <div class="kpi-sub">${fmtSAR(allTime['Keeta(POSZ) ***']?.revenue||0)}</div>
-    </div>
-  `;
-
-  // Donut (all time)
-  mkChart('chartAppsDonut', donutCfg(
-    ['زيارة مباشرة', ...apps.map(([n]) => n.replace(' (POSZ) ***','').replace('(POSZ) ***',''))],
-    [walkIn, ...apps.map(([,v]) => v.revenue)],
-    ['#8892a4', ...COLORS]
-  ));
+  mkChart('chartAppsDonut','doughnut', sorted.map(([n])=>n),
+    [{data:sorted.map(([,v])=>v.revenue), backgroundColor:COLORS.slice(0,sorted.length)}]);
 
   // Bar (last 30d)
-  const apps30 = apps.map(([n]) => ({ name: n, rev: last30[n]?.revenue || 0 })).filter(a => a.rev > 0).sort((a,b) => b.rev - a.rev);
-  mkChart('chartAppsBar', barCfg(
-    apps30.map(a => a.name.replace(' (POSZ) ***','').replace('(POSZ) ***','')),
-    [{ label: 'آخر 30 يوم', data: apps30.map(a => a.rev), backgroundColor: COLORS, borderRadius: 6 }]
-  ));
+  const l30sorted = Object.entries(l30).sort((a,b)=>b[1].revenue-a[1].revenue);
+  mkChart('chartAppsBar','bar', l30sorted.map(([n])=>n),
+    [{label:'آخر 30 يوم', data:l30sorted.map(([,v])=>v.revenue),
+      backgroundColor:COLORS.slice(0,l30sorted.length)}]);
 
-  // Monthly line
-  const months = [...new Set(Object.values(monthly).flatMap(m => Object.keys(m)))].sort();
-  const topApps = apps.slice(0,6).map(([n]) => n);
-  mkChart('chartAppsMonthly', lineCfg(
-    months,
-    topApps.map((name, i) => ({
-      label: name.replace(' (POSZ) ***','').replace('(POSZ) ***',''),
-      data: months.map(mo => monthly[name]?.[mo] || 0),
-      borderColor: COLORS[i], backgroundColor: 'transparent',
+  // Monthly line — newest first → reverse for chart
+  const appNames = Object.keys(monthly).slice(0,6);
+  const allMonths = [...new Set(appNames.flatMap(a=>Object.keys(monthly[a]||{})))].sort().reverse().slice(0,12).reverse();
+  mkChart('chartAppsMonthly','line', allMonths,
+    appNames.map((a,i)=>({
+      label:a, data: allMonths.map(mo=>monthly[a]?.[mo]||0),
+      borderColor:COLORS[i%COLORS.length], backgroundColor:'transparent',
+      tension:.3, pointRadius:3
     }))
-  ));
+  );
 
   // Table
-  const tbody = document.querySelector('#tableApps tbody');
-  tbody.innerHTML = apps.map(([name, v]) => {
-    const short = name.replace(' (POSZ) ***','').replace('(POSZ) ***','');
-    const l30   = last30[name]?.revenue || 0;
-    const tm    = thisMonth[name]?.revenue || 0;
-    const ty    = thisYear[name]?.revenue || 0;
-    const share = pct(v.revenue, totalAll);
-    return `<tr>
-      <td style="font-weight:600;">${short}</td>
-      <td>${fmtSAR(v.revenue)}</td>
-      <td>${fmtSAR(l30)}</td>
-      <td>${fmtSAR(tm)}</td>
-      <td>${fmtSAR(ty)}</td>
-      <td><span class="badge badge-blue">${share}%</span></td>
-    </tr>`;
-  }).join('');
+  const thisYear = D.aggregators?.this_year || {};
+  const thisMonth = D.aggregators?.this_month || {};
+  document.getElementById('appsTable').innerHTML = `
+    <thead><tr><th>التطبيق</th><th>إجمالي الإيرادات</th><th>آخر 30 يوم</th><th>هذا الشهر</th><th>هذا العام</th><th>الحصة %</th></tr></thead>
+    <tbody>${sorted.map(([n,v],i)=>`
+      <tr>
+        <td><span style="color:${COLORS[i%COLORS.length]}">●</span> ${n}</td>
+        <td>${fmt(v.revenue)} ر.س</td>
+        <td>${fmt(l30[n]?.revenue||0)} ر.س</td>
+        <td>${fmt(thisMonth[n]?.revenue||0)} ر.س</td>
+        <td>${fmt(thisYear[n]?.revenue||0)} ر.س</td>
+        <td><span class="badge badge-gold">${aggTotal>0?(v.revenue/aggTotal*100).toFixed(1):0}%</span></td>
+      </tr>`).join('')}
+    </tbody>`;
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// PRODUCTS
-// ════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════
+// PRODUCTS PAGE
+// ══════════════════════════════════════════════════════════════════════════════
 let prodPeriod = 'last_30d';
-function setProdPeriod(p, el) {
+function setProdPeriod(p, btn) {
   prodPeriod = p;
-  document.querySelectorAll('#page-products .period-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  renderProducts();
+  setPeriodBtn(btn.closest('.period-bar'), btn);
+  renderProductsPage();
 }
 
-function renderProducts() {
-  const prods = (D.top_products[prodPeriod] || []).slice(0, 20);
+function renderProductsPage() {
+  if (!D) return;
+  const prods = D.top_products?.[prodPeriod] || [];
   const top10rev = prods.slice(0,10);
-  const top10qty = [...prods].sort((a,b) => b.qty - a.qty).slice(0,10);
+  const top10qty = [...prods].sort((a,b)=>b.qty-a.qty).slice(0,10);
 
-  mkChart('chartProdRev', {
-    type: 'bar',
-    data: {
-      labels: top10rev.map(p => p.product.slice(0,30)),
-      datasets: [{ label: 'الإيرادات', data: top10rev.map(p => p.revenue), backgroundColor: COLORS, borderRadius: 6 }]
-    },
-    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + fmtSAR(ctx.raw) } } },
-      scales: { x: { grid: { color: '#2a2f45' }, ticks: { callback: v => fmt(v/1000)+'K' } }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } }
-    }
-  });
+  mkChart('chartProdRev','bar', top10rev.map(p=>p.product.slice(0,25)),
+    [{label:'الإيرادات', data:top10rev.map(p=>p.revenue), backgroundColor:COLORS.slice(0,10)}],
+    {indexAxis:'y'});
 
-  mkChart('chartProdQty', {
-    type: 'bar',
-    data: {
-      labels: top10qty.map(p => p.product.slice(0,30)),
-      datasets: [{ label: 'الكمية', data: top10qty.map(p => p.qty), backgroundColor: COLORS.slice(3), borderRadius: 6 }]
-    },
-    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + fmt(ctx.raw) + ' وحدة' } } },
-      scales: { x: { grid: { color: '#2a2f45' } }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } }
-    }
-  });
+  mkChart('chartProdQty','bar', top10qty.map(p=>p.product.slice(0,25)),
+    [{label:'الكمية', data:top10qty.map(p=>p.qty), backgroundColor:COLORS.slice(0,10).reverse()}],
+    {indexAxis:'y'});
 
-  const tbody = document.querySelector('#tableProducts tbody');
-  tbody.innerHTML = prods.map((p, i) => {
-    const marginCls = p.margin_pct >= 70 ? 'badge-green' : p.margin_pct >= 50 ? 'badge-orange' : 'badge-red';
-    return `<tr>
-      <td style="color:var(--muted)">${i+1}</td>
-      <td style="font-weight:600;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.product}</td>
-      <td><span class="badge badge-blue">${p.category?.split('/').pop()?.trim()||'—'}</span></td>
-      <td>${fmt(p.qty)}</td>
-      <td>${fmtSAR(p.revenue)}</td>
-      <td>${fmtSAR(p.cogs)}</td>
-      <td style="color:var(--green)">${fmtSAR(p.gross_profit)}</td>
-      <td><span class="badge ${marginCls}">${p.margin_pct}%</span></td>
-    </tr>`;
-  }).join('');
+  document.getElementById('prodTable').innerHTML = `
+    <thead><tr><th>#</th><th>المنتج</th><th>الفئة</th><th>الكمية</th><th>الإيرادات</th><th>التكلفة</th><th>إجمالي الربح</th><th>هامش %</th></tr></thead>
+    <tbody>${prods.map((p,i)=>`
+      <tr>
+        <td>${i+1}</td>
+        <td>${p.product}</td>
+        <td><span class="badge badge-blue">${p.category}</span></td>
+        <td>${fmt(p.qty)}</td>
+        <td>${fmt(p.revenue)} ر.س</td>
+        <td>${fmt(p.cogs)} ر.س</td>
+        <td class="${p.gross_profit>=0?'trend-up':'trend-down'}">${fmt(p.gross_profit)} ر.س</td>
+        <td><span class="badge ${p.margin_pct>=50?'badge-green':p.margin_pct>=20?'badge-gold':'badge-red'}">${p.margin_pct}%</span></td>
+      </tr>`).join('')}
+    </tbody>`;
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// P&L
-// ════════════════════════════════════════════════════════════════════════════
-function renderPL() {
+// ══════════════════════════════════════════════════════════════════════════════
+// P&L PAGE
+// ══════════════════════════════════════════════════════════════════════════════
+function renderPLPage() {
+  if (!D) return;
+  // newest first already, reverse for chart
   const pl = D.pl_monthly || [];
-  const totalRev = pl.reduce((s,m) => s+m.revenue, 0);
-  const totalExp = pl.reduce((s,m) => s+m.expenses, 0);
-  const totalGP  = pl.reduce((s,m) => s+m.gross_profit, 0);
-  const avgMargin= totalRev ? Math.round(totalGP/totalRev*100*10)/10 : 0;
+  const pl12 = pl.slice(0,12); // newest 12
+  const chartPl = [...pl12].reverse(); // oldest→newest for chart
 
-  document.getElementById('kpi-pl').innerHTML = `
-    <div class="kpi-card">
-      <div class="kpi-label">إجمالي الإيرادات (12 شهر)</div>
-      <div class="kpi-value">${fmt(Math.round(totalRev/1000))}K</div>
-      <div class="kpi-sub">${fmtSAR(totalRev)}</div>
-    </div>
-    <div class="kpi-card red">
-      <div class="kpi-label">إجمالي المصاريف (12 شهر)</div>
-      <div class="kpi-value">${fmt(Math.round(totalExp/1000))}K</div>
-      <div class="kpi-sub">${fmtSAR(totalExp)}</div>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">إجمالي الربح (12 شهر)</div>
-      <div class="kpi-value">${fmt(Math.round(totalGP/1000))}K</div>
-      <div class="kpi-sub">${fmtSAR(totalGP)}</div>
-    </div>
-    <div class="kpi-card blue">
-      <div class="kpi-label">متوسط هامش الربح</div>
-      <div class="kpi-value">${avgMargin}%</div>
-      <div class="kpi-sub">آخر 12 شهر</div>
-    </div>
-  `;
+  const totRev  = pl12.reduce((s,r)=>s+r.revenue,0);
+  const totExp  = pl12.reduce((s,r)=>s+r.expenses,0);
+  const totProf = pl12.reduce((s,r)=>s+r.gross_profit,0);
+  const avgMarg = pl12.length>0 ? pl12.reduce((s,r)=>s+r.margin_pct,0)/pl12.length : 0;
 
-  mkChart('chartPL', {
-    type: 'bar',
-    data: {
-      labels: pl.map(m => m.month),
-      datasets: [
-        { label: 'الإيرادات', data: pl.map(m => m.revenue),    backgroundColor: 'rgba(245,166,35,.8)', borderRadius: 4 },
-        { label: 'المصاريف',  data: pl.map(m => m.expenses),   backgroundColor: 'rgba(239,68,68,.7)',  borderRadius: 4 },
-        { label: 'الربح الإجمالي', data: pl.map(m => m.gross_profit), type: 'line',
-          borderColor: '#22c55e', backgroundColor: 'transparent', tension: 0.35, pointRadius: 4 }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } }, tooltip: { callbacks: { label: ctx => ' ' + fmtSAR(ctx.raw) } } },
-      scales: { x: { grid: { display: false } }, y: { grid: { color: '#2a2f45' }, ticks: { callback: v => fmt(v/1000)+'K' } } }
-    }
-  });
+  document.getElementById('pl-rev').textContent    = fmtK(totRev);
+  document.getElementById('pl-exp').textContent    = fmtK(totExp);
+  document.getElementById('pl-profit').textContent = fmtK(totProf);
+  document.getElementById('pl-margin').textContent = avgMarg.toFixed(1)+'%';
 
-  mkChart('chartMargin', lineCfg(
-    pl.map(m => m.month),
-    [{ label: 'هامش الربح %', data: pl.map(m => m.margin_pct),
-       borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,.1)', fill: true }],
-    { scales: { y: { ticks: { callback: v => v+'%' } } } }
-  ));
+  mkChart('chartPL','bar', chartPl.map(r=>r.month),
+    [
+      {label:'الإيرادات', data:chartPl.map(r=>r.revenue), backgroundColor:'rgba(52,152,219,.7)'},
+      {label:'المصاريف',  data:chartPl.map(r=>r.expenses), backgroundColor:'rgba(231,76,60,.7)'},
+      {label:'الربح',     data:chartPl.map(r=>r.gross_profit), type:'line',
+       borderColor:'#27ae60', backgroundColor:'transparent', borderWidth:2, pointRadius:3}
+    ]
+  );
 
-  // Purchases chart
-  const purch = D.purchases?.monthly || [];
-  mkChart('chartPurchases', barCfg(
-    purch.map(p => p.month),
-    [{ label: 'المشتريات', data: purch.map(p => p.amount), backgroundColor: COLORS[3], borderRadius: 6 }]
-  ));
+  mkChart('chartMargin','line', chartPl.map(r=>r.month),
+    [{label:'هامش %', data:chartPl.map(r=>r.margin_pct),
+      borderColor:'#f5a623', backgroundColor:'rgba(245,166,35,.1)',
+      fill:true, tension:.3, pointRadius:4}]
+  );
 
-  // Table
-  const tbody = document.querySelector('#tablePL tbody');
-  tbody.innerHTML = [...pl].reverse().map(m => {
-    const gpCls = m.gross_profit >= 0 ? 'badge-green' : 'badge-red';
-    const mCls  = m.margin_pct >= 20 ? 'badge-green' : m.margin_pct >= 0 ? 'badge-orange' : 'badge-red';
-    return `<tr>
-      <td style="font-weight:600;">${m.month}</td>
-      <td>${fmtSAR(m.revenue)}</td>
-      <td style="color:var(--red)">${fmtSAR(m.expenses)}</td>
-      <td><span class="badge ${gpCls}">${fmtSAR(m.gross_profit)}</span></td>
-      <td><span class="badge ${mCls}">${m.margin_pct}%</span></td>
-    </tr>`;
-  }).join('');
+  // Purchases chart — newest first → reverse for chart
+  const purch = [...(D.purchases?.monthly||[])].reverse();
+  mkChart('chartPurchases','bar', purch.map(r=>r.month),
+    [{label:'المشتريات', data:purch.map(r=>r.amount), backgroundColor:'rgba(155,89,182,.7)'}]
+  );
+
+  // P&L Table (newest first)
+  document.getElementById('plTable').innerHTML = `
+    <thead><tr><th>الشهر</th><th>الإيرادات</th><th>المصاريف</th><th>الربح الإجمالي</th><th>هامش %</th></tr></thead>
+    <tbody>${pl.map(r=>`
+      <tr>
+        <td>${r.month}</td>
+        <td>${fmt(r.revenue)} ر.س</td>
+        <td>${fmt(r.expenses)} ر.س</td>
+        <td class="${r.gross_profit>=0?'trend-up':'trend-down'}">${fmt(r.gross_profit)} ر.س</td>
+        <td><span class="badge ${r.margin_pct>=30?'badge-green':r.margin_pct>=0?'badge-gold':'badge-red'}">${r.margin_pct}%</span></td>
+      </tr>`).join('')}
+    </tbody>`;
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// PAYMENTS
-// ════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════
+// PAYMENTS PAGE
+// ══════════════════════════════════════════════════════════════════════════════
 let payPeriod = 'last_30d';
-function setPayPeriod(p, el) {
+function setPayPeriod(p, btn) {
   payPeriod = p;
-  document.querySelectorAll('#page-payments .period-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  renderPayments();
+  setPeriodBtn(btn.closest('.period-bar'), btn);
+  renderPaymentsPage();
 }
 
-function renderPayments() {
-  const methods = (D.payment_methods[payPeriod] || []).sort((a,b) => b.amount - a.amount);
-  const total = methods.reduce((s,m) => s+m.amount, 0);
+function renderPaymentsPage() {
+  if (!D) return;
+  const data = D.payment_methods?.[payPeriod] || [];
+  const sorted = [...data].sort((a,b)=>b.amount-a.amount);
+  const total = sorted.reduce((s,r)=>s+r.amount,0);
 
-  mkChart('chartPayDonut', donutCfg(
-    methods.map(m => m.method),
-    methods.map(m => m.amount),
-    COLORS
-  ));
+  mkChart('chartPayDonut','doughnut', sorted.map(r=>r.method),
+    [{data:sorted.map(r=>r.amount), backgroundColor:COLORS.slice(0,sorted.length)}]);
 
-  mkChart('chartPayBar', barCfg(
-    methods.map(m => m.method),
-    [{ label: 'المبلغ', data: methods.map(m => m.amount), backgroundColor: COLORS, borderRadius: 6 }]
-  ));
+  mkChart('chartPayBar','bar', sorted.map(r=>r.method),
+    [{label:'المبلغ', data:sorted.map(r=>r.amount), backgroundColor:COLORS.slice(0,sorted.length)}]);
 
-  const tbody = document.querySelector('#tablePayments tbody');
-  tbody.innerHTML = methods.map(m => {
-    const avg   = m.count ? Math.round(m.amount/m.count) : 0;
-    const share = pct(m.amount, total);
-    return `<tr>
-      <td style="font-weight:600;">${m.method}</td>
-      <td>${fmtSAR(m.amount)}</td>
-      <td>${fmt(m.count)}</td>
-      <td>${fmtSAR(avg)}</td>
-      <td><span class="badge badge-orange">${share}%</span></td>
-    </tr>`;
-  }).join('');
+  document.getElementById('payTable').innerHTML = `
+    <thead><tr><th>طريقة الدفع</th><th>المبلغ</th><th>عدد المعاملات</th><th>الحصة</th></tr></thead>
+    <tbody>${sorted.map((r,i)=>`
+      <tr>
+        <td><span style="color:${COLORS[i%COLORS.length]}">●</span> ${r.method}</td>
+        <td>${fmt(r.amount)} ر.س</td>
+        <td>${fmt(r.count)}</td>
+        <td><span class="badge badge-gold">${total>0?(r.amount/total*100).toFixed(1):0}%</span></td>
+      </tr>`).join('')}
+    </tbody>`;
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// HISTORY
-// ════════════════════════════════════════════════════════════════════════════
-function renderHistory() {
+// ══════════════════════════════════════════════════════════════════════════════
+// HISTORY PAGE
+// ══════════════════════════════════════════════════════════════════════════════
+function renderHistoryPage() {
+  if (!D) return;
+  // newest first already
   const all = D.monthly_sales_all || [];
-  const k   = D.kpis;
+  const chartData = [...all].reverse(); // oldest→newest for chart
 
-  document.getElementById('kpi-history').innerHTML = `
-    <div class="kpi-card">
-      <div class="kpi-label">إجمالي كل الوقت</div>
-      <div class="kpi-value">${fmt(Math.round(k.all_time.revenue/1000000),1)}M</div>
-      <div class="kpi-sub">${fmtSAR(k.all_time.revenue)}</div>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">إجمالي الطلبات</div>
-      <div class="kpi-value">${fmt(k.all_time.orders)}</div>
-      <div class="kpi-sub">منذ أكتوبر 2024</div>
-    </div>
-    <div class="kpi-card blue">
-      <div class="kpi-label">أعلى شهر</div>
-      <div class="kpi-value">${fmt(Math.round(Math.max(...all.map(m=>m.revenue))/1000))}K</div>
-      <div class="kpi-sub">${all.find(m=>m.revenue===Math.max(...all.map(x=>x.revenue)))?.month||'—'}</div>
-    </div>
-    <div class="kpi-card purple">
-      <div class="kpi-label">متوسط الطلب (كل الوقت)</div>
-      <div class="kpi-value">${fmt(Math.round(k.all_time.revenue/k.all_time.orders))}</div>
-      <div class="kpi-sub">ريال / طلب</div>
-    </div>
-  `;
+  mkChart('chartHistMonthly','bar', chartData.map(r=>r.month),
+    [{label:'الإيرادات (ر.س)', data:chartData.map(r=>r.revenue),
+      backgroundColor: chartData.map(r=>r.revenue>0?'rgba(245,166,35,.7)':'rgba(231,76,60,.5)'),
+      borderColor: chartData.map(r=>r.revenue>0?'#f5a623':'#e74c3c'), borderWidth:1}]
+  );
 
-  mkChart('chartHistoryAll', lineCfg(
-    all.map(m => m.month),
-    [{ label: 'الإيرادات الشهرية', data: all.map(m => m.revenue),
-       borderColor: '#f5a623', backgroundColor: 'rgba(245,166,35,.1)', fill: true }]
-  ));
-
-  // Yearly branch comparison
-  const md = D.branches.monthly_detail || {};
-  const branchNames = Object.keys(md);
-  const allMonths = [...new Set(Object.values(md).flatMap(b => Object.keys(b)))].sort();
-  mkChart('chartYearlyBranch', lineCfg(
-    allMonths,
-    branchNames.map((bn, i) => ({
-      label: bn,
-      data: allMonths.map(mo => md[bn][mo]?.revenue || 0),
-      borderColor: BRANCH_COLORS[bn] || COLORS[i],
-      backgroundColor: 'transparent',
-    }))
-  ));
-
-  // Table
-  const tbody = document.querySelector('#tableHistory tbody');
-  tbody.innerHTML = [...all].reverse().map((m, i, arr) => {
-    const prev = arr[i+1];
-    const avg  = m.orders ? Math.round(m.revenue/m.orders) : 0;
-    const d    = prev ? delta(m.revenue, prev.revenue) : null;
-    const dHtml= d != null ? `<span class="badge ${d>=0?'badge-green':'badge-red'}">${d>=0?'▲':'▼'}${Math.abs(d)}%</span>` : '—';
-    return `<tr>
-      <td style="font-weight:600;">${m.month}</td>
-      <td>${fmtSAR(m.revenue)}</td>
-      <td>${fmt(m.orders)}</td>
-      <td>${fmtSAR(avg)}</td>
-      <td>${dHtml}</td>
-    </tr>`;
-  }).join('');
+  document.getElementById('histTable').innerHTML = `
+    <thead><tr><th>#</th><th>الشهر</th><th>الإيرادات</th><th>عدد الطلبات</th><th>متوسط الطلب</th></tr></thead>
+    <tbody>${all.map((r,i)=>`
+      <tr>
+        <td>${i+1}</td>
+        <td>${r.month}</td>
+        <td>${fmt(r.revenue)} ر.س</td>
+        <td>${fmt(r.orders)}</td>
+        <td>${r.orders>0?fmt(r.revenue/r.orders):0} ر.س</td>
+      </tr>`).join('')}
+    </tbody>`;
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// RENDER PAGE DISPATCHER
-// ════════════════════════════════════════════════════════════════════════════
-function renderPage(id) {
-  if (id === 'overview')  renderOverview();
-  if (id === 'branches')  renderBranches();
-  if (id === 'apps')      renderApps();
-  if (id === 'products')  renderProducts();
-  if (id === 'pl')        renderPL();
-  if (id === 'payments')  renderPayments();
-  if (id === 'history')   renderHistory();
-}
-
-// ════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════
 // INIT
-// ════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════
 async function init() {
   try {
-    const res = await fetch('data.json?t=' + Date.now());
+    const res = await fetch('data.json?v='+Date.now());
     D = await res.json();
     document.getElementById('lastUpdate').textContent = 'آخر تحديث: ' + (D.meta?.generated_at || '—');
-    document.getElementById('loading').style.display = 'none';
-    renderOverview();
+
+    renderOverviewKPIs();
+    renderOverviewCharts();
+    renderComparePage();
+    renderBranchCards();
+    renderBranchCharts();
+    renderAppsPage();
+    renderProductsPage();
+    renderPLPage();
+    renderPaymentsPage();
+    renderHistoryPage();
   } catch(e) {
-    document.getElementById('loading').innerHTML = `<div style="color:var(--red);font-size:14px;">❌ تعذّر تحميل البيانات<br><small>${e.message}</small></div>`;
+    console.error('Failed to load data:', e);
+    document.getElementById('lastUpdate').textContent = '⚠️ خطأ في تحميل البيانات';
   }
 }
+
 init();
 </script>
 </body>
