@@ -1,0 +1,53 @@
+name: Daily dashboard data update
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 06:00 Asia/Riyadh (UTC+3)
+    - cron: "0 3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-data-update
+  cancel-in-progress: false
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      ODOO_URL: ${{ secrets.ODOO_URL }}
+      ODOO_DB: ${{ secrets.ODOO_DB }}
+      ODOO_USER: ${{ secrets.ODOO_USER }}
+      ODOO_API_KEY: ${{ secrets.ODOO_API_KEY }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Test snapshot logic
+        run: python -m unittest -v test_fetch.py
+
+      - name: Generate dashboard snapshot
+        run: python fetch.py
+
+      - name: Validate snapshot quality
+        run: python validate_snapshot.py data.json
+
+      - name: Commit updated snapshot when it changed
+        run: |
+          if git diff --quiet -- data.json; then
+            echo "No data changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git commit -m "chore(data): refresh dashboard snapshot"
+          git push
